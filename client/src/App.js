@@ -1,25 +1,28 @@
 //standard dependencies
 import React, { Component } from 'react'
-//logo
-import Logo from './images/logo_transparent.png'
+//semantic components
+import { Segment, Container } from 'semantic-ui-react'
+//components-- some will be repalced by pages that include these components
+import Footer from './components/Footer'
+import Header from './components/Header'
+//pages
 
-//style logo
-const logoStyle = {
-  maxHeight: '500px'
+
+//styles
+const backgroundStyle = {
+  backgroundColor: '#e9ecef'
 }
 
 //App Component
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={Logo} className="App-logo" alt="logo" style={logoStyle}/>
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+      <div className="App" style={backgroundStyle}>
+        <Header />
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Maybe include an about section/welcome explanation no homepage with a button to sign up?
         </p>
+      <Footer />
       </div>
     );
   }
