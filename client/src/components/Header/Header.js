@@ -16,7 +16,7 @@ const headerStyle = {
 
 const PageHeader = () => (
   <Segment style={headerStyle} raised>
-    <TopMenu />
+    <TopMenu/>
     <Image src={Logo} style={logoStyle} fluid centered />
     <Header as='h2' inverted color='grey' textAlign='center'>
       Grassroots advertising through social media

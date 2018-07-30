@@ -1,12 +1,18 @@
 //standard dependencies
 import React, { Component } from 'react'
+//router
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 //semantic components
-import { Segment, Container } from 'semantic-ui-react'
-//components-- some will be repalced by pages that include these components
-import Footer from './components/Footer'
-import Header from './components/Header'
-//pages
+import {  } from 'semantic-ui-react'
+//custom components
 
+//pages
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Dashboard from './pages/Dashboard'
+import Market from './pages/Market'
+import Users from './pages/Users'
 
 //styles
 const backgroundStyle = {
@@ -17,13 +23,18 @@ const backgroundStyle = {
 class App extends Component {
   render() {
     return (
-      <div className="App" style={backgroundStyle}>
-        <Header />
-        <p className="App-intro">
-          Maybe include an about section/welcome explanation no homepage with a button to sign up?
-        </p>
-      <Footer />
-      </div>
+      <Router>
+        <div className="App" style={backgroundStyle}>
+
+          <Route exact path='/' component={Home}/>
+          <Route exact path='/home' component={Home}/>
+          <Route exact path='/login' component={Login}/>
+          <Route exact path='/signup' component={Signup}/>
+          <Route exact path='/market' component={Market}/>
+          <Route exact path='/dashboard' component={Dashboard}/>
+          <Route exact path='/users' component={Users}/>
+        </div>
+    </Router>
     );
   }
 }
