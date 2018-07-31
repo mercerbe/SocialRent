@@ -23,10 +23,9 @@ const backgroundStyle = {
 class App extends Component {
   render() {
     return (
-
+      <div style={backgroundStyle} className="App">
       <Router>
-        <div className="App" style={backgroundStyle}>
-
+        <div>
           <Route exact path='/' component={Home}/>
           <Route exact path='/home' component={Home}/>
           <Route exact path='/login' component={Login}/>
@@ -36,7 +35,8 @@ class App extends Component {
           <Route exact path='/users' component={Users}/>
         </div>
     </Router>
-    
+    </div>
+
     );
   }
 }

@@ -1,9 +1,9 @@
 //standard dependencies
 import React, { Component } from 'react'
 //semantic components
-import TopMenu from '../../components/Menu'
+import { Container } from 'semantic-ui-react'
 //custom components
-
+import TopMenu from '../../components/Menu'
 
 //page component
 class Market extends Component {
@@ -11,7 +11,10 @@ class Market extends Component {
    return(
      <div>
      <TopMenu />
-     <p>Market Page</p>
+     <br/>
+     <Container style={{marginTop:'100px'}}>
+     <h1>Market Page</h1>
+     </Container>
      </div>
    )
  }
