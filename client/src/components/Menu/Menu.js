@@ -3,6 +3,13 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 //semantic components component
 import { Menu, Visibility, Button, Responsive } from 'semantic-ui-react'
+//import Auth for login
+import Auth from '../../Auth/Auth.js'
+
+//Auth0 login
+//provide Auth0 on button click -- redirect to Auth0 login
+// const auth = new Auth()
+//   auth.login()
 
 //style to fit header
 const menuStyle = {

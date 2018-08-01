@@ -15,14 +15,11 @@ class LoginForm extends Component {
         <Header.Subheader>Log in to manage your account</Header.Subheader>
       </Header>
        <Form>
-
         <Form.Group widths='equal'>
           <Form.Input fluid label='Username' placeholder='JaneSmith' />
           <Form.Input fluid label='Password' placeholder='*********' type='password' />
         </Form.Group>
-
          <Button type='submit' color='black' floated='right'>Submit</Button>
-
       </Form>
       </div>
     )
