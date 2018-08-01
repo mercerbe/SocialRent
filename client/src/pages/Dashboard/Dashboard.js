@@ -5,6 +5,10 @@ import { Container, Segment, Grid, Image, Header } from 'semantic-ui-react'
 //custom components
 import TopMenu from '../../components/Menu'
 import Footer from '../../components/Footer'
+//import CreateAdForm from '../../components/CreateAdForm'
+//import PaypalButton from '../../components/PaypalButton'
+//import api util
+import API from '../../utils/API'
 
 //data that needs to be on this page:
 //form to create new ad for businesses
@@ -20,6 +24,29 @@ const headerStyle = {
 
 //page component
 class Dashboard extends Component {
+  //handle state
+  // state = {
+  //   username: '',
+  //   ads: [],
+  // }
+  // //after element render, load users' ads
+  // componentDidMount() {
+  //   this.loadAds()
+  // }
+  // //loadAds--API getAds method
+  // loadAds = () => {
+  // API.getAds()
+  //   .then( res =>
+  //     this.setState())
+  //   .catch( err => console.log('error: ', err))
+  // }
+  // //delete an ad-- need to figure out how to only show option if user created said ad
+  // deleteAd = id => {
+  //   API.deleteAd(id)
+  //     .then( res => this.loadAds())
+  //     .catch( err => console.log('error: ', err))
+  // }
+
  render(){
    return(
      <div>

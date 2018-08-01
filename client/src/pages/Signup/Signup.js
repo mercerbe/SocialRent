@@ -1,7 +1,7 @@
 //standard dependencies
 import React, { Component } from 'react'
 //semantic components
-import { Segment, Container } from 'semantic-ui-react'
+import { Segment, Container, Header, Icon } from 'semantic-ui-react'
 //custom components
 import TopMenu from '../../components/Menu'
 import Footer from '../../components/Footer'
@@ -18,7 +18,10 @@ class Signup extends Component {
        <br/>
        <Container text>
          <Segment style={{background: '#fbbd08', marginTop: '100px'}} raised padded>
-            <h1>Sign up</h1>
+           <Header as='h1' icon textAlign='center'>
+             <Header.Content>Signup</Header.Content>
+             <Icon name='add user' circular/>
+           </Header>
             <SignupForm />
           </Segment>
         </Container>

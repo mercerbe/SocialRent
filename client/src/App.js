@@ -4,8 +4,6 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 //semantic components
 import {  } from 'semantic-ui-react'
-//custom components
-
 //pages
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -13,6 +11,14 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import Market from './pages/Market'
 import Users from './pages/Users'
+
+//========================================//
+//Auth0 test
+//import Auth from './Auth/Auth.js'
+//auth0 test
+// const auth = new Auth()
+// auth.login()
+//========================================//
 
 //styles
 const backgroundStyle = {
@@ -33,7 +39,7 @@ class App extends Component {
           <Route exact path='/signup' component={Signup}/>
           <Route exact path='/market' component={Market}/>
           <Route exact path='/dashboard/' component={Dashboard}/>{/*for testing*/}
-          <Route exact path='/dashboard/:id' component={Dashboard}/>  
+          <Route exact path='/dashboard/:id' component={Dashboard}/>
           <Route exact path='/users' component={Users}/>
           </Switch>
         </div>

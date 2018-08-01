@@ -3,10 +3,10 @@
 
 //dependencies
 const path = require('path')
-const router = require('express').router()
+const router = require('express').Router()
 const routes = require('./api')//will grab index in api folder, combining all our routes
 
-//routes we're requiring 
+//routes we're requiring
 router.use('./api', routes)
 
 //route to build
