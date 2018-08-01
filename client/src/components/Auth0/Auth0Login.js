@@ -1,11 +1,11 @@
 //imports
 import React, { Component } from 'react'
 import { Container, Segment, Button, Menu } from 'semantic-ui-react'
-//import Auth0 -- login from Auth0 form
-import auth from '../../Auth'
+//import Auth0 from Auth
+import auth from '../../Auth/Auth.js'
 
 //class component
-export default class Auth0Login extends Component {
+export default class Auth0 extends Component {
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
@@ -64,5 +64,3 @@ export default class Auth0Login extends Component {
     );
   }
 }
-
-//export default Auth0Login
