@@ -7,12 +7,13 @@ import { AUTH_CONFIG } from './auth0-variables'
 //access_token, id_token, and expires_in -- these are what we can use to manage auth/login
 
 export default class Auth {
+
   //Create new login
   auth0 = new auth0.WebAuth({
-    domain: AUTH_CONFIG.domain,
-    clientID: AUTH_CONFIG.clientId,
-    redirectUri: AUTH_CONFIG.callbackUrl,
-    audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+    domain: 'socialrent.auth0.com',
+    clientID: 'U4r2DPZeya5slfbBg4YxYH5wuhOe1zV1',
+    redirectUri: 'http://localhost:3000/callback',
+    audience: 'https://socialrent.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid'
   })
@@ -30,7 +31,7 @@ export default class Auth {
     this.auth0.authorize();
   }
 
-  //Handle login using Auth0 parse hash method
+  //Handle login using Auth0 parseHash method
   //if authenticated, route to dashboard (todo-route for :id) else route back to login
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
@@ -60,13 +61,13 @@ export default class Auth {
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
-    // navigate to the main route
-    history.replace('/')
+    // navigate to the login page route
+    history.replace('/login')
   }
 
   isAuthenticated() {
     // Check expiration time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
-    return new Date().getTime() < expiresAt
+    return new Date().getTime() < expiresAt;
   }
 }

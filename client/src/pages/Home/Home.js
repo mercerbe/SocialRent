@@ -1,7 +1,7 @@
 //standard dependencies
 import React, { Component } from 'react'
 //semanitc compononents
-import { Container, Responsive, Segment, Header, Grid, Image, Button, Divider } from 'semantic-ui-react'
+import { Container, Segment, Header, Grid, Image, Button, Divider } from 'semantic-ui-react'
 //custom components
 import PageHeader from '../../components/Header'
 import Footer from '../../components/Footer'
@@ -60,7 +60,7 @@ class Home extends Component {
           </p>
           <p style={{ fontSize: '1.33em' }}>
              Businesses can choose to make a post public or private. A public post will go the the marketplace page with the number of users an advertiser wants to have take the post (e.g. ‘business a wants 100 users to take this ad’), and private posts will be saved to the advertisers account and can be send via message to specific users.
-          </p>   
+          </p>
           <Image size='huge' src={WideImage} />
 
           <Divider

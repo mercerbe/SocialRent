@@ -1,13 +1,13 @@
 //standard dependencies
 import React, { Component } from 'react'
 //semantic components
-import { Container, Divider } from 'semantic-ui-react'
+import { Container, Divider, Segment, Header, Icon } from 'semantic-ui-react'
 //custom components
 import TopMenu from '../../components/Menu'
 import Footer from '../../components/Footer'
 import LoginForm from '../../components/LoginForm'
 //Auth0 login
-import Auth0 from '../../components/Auth0'
+import Auth0Login from '../../components/Auth0Login'
 
 //form validation options--may not need if moved to Auth0 or passport
 
@@ -25,7 +25,15 @@ class Login extends Component {
       <br />
       <Container style={{marginTop:'4.5em', marginBottom:'20em'}}>
         <br />
-        <LoginForm />
+          <Container text>
+            <Segment style={{background: '#fbbd08', marginTop: '100px'}} raised padded>
+              <Header as='h1' icon textAlign='center'>
+                <Header.Content>Login</Header.Content>
+                <Icon name='users' circular/>
+              </Header>
+               <LoginForm />
+             </Segment>
+           </Container>
         <br />
         <Divider
           as='h4'
@@ -35,8 +43,8 @@ class Login extends Component {
         >
           <p color='black'>Login via Twitter or Paypal</p>
         </Divider>
-         {/*this is where we'll add the auth0 or passport login*/}
-         <Auth0 />
+         {/*this is where we'll add the auth0 login*/}
+         <Auth0Login />
         </Container>
           <Footer />
         </div>

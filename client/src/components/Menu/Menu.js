@@ -2,14 +2,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 //semantic components component
-import { Menu, Visibility, Button, Responsive } from 'semantic-ui-react'
-//import Auth for login
-import Auth from '../../Auth/Auth.js'
-
-//Auth0 login
-//provide Auth0 on button click -- redirect to Auth0 login
-// const auth = new Auth()
-//   auth.login()
+import { Menu, Visibility, Button } from 'semantic-ui-react'
 
 //style to fit header
 const menuStyle = {
@@ -77,9 +70,6 @@ export default class TopMenu extends Component {
       <Menu.Item position='right'>
         <Link to='/login'>
           <Button inverted>Log in</Button>
-        </Link>
-        <Link to='/signup'>
-          <Button style={{marginLeft: '0.2em'}} inverted>Sign up</Button>
         </Link>
       </Menu.Item>
       </Menu>
