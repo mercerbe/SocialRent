@@ -24,7 +24,7 @@ const headerStyle = {
 
 //page component
 class Dashboard extends Component {
-  //handle state
+  // //handle state
   // state = {
   //   username: '',
   //   ads: [],
@@ -48,6 +48,7 @@ class Dashboard extends Component {
   // }
 
  render(){
+
    return(
      <div>
        <Segment style={headerStyle} raised>

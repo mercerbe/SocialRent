@@ -6,13 +6,9 @@ import { Container, Divider, Segment, Header, Icon } from 'semantic-ui-react'
 import TopMenu from '../../components/Menu'
 import Footer from '../../components/Footer'
 import LoginForm from '../../components/LoginForm'
-//Auth0 login
-import Auth0Login from '../../components/Auth0Login'
 
-//form validation options--may not need if moved to Auth0 or passport
+//form validation options--
 
-
-//if we're not using passport or Autho0, use 'error' with form inputs on state
 
 //page component
 class Login extends Component {
@@ -44,7 +40,6 @@ class Login extends Component {
           <p color='black'>Login via Twitter or Paypal</p>
         </Divider>
          {/*this is where we'll add the auth0 login*/}
-         <Auth0Login />
         </Container>
           <Footer />
         </div>
