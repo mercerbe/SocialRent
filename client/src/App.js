@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard'
 import Market from './pages/Market'
 import Users from './pages/Users'
 
+//Kenton joining
 
 //styles
 const backgroundStyle = {
