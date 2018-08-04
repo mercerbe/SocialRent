@@ -9,8 +9,23 @@
 
 Social Rent is a marketplace designed to connect social media users with businesses that would like to advertise through social media users’ actual posts. On Social Rent, advertisers can sign up and make posts/ requests on the marketplace. A Social Rent user can choose to take the post from the advertiser/business and post the ad on their social media outlet, then get paid from the Social Rent Advertiser by click, view, like, retweet, engagement ect.  Businesses can choose to make a post public or private. A public post will go the the marketplace page with the number of users an advertiser wants to have take the post (e.g. ‘business a wants 100 users to take this ad’), and private posts will be saved to the advertisers account and can be send via message to specific users.
 
-##Technology Used
+## Why would anyone want this!?
 
+Celebrities can make in the vicinity of $10k per tweet. Reaching audiences of hundreds of thousands
+
+In 2016 the average twitter user had 707 followers.
+
+This means a business investing "by the click" can put in the same money and reach a more diverse and potentially larger audience through social renting.
+
+## Yeah, but WHY?
+
+in 2017 Business Insider identified two areas of opportunity for Twitter.
+1. Create a better return on investment measurement for business
+2. Create a better technology for smaller advertisers who can't depend on larger marketing budgets.
+
+https://www.businessinsider.com/twitters-advertising-business-is-still-struggling-2017-12
+
+SocialRent solves for both of these.
 
 ## Demo
 
