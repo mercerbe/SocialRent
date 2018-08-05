@@ -9,7 +9,6 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Market from './pages/Market'
-import Users from './pages/Users'
 
 //Kenton joining
 
@@ -31,8 +30,8 @@ class App extends Component {
           <Route exact path='/login' component={Login}/>
           <Route exact path='/market' component={Market}/>
           <Route exact path='/dashboard/' component={Dashboard}/>{/*for testing*/}
-          <Route exact path='/dashboard/:id' component={Dashboard}/>
-          <Route exact path='/users' component={Users}/>
+          <Route exact path='/dashboard/user/:id' component={Dashboard}/>
+          <Route exact path='/dashboard/business/:id' component={Dashboard}/>
           </Switch>
         </div>
     </Router>
