@@ -1,4 +1,4 @@
-//standard dependencies
+//standard dependencies-- IMPORT STYLE TO APP
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 //semantic components component

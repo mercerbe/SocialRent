@@ -24,7 +24,7 @@ router.route('/logout')
   .get(authController.logout)
 
 
-// ----- routes protected by jwt below here -----
+// ----- routes protected by jwt below here ----- //
 function handleAuthFailure(err, req, res, next) {
   res.status(403).json({ success: false, message: 'Authentication failed' })
 }

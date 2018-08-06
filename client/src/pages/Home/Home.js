@@ -1,5 +1,5 @@
 //standard dependencies
-import React, { Component } from 'react'
+import React from 'react'
 //semanitc compononents
 import { Container, Segment, Header, Grid, Image, Button, Divider } from 'semantic-ui-react'
 //custom components
@@ -13,11 +13,9 @@ import WideImage from '../../images/wide-marketing.png'
 //export functional component for props
 export const Home = (props) => (
       <div>
-      <PageHeader>
-      </PageHeader>
-
-      <Segment style={{ padding: '8em 0em', border: 'none' }} vertical>
         <p> currently {props.loggedIn ? 'logged in' : 'not logged in'}</p>
+      <PageHeader />
+      <Segment style={{ padding: '8em 0em', border: 'none' }} vertical>
         <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
             <Grid.Column width={8}>

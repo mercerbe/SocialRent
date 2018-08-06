@@ -17,6 +17,9 @@ import Service from './utils/Service'
 const backgroundStyle = {
   backgroundColor: '#e9ecef'
 }
+const menuStyle = {
+  backgroundColor: '#065471'
+}
 
 //App Component
 class App extends Component {
@@ -60,7 +63,7 @@ class App extends Component {
   render() {
     return (
       <div style={backgroundStyle} className="App">
-        <div>{/*semantic menu*/}
+        <div style={menuStyle}>{/*semantic menu*/}
           <Link to='/' component={Home}>Home</Link>
           <Link to='/login'>Login/Signup</Link>
           <Link to='/dashboard'>Dashboard</Link>
