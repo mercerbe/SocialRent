@@ -29,22 +29,34 @@ const hashPassword = (password, finishedHashingPasswordCallback) => {
 const UserSchema = new Schema({
   handle: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   password: {
-    type: string,
+    type: String,
     required: true
-  }
+  },
   ads: [
     {
-      type: Schema.types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Ad'
     }
   ]
+})
+
+//hide passwords
+UserSchema.set('toJSON', {
+  transform: function(doc, json) {
+    return {
+      id: json._id,
+      email: json.email,
+    }
+  }
 })
 
 //
@@ -54,11 +66,10 @@ UserSchema.pre('save', function (next) {
     if (err) {
       return next(err)
     }
-    userToSave.password = hashedPassword;
+    userToSave.password = hashedPassword
     next()
   });
 })
 
-let User = mongoose.model('User', UserSchema)
 
-module.exports = User
+module.exports = mongoose.model('User', UserSchema)

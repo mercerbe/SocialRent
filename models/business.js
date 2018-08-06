@@ -15,17 +15,17 @@ const businessSchema = new Schema({
     required: true
   },
   password: {
-    type: string,
+    type: String,
     required: true
-  }
+  },
   campaigns: [
     {
-      type: Schema.types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Campaign'
     }
   ]
 })
 
-let Business = mongoose.model('Business', BusinessSchema)
+let Business = mongoose.model('Business', businessSchema)
 
 module.exports = Business

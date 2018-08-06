@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 //models to authenticate
-const User = require('../models/User')
-const Business = require('../models/Business')
+const User = require('../models/user')
+const Business = require('../models/business')
 
 const config = require('../config')
 const jwtUtils = require('../utils/jwt')

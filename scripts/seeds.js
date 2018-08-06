@@ -10,28 +10,30 @@ mongoose.connect(
 //seed users
 const userSeed = [
   {
-    username: 'Jon Smith',
-    password: '',
+    handle: 'Jon Smith',
+    email: '',
+    password: ''
 
   },
   {
-    username: 'Jane Doe',
+    handle: 'Jane Doe',
+    email: '',
     password: ''
   },
   {
-    username: 'Morgan Log',
-    password: ''
-  },
-  {
-    username: 'Nintendo',
-    password: ''
-  },
-  {
-    username: 'Amazon',
+    handle: 'Morgan Long',
+    email: '',
     password: ''
   }
-
 ]
+
+//seed businesses
+const businessSeed = [
+  {
+
+  }
+]
+
 //seed ads
 const adSeed = [
   {

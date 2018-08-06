@@ -1,9 +1,9 @@
-const User = require('../models/User');
+const User = require('../models/user')
 
 module.exports = {
   // create new user route
   create: (req, res, next) => {
-    const { email, password } = req.body;
+    const { handle, email, password } = req.body
     User.create({
       handle,
       email,

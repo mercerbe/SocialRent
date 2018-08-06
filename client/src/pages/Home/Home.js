@@ -10,14 +10,14 @@ import MarketingImage from '../../images/social-marketing.png'
 import WideImage from '../../images/wide-marketing.png'
 
 
-//page export
-class Home extends Component {
-  render() {
-    return(
+//export functional component for props
+export const Home = (props) => (
       <div>
-      <PageHeader />
+      <PageHeader>
+      </PageHeader>
 
       <Segment style={{ padding: '8em 0em', border: 'none' }} vertical>
+        <p> currently {props.loggedIn ? 'logged in' : 'not logged in'}</p>
         <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
             <Grid.Column width={8}>
@@ -85,7 +85,3 @@ class Home extends Component {
       <Footer />
       </div>
     )
-  }
-}
-
-export default Home
