@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const businessSchema = new Schema({
+const BusinessSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -26,6 +26,6 @@ const businessSchema = new Schema({
   ]
 })
 
-let Business = mongoose.model('Business', businessSchema)
+let Business = mongoose.model('Business', BusinessSchema)
 
 module.exports = Business
