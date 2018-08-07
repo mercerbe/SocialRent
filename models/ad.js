@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const AdSchema = new Schema({
   campaignId: {
-    type: Schema.types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: true,
     ref: 'Campaign'
   },
@@ -26,7 +26,7 @@ const AdSchema = new Schema({
   endDate: {
     type: Date,
     required: true
-  }
+  },
   clicks: {
     type: Number,
     default: 0

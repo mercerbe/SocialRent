@@ -1,6 +1,6 @@
 //seed data for dev
 const mongoose = require('mongoose')
-const models = require('../models')
+const db = require('../models')
 
 //connect to db -- hosted or local
 mongoose.connect(
@@ -66,14 +66,14 @@ const campaignSeed = [
     url: 'https://www.tesla.com/semi',
     startDate: '2018-09-01',
     endDate: '2018-09-30'
-  }
+  },
   {
     headline: 'Brand New iOS Device',
     copy: 'Apple made history today by showing off it\'s newest innovation. the iEye!',
     url: 'https://www.apple.com/',
     startDate: '2018-10-01',
     endDate: '2018-10-31'
-  }
+  },
   {
     headline: 'Calling All Nerds',
     copy: 'The Tesla Model Y is now available for pre-order. Get yours today!',
@@ -98,11 +98,12 @@ const adSeed = [
 ]
 
 //seed scripts
-models.User
+
+db.Business
   .remove({})
-  .then(() => models.User.collection.insertMany(userSeed))
+  .then(() => db.Business.collection.insertMany(businessSeed))
   .then( data => {
-    console.log(data.result.n + 'users added')
+    console.log(data.result.n + ' businesses added')
     process.exit(0)
   })
   .catch( err => {
@@ -110,11 +111,23 @@ models.User
     process.exit(1)
   })
 
-models.Ad
+db.User
   .remove({})
-  .then(() => models.Ad.collection.insertMany(adSeed))
+  .then(() => db.User.collection.insertMany(userSeed))
   .then( data => {
-    console.log(data.result.n + 'ads added')
+    console.log(data.result.n + ' users added')
+    process.exit(0)
+  })
+  .catch( err => {
+    console.log('error', err)
+    process.exit(1)
+  })
+
+db.Ad
+  .remove({})
+  .then(() => db.Ad.collection.insertMany(adSeed))
+  .then( data => {
+    console.log(data.result.n + ' ads added')
     process.exit(0)
   })
   .catch( err => {
