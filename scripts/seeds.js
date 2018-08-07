@@ -66,14 +66,14 @@ const campaignSeed = [
     url: 'https://www.tesla.com/semi',
     startDate: '2018-09-01',
     endDate: '2018-09-30'
-  }
+  },
   {
     headline: 'Brand New iOS Device',
     copy: 'Apple made history today by showing off it\'s newest innovation. the iEye!',
     url: 'https://www.apple.com/',
     startDate: '2018-10-01',
     endDate: '2018-10-31'
-  }
+  },
   {
     headline: 'Calling All Nerds',
     copy: 'The Tesla Model Y is now available for pre-order. Get yours today!',
