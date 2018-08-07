@@ -1,5 +1,5 @@
 //standard dependencies
-import React, { Component } from 'react'
+import React from 'react'
 //semanitc compononents
 import { Container, Segment, Header, Grid, Image, Button, Divider } from 'semantic-ui-react'
 //custom components
@@ -10,13 +10,11 @@ import MarketingImage from '../../images/social-marketing.png'
 import WideImage from '../../images/wide-marketing.png'
 
 
-//page export
-class Home extends Component {
-  render() {
-    return(
+//export functional component for props
+export const Home = (props) => (
       <div>
+        <p> currently {props.loggedIn ? 'logged in' : 'not logged in'}</p>
       <PageHeader />
-
       <Segment style={{ padding: '8em 0em', border: 'none' }} vertical>
         <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
@@ -85,7 +83,3 @@ class Home extends Component {
       <Footer />
       </div>
     )
-  }
-}
-
-export default Home

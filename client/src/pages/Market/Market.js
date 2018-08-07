@@ -5,7 +5,6 @@ import Logo from '../../images/logo_transparent.png'
 //semantic components
 import { Container, Grid, Icon, Header, Segment, Image } from 'semantic-ui-react'
 //custom components
-import TopMenu from '../../components/Menu'
 import Footer from '../../components/Footer'
 
 
@@ -29,7 +28,6 @@ class Market extends Component {
    return(
      <div>
        <Segment style={headerStyle}>
-         <TopMenu />
            <Image src={Logo} style={logoStyle} fluid centered />
            <Header as='h2' inverted color='grey' textAlign='center'>
              Browse open Ads on the Market

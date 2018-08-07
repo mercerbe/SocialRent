@@ -10,28 +10,79 @@ mongoose.connect(
 //seed users
 const userSeed = [
   {
-    username: 'Jon Smith',
-    password: '',
-
+    handle: 'sparkuscodes',
+    email: 'sparkus@gmail.com',
+    password: 'userTest'
   },
   {
-    username: 'Jane Doe',
-    password: ''
+    handle: 'urban_coder',
+    email: 'patrick.howard@gmail.com',
+    password: 'userTest'
   },
   {
-    username: 'Morgan Log',
-    password: ''
+    handle: 'mkommar',
+    email: 'mahesh.kommareddi@gmail.com',
+    password: 'userTest'
   },
   {
-    username: 'Nintendo',
-    password: ''
+    handle: 'fully_coded',
+    email: 'mattt@gmail.com',
+    password: 'userTest'
   },
   {
-    username: 'Amazon',
-    password: ''
+    handle: 'romeokilo125',
+    email: 'romeokilo125@gmail.com',
+    password: 'userTest'
   }
-
 ]
+
+//seed businesses
+const businessSeed = [
+  {
+    name: 'Tesla Motors',
+    industry: 'Automotive',
+    email: 'elon@tesla.com',
+    password: 'businessTest'
+  },
+  {
+    name: 'Apple',
+    industry: 'Technology',
+    email: 'tim@apple.com',
+    password: 'businessTest'
+  },
+  {
+    name: 'Wizards of the Coast',
+    industry: 'Games & Hobbies',
+    email: 'gregt@hasbro.com',
+    password: 'businessTest'
+  }
+]
+
+// seed campaigns
+const campaignSeed = [
+  {
+    headline: 'Tesla Model Y',
+    copy: 'Tesla is proud to annouce a new vehicle joining our lineup, Models S, 3, and X. The Model Y is now available for pre-order. Get yours today!',
+    url: 'https://www.tesla.com/semi',
+    startDate: '2018-09-01',
+    endDate: '2018-09-30'
+  }
+  {
+    headline: 'Brand New iOS Device',
+    copy: 'Apple made history today by showing off it\'s newest innovation. the iEye!',
+    url: 'https://www.apple.com/',
+    startDate: '2018-10-01',
+    endDate: '2018-10-31'
+  }
+  {
+    headline: 'Calling All Nerds',
+    copy: 'The Tesla Model Y is now available for pre-order. Get yours today!',
+    url: 'https://www.tesla.com/semi',
+    startDate: '2018-09-01',
+    endDate: '2018-09-30'
+  }
+]
+
 //seed ads
 const adSeed = [
   {

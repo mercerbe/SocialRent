@@ -3,11 +3,8 @@ import React, { Component } from 'react'
 //semantic components
 import { Container, Divider, Segment, Header, Icon } from 'semantic-ui-react'
 //custom components
-import TopMenu from '../../components/Menu'
 import Footer from '../../components/Footer'
 import LoginForm from '../../components/LoginForm'
-
-//form validation options--
 
 
 //page component
@@ -17,7 +14,6 @@ class Login extends Component {
 
    return(
     <div>
-      <TopMenu/>
       <br />
       <Container style={{marginTop:'4.5em', marginBottom:'20em'}}>
         <br />
@@ -39,7 +35,7 @@ class Login extends Component {
         >
           <p color='black'>Login via Twitter or Paypal</p>
         </Divider>
-         {/*this is where we'll add the auth0 login*/}
+         {/*this is where we might do nothing....*/}
         </Container>
           <Footer />
         </div>

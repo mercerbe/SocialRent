@@ -2,26 +2,40 @@
 import React, { Component } from 'react'
 //semantic components
 import { Form, Input, TextArea, Select } from 'semantic-ui-react'
+//utils
+import Service from '../../utils/Service'
 
 //options for user type
-const options = [
+const userOptions = [
   {key: 'b', text:'Business', value:'business'},
   {key: 'u', text:'User', value:'user'}
+]
+//options for industry
+const industryOptions = [
+  {key: 'a', text: 'Technology', value: 'technology'},
+  {key: 'b', text: 'Finance', value: 'finance'},
+  {key: 'c', text: 'Entertainment', value: 'entertainment'},
+  {key: 'd', text: 'Other', value: 'other'},
+  {key: 'e', text: 'Other2', value: 'other2'},
 ]
 
 //signup form component
 class SignupForm extends Component {
+  //state
+  state = {
+    handle: '',
+    email: '',
+    password: '',
+    passwordCheck: '',
+    createAccount: true
+  }
 
   //handle state and submit
-  state = { userName: '', email: '', submittedName: '', submittedEmail: '' }
-
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
-
-  handleSubmit = () => {
-    const { name, email } = this.state
-
-    this.setState({ submittedName: name, submittedEmail: email })
-  }
+  toggleLogin = () => this.setState({createAccount: !this.state.createAccount})
+  updatePassword = (event) => this.setState({password: event.target.value})
+  updateEmail = (event) => this.setState({email: event.target.value})
+  updateHandle = (event) => this.setState({})
+  updatePasswordCheck = (event) => this.setState({passwordCheck: event.target.value})
 
   render() {
     return(
@@ -46,7 +60,14 @@ class SignupForm extends Component {
           control={Select}
           label='Are you a business or user?'
           placeholder='Select One'
-          options={options}
+          options={userOptions}
+        />
+        <Form.Field
+          id='industryType'
+          control={Select}
+          label='Industry'
+          placeholder='Select One'
+          options={industryOptions}
         />
         <Form.Group widths='equal'>
           <Form.Field
