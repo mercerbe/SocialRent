@@ -10,26 +10,53 @@ mongoose.connect(
 //seed users
 const userSeed = [
   {
-    handle: 'Jon Smith',
-    email: '',
-    password: ''
-
+    handle: 'sparkuscodes',
+    email: 'sparkus@gmail.com',
+    password: 'userTest'
   },
   {
-    handle: 'Jane Doe',
-    email: '',
-    password: ''
+    handle: 'urban_coder',
+    email: 'patrick.howard@gmail.com',
+    password: 'userTest'
   },
   {
-    handle: 'Morgan Long',
-    email: '',
-    password: ''
+    handle: 'mkommar',
+    email: 'mahesh.kommareddi@gmail.com',
+    password: 'userTest'
+  },
+  {
+    handle: 'fully_coded',
+    email: 'mattt@gmail.com',
+    password: 'userTest'
+  },
+  {
+    handle: 'romeokilo125',
+    email: 'romeokilo125@gmail.com',
+    password: 'userTest'
   }
 ]
 
 //seed businesses
 const businessSeed = [
   {
+    name: 'Tesla Motors',
+    industry: 'Automotive',
+    email: 'elon@tesla.com',
+    password: 'businessTest'
+  },
+  {
+    name: 'Apple',
+    industry: 'Technology',
+    email: 'tim@apple.com',
+    password: 'businessTest'
+  },
+  {
+    name: 'Wizards of the Coast',
+    industry: 'Games & Hobbies',
+    email: 'gregt@hasbro.com',
+    password: 'businessTest'
+  }
+]
 
   }
 ]
