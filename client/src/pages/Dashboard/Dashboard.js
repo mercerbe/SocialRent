@@ -6,8 +6,9 @@ import { Container, Segment, Grid, Image, Header } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 //import CreateAdForm from '../../components/CreateAdForm'
 //import PaypalButton from '../../components/PaypalButton'
-//import api util
+//import utils
 import API from '../../utils/API'
+import Service from '../../utils/Service'
 
 //data that needs to be on this page:
 //form to create new ad for businesses
@@ -24,13 +25,39 @@ const headerStyle = {
 //page component
 class Dashboard extends Component {
 
- render(){
+  //state params
+  state = {
+    user: {}
+  }
+  //component cycle
+  componentDidMount() {
+    Service.get('/api/user')
+      .then( res => {
+        //on success, get user data
+        if(res.data.success) {
+          console.log(res.data.user)
+          this.setState({user: res.data.user})
+        }
+      })
+      .catch( err => console.log('Not logged in.'))
+  }
 
+  //determine state from props
+  static getStateFromProps(props) {
+    console.log('dashboard cycle')
+    if(!props.loggedIn) {
+      props.history.push('/')
+    }
+    return null
+  }
+
+ render(){
+   const {user: {email}} = this.state
    return(
      <div>
        <Segment style={headerStyle} raised>
          <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'3em'}}>
-           Welcome, {/*Username*/}
+           Welcome, {email}
          </Header>
        </Segment>
      <br/>

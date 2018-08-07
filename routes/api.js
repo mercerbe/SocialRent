@@ -14,7 +14,7 @@ router.route('/user')
   .get(jwtUtils.verify, usersController.findById, handleAuthFailure)
   .post(usersController.create)
 
-router.route('/signup')
+router.route('/register')
   .post(usersController.create)
 
 router.route('/login')

@@ -17,10 +17,18 @@ class Login extends Component {
       <br />
       <Container style={{marginTop:'4.5em', marginBottom:'20em'}}>
         <br />
+          <Divider
+            as='h4'
+            className='header'
+            horizontal
+            style={{ margin: '3em 0em', textTransform: 'uppercase' }}
+          >
+            <p color='black'>===</p>
+          </Divider>
           <Container text>
-            <Segment style={{background: '#fbbd08', marginTop: '100px'}} raised padded>
+            <Segment style={{background: '#fbbd08', marginTop: '0px'}} raised padded>
               <Header as='h1' icon textAlign='center'>
-                <Header.Content>Login</Header.Content>
+                <Header.Content></Header.Content>
                 <Icon name='users' circular/>
               </Header>
                <LoginForm />
@@ -33,7 +41,7 @@ class Login extends Component {
           horizontal
           style={{ margin: '3em 0em', textTransform: 'uppercase' }}
         >
-          <p color='black'>Login via Twitter or Paypal</p>
+          <p color='black'>===</p>
         </Divider>
          {/*this is where we might do nothing....*/}
         </Container>

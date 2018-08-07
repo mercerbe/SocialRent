@@ -13,7 +13,7 @@ import WideImage from '../../images/wide-marketing.png'
 //export functional component for props
 export const Home = (props) => (
       <div>
-        <p> currently {props.loggedIn ? 'logged in' : 'not logged in'}</p>
+        <p style={{backgroundColor: '#065471'}}> currently {props.loggedIn ? 'logged in' : 'not logged in'}</p>
       <PageHeader />
       <Segment style={{ padding: '8em 0em', border: 'none' }} vertical>
         <Grid container stackable verticalAlign='middle'>
