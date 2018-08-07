@@ -1,6 +1,6 @@
 //seed data for dev
 const mongoose = require('mongoose')
-const models = require('../models')
+const db = require('../models')
 
 //connect to db -- hosted or local
 mongoose.connect(
@@ -98,11 +98,12 @@ const adSeed = [
 ]
 
 //seed scripts
-models.User
+
+db.Business
   .remove({})
-  .then(() => models.User.collection.insertMany(userSeed))
+  .then(() => db.Business.collection.insertMany(businessSeed))
   .then( data => {
-    console.log(data.result.n + 'users added')
+    console.log(data.result.n + ' businesses added')
     process.exit(0)
   })
   .catch( err => {
@@ -110,11 +111,23 @@ models.User
     process.exit(1)
   })
 
-models.Ad
+db.User
   .remove({})
-  .then(() => models.Ad.collection.insertMany(adSeed))
+  .then(() => db.User.collection.insertMany(userSeed))
   .then( data => {
-    console.log(data.result.n + 'ads added')
+    console.log(data.result.n + ' users added')
+    process.exit(0)
+  })
+  .catch( err => {
+    console.log('error', err)
+    process.exit(1)
+  })
+
+db.Ad
+  .remove({})
+  .then(() => db.Ad.collection.insertMany(adSeed))
+  .then( data => {
+    console.log(data.result.n + ' ads added')
     process.exit(0)
   })
   .catch( err => {
