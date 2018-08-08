@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { Container, Segment, Grid, Image, Header } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
-//import CreateAdForm from '../../components/CreateAdForm'
+import CreateCampaignForm from '../../components/CreateCampaignForm'
 //import PaypalButton from '../../components/PaypalButton'
 //import utils
 import Service from '../../utils/Service'
@@ -63,9 +63,11 @@ class Dashboard extends Component {
      <Container style={{marginTop:'1em', marginBottom: '1em'}} >
      <Grid>
        <Grid.Column mobile={16} tablet={8} computer={8}>
+         <CreateCampaignForm />
         <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
         </Grid.Column>
         <Grid.Column mobile={16} tablet={8} computer={8}>
+          <Header as='h2'>Manage Campaigns:</Header>
           <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
         </Grid.Column>
      </Grid>

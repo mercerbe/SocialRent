@@ -8,6 +8,7 @@ const jwtUtils = require('../utils/jwt')
 const UserController = require('../controllers/UserController')
 const AuthController = require('../controllers/AuthController')
 const DashboardController = require('../controllers/DashboardController')
+//BRING IN BUSINESS CONTROLLER AND SET UP ROUTES
 
 router.route('/user')
   .get(jwtUtils.verify, UserController.findById, handleAuthFailure)

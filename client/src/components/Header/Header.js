@@ -10,7 +10,8 @@ const logoStyle = {
   maxWidth: '500px'
 }
 const headerStyle = {
-  backgroundColor: '#065471'
+  backgroundColor: '#065471',
+  marginTop: '0em'
 }
 
 const PageHeader = () => (
