@@ -41,6 +41,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  about: {
+    type: String,
+    required: true
+  },
   ads: [
     {
       type: Schema.Types.ObjectId,

@@ -18,6 +18,10 @@ const BusinessSchema = new Schema({
     type: String,
     required: true
   },
+  about: {
+    type: String,
+    required: true
+  },
   campaigns: [
     {
       type: Schema.Types.ObjectId,
