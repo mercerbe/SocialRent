@@ -5,7 +5,7 @@ import { Form, Input, TextArea, Select, Header } from 'semantic-ui-react'
 //utils
 import Service from '../../utils/Service'
 
-//options for user type -- this needs to be defined in state and determine which innputs show up
+//options for user type -- this needs to determine which inputs show up
 const userOptions = [
   {key: 'b', text:'Business', value:'business'},
   {key: 'u', text:'User', value:'user'}
@@ -15,28 +15,36 @@ const industryOptions = [
   {key: 'a', text: 'Technology', value: 'technology'},
   {key: 'b', text: 'Finance', value: 'finance'},
   {key: 'c', text: 'Entertainment', value: 'entertainment'},
-  {key: 'd', text: 'Other', value: 'other'},
-  {key: 'e', text: 'Other2', value: 'other2'},
+  {key: 'd', text: 'Games & Hobbies', value: 'gamesandhobbies'},
+  {key: 'e', text: 'Automotive', value: 'automotive'},
 ]
 
 //signup form component
 class LoginForm extends Component {
-  //state -- add usertype, industry, description?
+  //state -- add usertype, industry, about
   state = {
-    handle: '',
+    type: '',
     email: '',
     password: '',
     passwordCheck: '',
+    handle: '',
+    name: '',
+    industry: '',
+    about: '',
     createAccount: true
   }
 
 
   //handle state and submit-- add usertype, industry, description?
   toggleLogin = () => this.setState({createAccount: !this.state.createAccount})
+  toggleType = (event) => this.setState({type: event.target.value})
   updatePassword = (event) => this.setState({password: event.target.value})
   updateEmail = (event) => this.setState({email: event.target.value})
   updateHandle = (event) => this.setState({handle: event.target.value})
+  updateName = (event) => this.setState({name: event.target.value})
+  updateIndustry = (event) => this.setState({industry: event.target.value})
   updatePasswordCheck = (event) => this.setState({passwordCheck: event.target.value})
+  updateAbout = (event) => this.setState({about: event.target.value})
 
   //methods to check all signup params
 
@@ -103,7 +111,9 @@ class LoginForm extends Component {
           label='Are you a business or user?'
           placeholder='Select One'
           options={userOptions}
-          name='usertype'
+          name='type'
+          value={this.state.type}
+          onChange={this.toggleType}
         />
         <Form.Group widths='equal'>
           <Form.Field
@@ -139,19 +149,33 @@ class LoginForm extends Component {
             />
         }{noPassMatch && <Header as='h6'>Passwords must match!</Header>}
         </Form.Group>
+      <Form.Group widths='equal'>
         <Form.Field
           id='industryType'
           control={Select}
-          label='Industry'
           placeholder='Select One'
+          label='Industry'
           options={industryOptions}
+          value={this.state.industry}
+          onChange={this.updateIndustry}
         />
+        <Form.Field
+          id='companyNameInput'
+          type='text'
+          control={Input}
+          label='Business Name'
+          placeholder='Our Business'
+          name='name'
+          value={this.state.name}
+          onChange={this.updateName}
+        />
+      </Form.Group>
         <Form.Field
           id='handleInput'
           type='text'
           control={Input}
           label='Twitter Handle'
-          placeholder='@SocialRent4me'
+          placeholder='SocialRent4me'
           name='handle'
           value={this.state.handle}
           onChange={this.updateHandle}
@@ -161,6 +185,8 @@ class LoginForm extends Component {
             control={TextArea}
             label='About'
             placeholder='Tell everyone a little about you...'
+            value={this.state.about}
+            onChange={this.updateAbout}
           />
         {!this.state.createAccount ? (
         <Form.Button content='Login' onClick={this.handleLogin}/>
