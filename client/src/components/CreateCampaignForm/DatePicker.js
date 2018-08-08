@@ -4,6 +4,7 @@ import moment from 'moment'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
+//datepicker docs for state: https://github.com/Hacker0x01/react-datepicker
 
 class DateSelect extends Component {
   constructor (props) {
