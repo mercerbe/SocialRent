@@ -26,7 +26,7 @@ const hashPassword = (password, finishedHashingPasswordCallback) => {
 }
 
 //define schema
-const BusinessSchema = new Schema({
+const businessSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -56,7 +56,7 @@ const BusinessSchema = new Schema({
 })
 
 //hide passwords
-BusinessSchema.set('toJSON', {
+businessSchema.set('toJSON', {
   transform: function(doc, json) {
     return {
       id: json._id,
@@ -67,7 +67,7 @@ BusinessSchema.set('toJSON', {
 })
 
 //
-BusinessSchema.pre('save', function (next) {
+businessSchema.pre('save', function (next) {
   const businessToSave = this
   hashPassword(businessToSave.password, (err, hashedPassword) => {
     if (err) {
@@ -78,6 +78,6 @@ BusinessSchema.pre('save', function (next) {
   });
 })
 
-let Business = mongoose.model('Business', BusinessSchema)
+let Business = mongoose.model('Business', businessSchema)
 
 module.exports = Business
