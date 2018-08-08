@@ -12,27 +12,32 @@ const userSeed = [
   {
     handle: 'sparkuscodes',
     email: 'sparkus@gmail.com',
-    password: 'userTest'
+    password: 'userTest',
+    about: 'WOOF!'
   },
   {
     handle: 'urban_coder',
     email: 'patrick.howard@gmail.com',
-    password: 'userTest'
+    password: 'userTest',
+    about: 'only the best.'
   },
   {
     handle: 'mkommar',
     email: 'mahesh.kommareddi@gmail.com',
-    password: 'userTest'
+    password: 'userTest',
+    about: 'don\'t listen to urban_coder, I\'m the best.'
   },
   {
     handle: 'fully_coded',
     email: 'mattt@gmail.com',
-    password: 'userTest'
+    password: 'userTest',
+    about: 'I\'m a nerd and I don\'t care who knows'
   },
   {
     handle: 'romeokilo125',
     email: 'romeokilo125@gmail.com',
-    password: 'userTest'
+    password: 'userTest',
+    about: 'almost perfect in every way'
   }
 ]
 
@@ -42,19 +47,22 @@ const businessSeed = [
     name: 'Tesla Motors',
     industry: 'Automotive',
     email: 'elon@tesla.com',
-    password: 'businessTest'
+    password: 'businessTest',
+    about: 'Vehicles of the future!'
   },
   {
     name: 'Apple',
     industry: 'Technology',
     email: 'tim@apple.com',
-    password: 'businessTest'
+    password: 'businessTest',
+    about: 'Computers of the future!'
   },
   {
     name: 'Wizards of the Coast',
     industry: 'Games & Hobbies',
     email: 'gregt@hasbro.com',
-    password: 'businessTest'
+    password: 'businessTest',
+    about: 'Games of the past!'
   }
 ]
 
@@ -123,14 +131,26 @@ db.User
     process.exit(1)
   })
 
-db.Ad
+db.Campaign
   .remove({})
-  .then(() => db.Ad.collection.insertMany(adSeed))
+  .then(() => db.Campaign.collection.insertMany(campaignSeed))
   .then( data => {
-    console.log(data.result.n + ' ads added')
+    console.log(data.result.n + ' campaigns added')
     process.exit(0)
   })
   .catch( err => {
-    console.log('error:', err)
+    console.log('error', err)
     process.exit(1)
   })
+
+// db.Ad
+//   .remove({})
+//   .then(() => db.Ad.collection.insertMany(adSeed))
+//   .then( data => {
+//     console.log(data.result.n + ' ads added')
+//     process.exit(0)
+//   })
+//   .catch( err => {
+//     console.log('error:', err)
+//     process.exit(1)
+//   })
