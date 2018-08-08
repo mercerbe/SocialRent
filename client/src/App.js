@@ -52,7 +52,7 @@ class App extends Component {
     if(data.success) {
       Storage.setToken(data.token)
       this.setState({ loggedIn: true })
-      this.props.history.push('/')
+      this.props.history.push('/dashboard')
     }
   }
   //handle logout
@@ -75,7 +75,7 @@ class App extends Component {
         {/*routes to render pages*/}
         <div>
           <Route exact path='/' render={()=> <Home loggedIn={this.state.loggedIn}/>}/>
-          <Route path='/login' render={()=> <Login login={this.login}/>}/>
+          <Route path='/login' render={()=> <Login login={this.login} loggedIn={this.state.loggedIn}/>}/>
           <Route path='/dashboard' render={()=> <Dashboard history={this.props.history} loggedIn={this.state.loggedIn}/>}/>
           <Route path='/market' render={()=> <Market history={this.props.history} loggedIn={this.state.loggedIn}/>}/>
         </div>

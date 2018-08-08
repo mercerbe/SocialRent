@@ -14,6 +14,7 @@ export default class Login extends Component {
 
    return(
     <div>
+      <p style={{backgroundColor: '#065471'}}> currently {this.props.loggedIn ? 'logged in' : 'not logged in'}</p>
       <br />
       <Container style={{marginTop:'4.5em', marginBottom:'20em'}}>
         <br />
