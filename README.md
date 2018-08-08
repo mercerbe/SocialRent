@@ -65,9 +65,9 @@ $ yarn install
 
 ## Team
 
-| <a href="http://github.com/mercerbe" target="_blank">**Ben Mercer**</a> | <a href="http://github.com/RomeoKilo125" target="_blank">**Ross King**</a> | <a href="http://github.com/mjtedder" target="_blank">**Matt Tedder**</a> | <a href="http://github.com/lfouts" target="_blank">**Kenton Dunn**</a> |
+| <a href="http://github.com/mercerbe" target="_blank">**Ben Mercer**</a> | <a href="http://github.com/RomeoKilo125" target="_blank">**Ross King**</a> | <a href="http://github.com/mjtedder" target="_blank">**Matt Tedder**</a> | <a href="http://github.com/KentonDunn" target="_blank">**Kenton Dunn**</a> |
 | :---: |:---:|:---:| :---: |
-| [![Ben Mercer](https://avatars3.githubusercontent.com/u/35779366?s=150&v=3)](http://github.com/mercerbe) | [![Ross King](https://avatars0.githubusercontent.com/u/17191914?s=150&v=3)](http://github.com/RomeoKilo125) | [![Matt Tedder](https://avatars3.githubusercontent.com/u/36042608?s=150&v=3)](http://github.com/mjtedder)  | [![L. Kenton Dunn](https://avatars1.githubusercontent.com/u/35176633?s=400&v=4)](http://github.com/KentonDunn)  |
+| [![Ben Mercer](https://avatars3.githubusercontent.com/u/35779366?s=150&v=3)](http://github.com/mercerbe) | [![Ross King](https://avatars0.githubusercontent.com/u/17191914?s=150&v=3)](http://github.com/RomeoKilo125) | [![Matt Tedder](https://avatars3.githubusercontent.com/u/36042608?s=150&v=3)](http://github.com/mjtedder)  | [![L. Kenton Dunn](https://avatars1.githubusercontent.com/u/35176633?s=150&v=4)](http://github.com/KentonDunn)  |
 | <a href="http://github.com/mercerbe" target="_blank">`github.com/mercerbe`</a> | <a href="http://github.com/RomeoKilo125" target="_blank">`github.com/RomeoKilo125`</a> | <a href="http://github.com/mjtedder" target="_blank">`github.com/mjtedder`</a> | <a href="http://github.com/KentonDunn" target="_blank">`github.com/KentonDunn`</a> |
 
 
