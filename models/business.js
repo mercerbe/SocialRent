@@ -21,7 +21,7 @@ const BusinessSchema = new Schema({
   about: {
     type: String,
     required: true
-  }
+  },
   campaigns: [
     {
       type: Schema.Types.ObjectId,
