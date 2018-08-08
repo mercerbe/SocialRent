@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Header, Icon, Modal, Form, Input, TextArea } from 'semantic-ui-react'
+import DateSelect from './DatePicker'
 //SET PROPS AND STATE FOR FORM
 
 const CreateCampaignForm = () => (
@@ -25,18 +26,12 @@ const CreateCampaignForm = () => (
         />
       </Form.Group>
       <Form.Group widths='equal'>
-        <Form.Field
-          id='start'
-          control={Input}
-          label='Start Date'
-          placeholder='mm/dd/yyyy'
-        />
-        <Form.Field
-          id='end'
-          control={Input}
-          label='End Date'
-          placeholder='mm/dd/yyyy'
-        />
+      <Form.Field>
+      <p style={{fontWeight: '600'}}>Start Date</p><DateSelect />
+      </Form.Field>
+      <Form.Field>
+      <p style={{fontWeight: '600'}}>End Date</p><DateSelect />
+      </Form.Field>
       </Form.Group>
       <Form.Field
         id='copyInput'
