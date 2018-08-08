@@ -26,7 +26,7 @@ const hashPassword = (password, finishedHashingPasswordCallback) => {
 }
 
 //set schema
-const UserSchema = new Schema({
+const userSchema = new Schema({
   handle: {
     type: String,
     required: true,
@@ -54,7 +54,7 @@ const UserSchema = new Schema({
 })
 
 //hide passwords
-UserSchema.set('toJSON', {
+userSchema.set('toJSON', {
   transform: function(doc, json) {
     return {
       id: json._id,
@@ -65,7 +65,7 @@ UserSchema.set('toJSON', {
 })
 
 //
-UserSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
   const userToSave = this
   hashPassword(userToSave.password, (err, hashedPassword) => {
     if (err) {
@@ -77,4 +77,4 @@ UserSchema.pre('save', function (next) {
 })
 
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', userSchema)
