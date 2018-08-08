@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const campaignSchema = new Schema({
+const CampaignSchema = new Schema({
   headline: {
     type: String,
     required: true
@@ -26,7 +26,7 @@ const campaignSchema = new Schema({
       },
       message: "Your campaign cannot start in the past."
     }
-  },
+  }
   endDate: {
     type: Date,
     required: true,
@@ -36,15 +36,15 @@ const campaignSchema = new Schema({
       },
       message: "End date must be after start date."
     }
-  },
+  }
   users: [
     {
-      type: Schema.Types.ObjectId,
+      type: Schema.types.ObjectId,
       ref: 'User'
     }
   ]
 })
 
-const Campaign = mongoose.model('Campaign', campaignSchema)
+let Campaign = mongoose.model('Campaign', CampaignSchema)
 
 module.exports = Campaign

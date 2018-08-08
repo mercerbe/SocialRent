@@ -9,6 +9,7 @@ const usersController = require('../controllers/usersController')
 const authController = require('../controllers/authController')
 const dashboardController = require('../controllers/dashboardController')
 
+
 router.route('/user')
   .get(jwtUtils.verify, usersController.findById, handleAuthFailure)
   .post(usersController.create)

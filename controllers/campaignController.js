@@ -1,3 +1,4 @@
+
 const Campaign = require('../models');
 
 // CRUD methods for campaignController
