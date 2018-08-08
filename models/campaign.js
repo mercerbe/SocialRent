@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const CampaignSchema = new Schema({
+const campaignSchema = new Schema({
   headline: {
     type: String,
     required: true
@@ -45,6 +45,6 @@ const CampaignSchema = new Schema({
   ]
 })
 
-let Campaign = mongoose.model('Campaign', CampaignSchema)
+const Campaign = mongoose.model('Campaign', campaignSchema)
 
 module.exports = Campaign

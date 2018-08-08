@@ -107,9 +107,21 @@ const adSeed = [
 
 //seed scripts
 
+ // db.Campaign
+ //   .remove({})
+ //   .then(() => db.Campaign.insertMany(campaignSeed))
+ //   .then(data => {
+ //    console.log(data.result.n + ' campaigns added')
+ //   process.exit(0)
+ //  })
+ //   .catch(err => {
+ //   console.log('error', err)
+ //   process.exit(1)
+ //  })
+
 db.Business
   .remove({})
-  .then(() => db.Business.collection.insertMany(businessSeed))
+  .then(() => db.Business.insertMany(businessSeed))
   .then( data => {
     console.log(data.result.n + ' businesses added')
     process.exit(0)
@@ -121,7 +133,7 @@ db.Business
 
 db.User
   .remove({})
-  .then(() => db.User.collection.insertMany(userSeed))
+  .then(() => db.User.insertMany(userSeed))
   .then( data => {
     console.log(data.result.n + ' users added')
     process.exit(0)
@@ -131,6 +143,7 @@ db.User
     process.exit(1)
   })
 
+<<<<<<< Updated upstream
 db.Campaign
   .remove({})
   .then(() => db.Campaign.collection.insertMany(campaignSeed))
@@ -153,4 +166,16 @@ db.Campaign
 //   .catch( err => {
 //     console.log('error:', err)
 //     process.exit(1)
+=======
+// db.Ad
+//   .remove({})
+//   .then(() => db.Ad.insertMany(adSeed))
+//   .then( data => {
+//    console.log(data.result.n + ' ads added')
+//    process.exit(0)
+//   })
+//   .catch( err => {
+//   console.log('error:', err)
+//   process.exit(1)
+>>>>>>> Stashed changes
 //   })
