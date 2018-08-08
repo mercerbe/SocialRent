@@ -4,11 +4,11 @@ import React, { Component } from 'react'
 import { Container, Divider, Segment, Header, Icon } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
-import LoginForm from '../../components/LoginForm'
+import LoginForm from '../../components/LoginForm/LoginForm'
 
 
 //page component
-class Login extends Component {
+export default class Login extends Component {
 
  render(){
 
@@ -31,7 +31,7 @@ class Login extends Component {
                 <Header.Content></Header.Content>
                 <Icon name='users' circular/>
               </Header>
-               <LoginForm />
+               <LoginForm login={this.props.login}/>
              </Segment>
            </Container>
         <br />
@@ -52,5 +52,3 @@ class Login extends Component {
  }
 
 }
-
-export default Login

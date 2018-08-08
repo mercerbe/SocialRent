@@ -7,7 +7,6 @@ import Footer from '../../components/Footer'
 //import CreateAdForm from '../../components/CreateAdForm'
 //import PaypalButton from '../../components/PaypalButton'
 //import utils
-import API from '../../utils/API'
 import Service from '../../utils/Service'
 
 //data that needs to be on this page:
@@ -52,7 +51,7 @@ class Dashboard extends Component {
   }
 
  render(){
-   const {user: {email}} = this.state
+   const { user: {email} } = this.state
    return(
      <div>
        <Segment style={headerStyle} raised>

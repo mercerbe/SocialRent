@@ -1,6 +1,6 @@
-module.exports = {
-  Business: require('./business'),
-  Campaign: require('./campaign'),
-  User: require('./user'),
-  Ad: require('./ad')
-}
+// module.exports = {
+//   Business: require('./Business'),
+//   Campaign: require('./Campaign'),
+//   User: require('./User'),
+//   Ad: require('./Ad')
+// }

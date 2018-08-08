@@ -5,22 +5,22 @@ const router = require('express').Router()
 const jwtUtils = require('../utils/jwt')
 
 //controllers
-const usersController = require('../controllers/usersController')
-const authController = require('../controllers/authController')
-const dashboardController = require('../controllers/dashboardController')
+const UserController = require('../controllers/UserController')
+const AuthController = require('../controllers/AuthController')
+const DashboardController = require('../controllers/DashboardController')
 
 router.route('/user')
-  .get(jwtUtils.verify, usersController.findById, handleAuthFailure)
-  .post(usersController.create)
+  .get(jwtUtils.verify, UserController.findById, handleAuthFailure)
+  .post(UserController.create)
 
 router.route('/register')
-  .post(usersController.create)
+  .post(UserController.create)
 
 router.route('/login')
-  .post(authController.login)
+  .post(AuthController.login)
 
 router.route('/logout')
-  .get(authController.logout)
+  .get(AuthController.logout)
 
 
 // ----- routes protected by jwt below here ----- //
@@ -29,6 +29,6 @@ function handleAuthFailure(err, req, res, next) {
 }
 
 router.route('/dashboard')
-  .get(jwtUtils.verify, dashboardController.index, handleAuthFailure)
+  .get(jwtUtils.verify, DashboardController.index, handleAuthFailure)
 
 module.exports = router

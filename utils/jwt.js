@@ -24,7 +24,7 @@ module.exports = {
       req.user = jwt.decode(token)
       next()
     } else {
-      res.status(403).json({ success: false, message: 'Forbidden' })
+      res.status(403).json({ success: false, message: 'jwt: Forbidden' })
     }
   }
 }

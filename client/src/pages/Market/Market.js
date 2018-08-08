@@ -3,10 +3,11 @@ import React, { Component } from 'react'
 //import logo
 import Logo from '../../images/logo_transparent.png'
 //semantic components
-import { Container, Grid, Icon, Header, Segment, Image } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment, Image } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
-
+//utils
+import Service from '../../utils/Service'
 
 //data this page needs to display:
 //map all ads created, put them in segments- include: ad title, ad creator, number available, ad body
@@ -23,6 +24,31 @@ const headerStyle = {
 
 //page component
 class Market extends Component {
+
+  //state
+  state = {
+    user: {}
+  }
+  //component cycle start
+  componentDidMount() {
+    Service.get('/api/user')
+      .then( res => {
+        if(res.data.success) {
+          console.log(res.data.user)
+          this.setState({user: res.data.user})
+        }
+      })
+      .catch( err => console.log('Not logged in.'))
+  }
+
+  //check state for loggedIn
+  static getStateFromProps(props) {
+    console.log('marketplace')
+    if(!props.loggedIn) {
+      props.history.push('/')
+    }
+    return null
+  }
 
  render(){
    return(

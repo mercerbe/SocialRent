@@ -32,6 +32,7 @@ module.exports = {
     const { email, password } = req.body
     User.findOne({ email })
       .then((user) => {
+        console.log(user);
         startUserAuthenticationFlow(user, password, (err, authenticated) => {
           if (err || !authenticated) {
             return res.status(403).json({ message: 'Authentication failed' })

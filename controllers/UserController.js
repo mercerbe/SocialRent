@@ -10,6 +10,7 @@ module.exports = {
       password
     })
       .then((user) => {
+        console.log(user)
         res.json({ status: 200, message: 'User created!', user: user });
       })
       .catch(err => next(err))

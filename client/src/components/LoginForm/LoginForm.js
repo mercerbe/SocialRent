@@ -45,8 +45,8 @@ class LoginForm extends Component {
     event.preventDefault()
 
     Service.post('/api/login', {
-      email: '',
-      password: '',
+      email: this.state.email,
+      password: this.state.password
     })
       .then(this.props.login)
       .catch(err =>
@@ -67,6 +67,7 @@ class LoginForm extends Component {
         password: this.state.password
       })
       .then(({data}) => {
+        console.log({data});
         if(data.success) {
           this.setState({ handle: '', email:'', password: '', passwordCheck: '', createAccount: false })
         }
@@ -110,7 +111,7 @@ class LoginForm extends Component {
             control={Input}
             label='Email'
             placeholder='Social@gmail.com'
-            type='email'
+            type='text'
             name='email'
             value={this.state.email}
             onChange={this.updateEmail}
