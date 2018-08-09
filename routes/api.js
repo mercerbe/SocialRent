@@ -10,9 +10,6 @@ const AuthController = require('../controllers/AuthController')
 const DashboardController = require('../controllers/DashboardController')
 //BRING IN BUSINESS CONTROLLER AND SET UP ROUTES
 
-
-
-// Routers for users and businesses
 router.route('/user')
   .get(jwtUtils.verify, UserController.findById, handleAuthFailure)
   .post(UserController.create)
@@ -25,7 +22,6 @@ router.route('/login')
 
 router.route('/logout')
   .get(AuthController.logout)
-
 
 
 // ----- routes protected by jwt below here ----- //
