@@ -31,7 +31,7 @@ class LoginForm extends Component {
     name: '',
     industry: '',
     about: '',
-    createAccount: true
+    createAccount: false
   }
 
   //handle state and submit-- add usertype, industry, about
@@ -76,11 +76,10 @@ class LoginForm extends Component {
   handleRegistration = (event) => {
     event.preventDefault()
 
-    const { type, handle, email, password, passwordCheck } = this.state
+    const { handle, email, password, passwordCheck } = this.state
     console.log('signup', this.state)
-    if(handle && email && password && type !== '' && password === passwordCheck) {
+    if(handle && email && password !== '' && password === passwordCheck) {
       Service.post('/api/register',{
-        type: this.state.type,
         handle: this.state.handle,
         email: this.state.email,
         password: this.state.password,
@@ -118,6 +117,7 @@ class LoginForm extends Component {
             }
 
       <Form action=''>
+        {this.state.createAccount &&
         <Form.Field
           id='userType'
           control={Select}
@@ -128,6 +128,7 @@ class LoginForm extends Component {
           value={value}
           onChange={this.updateType}
         />
+        }
         <Form.Group widths='equal'>
           <Form.Field
             id='emailInput'
@@ -162,6 +163,7 @@ class LoginForm extends Component {
             />
         }{noPassMatch && <Header as='h6'>Passwords must match!</Header>}
         </Form.Group>
+        {this.state.createAccount &&
       <Form.Group widths='equal'>
 
         <Form.Field
@@ -184,6 +186,8 @@ class LoginForm extends Component {
           onChange={this.updateName}
         />
       </Form.Group>
+    }
+      {this.state.createAccount &&
         <Form.Field
           id='handleInput'
           type='text'
@@ -194,6 +198,8 @@ class LoginForm extends Component {
           value={this.state.handle}
           onChange={this.updateHandle}
         />
+    }
+      {this.state.createAccount &&
           <Form.Field
             id='aboutInput'
             control={TextArea}
@@ -203,6 +209,7 @@ class LoginForm extends Component {
             value={this.state.about}
             onChange={this.updateAbout}
           />
+      }
         {!this.state.createAccount ? (
         <Form.Button content='Login' onClick={this.handleLogin}/>
         ) : (
