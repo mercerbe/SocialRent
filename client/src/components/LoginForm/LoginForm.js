@@ -21,7 +21,7 @@ const industryOptions = [
 
 //signup form component
 class LoginForm extends Component {
-  //state -- add usertype, industry, about
+  //state
   state = {
     type: '',
     email: '',
@@ -34,15 +34,25 @@ class LoginForm extends Component {
     createAccount: true
   }
 
-
   //handle state and submit-- add usertype, industry, about
   toggleLogin = () => this.setState({createAccount: !this.state.createAccount})
-  toggleType = (event) => this.setState({type: event.target.value})
+  updateType = (event, {value}) => {
+    this.setState({value})
+    this.setState({type: value})
+    console.log('state: ', {value})
+    console.log(this.state.type)
+  }
   updatePassword = (event) => this.setState({password: event.target.value})
   updateEmail = (event) => this.setState({email: event.target.value})
   updateHandle = (event) => this.setState({handle: event.target.value})
   updateName = (event) => this.setState({name: event.target.value})
-  updateIndustry = (event) => this.setState({industry: event.target.value})
+  updateIndustry = (event, {value}) => {
+    event.persist()
+    this.setState({value})
+    this.setState({industry: value})
+    console.log('state: ', {value})
+    console.log(this.state.industry)
+  }
   updatePasswordCheck = (event) => this.setState({passwordCheck: event.target.value})
   updateAbout = (event) => this.setState({about: event.target.value})
 
@@ -66,10 +76,11 @@ class LoginForm extends Component {
   handleRegistration = (event) => {
     event.preventDefault()
 
-    const { handle, email, password, passwordCheck } = this.state
+    const { type, handle, email, password, passwordCheck } = this.state
     console.log('signup', this.state)
-    if(handle && email && password !== '' && password === passwordCheck) {
+    if(handle && email && password && type !== '' && password === passwordCheck) {
       Service.post('/api/register',{
+        type: this.state.type,
         handle: this.state.handle,
         email: this.state.email,
         password: this.state.password,
@@ -77,8 +88,8 @@ class LoginForm extends Component {
       })
       .then(({data}) => {
         console.log({data});
-        if(data.success) {
-          this.setState({ handle: '', email:'', password: '', passwordCheck: '', createAccount: false })
+        if(data.status === 200) {
+          this.setState({ handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false })
         }
       })
       .catch( err =>
@@ -89,6 +100,7 @@ class LoginForm extends Component {
 
   render() {
     const noPassMatch = this.state.passwordCheck !== '' && this.state.passwordCheck !== this.state.password
+    const {value} = this.state
     return(
       <div>
 
@@ -113,8 +125,8 @@ class LoginForm extends Component {
           placeholder='Select One'
           options={userOptions}
           name='type'
-          value={this.state.type}
-          onChange={this.toggleType}
+          value={value}
+          onChange={this.updateType}
         />
         <Form.Group widths='equal'>
           <Form.Field
@@ -151,13 +163,14 @@ class LoginForm extends Component {
         }{noPassMatch && <Header as='h6'>Passwords must match!</Header>}
         </Form.Group>
       <Form.Group widths='equal'>
+
         <Form.Field
           id='industryType'
           control={Select}
           placeholder='Select One'
           label='Industry'
           options={industryOptions}
-          value={this.state.industry}
+          value={value}
           onChange={this.updateIndustry}
         />
         <Form.Field

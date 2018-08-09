@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 //import images
 import Logo from '../../images/logo_transparent.png'
-import Target from '../../images/target-ad.gif'
+//import Target from '../../images/target-ad.gif'
 //semantic components
 import { Container, Grid, Header, Segment, Image, Icon, Step, Button } from 'semantic-ui-react'
 //custom components

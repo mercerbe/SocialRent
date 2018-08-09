@@ -28,6 +28,7 @@ class App extends Component {
   //start app lifecyle
   componentDidMount() {
     console.log('app cycle started')
+    console.log(this.state)
     const token = Storage.getToken()
     if (token) {
       Service.get('/api/user')
@@ -36,6 +37,7 @@ class App extends Component {
             this.setState({ loggedIn: true })
             console.log('Login success!')
           }
+
         })
         .catch( err =>
           console.log('Login failed, please try again.'))
@@ -75,7 +77,7 @@ class App extends Component {
         <div>
           <Route exact path='/' render={()=> <Home loggedIn={this.state.loggedIn}/>}/>
           <Route path='/login' render={()=> <Login login={this.login} loggedIn={this.state.loggedIn}/>}/>
-          <Route path='/dashboard' render={()=> <Dashboard history={this.props.history} loggedIn={this.state.loggedIn}/>}/>
+          <Route path='/dashboard' render={()=> <Dashboard history={this.props.history} loggedIn={this.state.loggedIn} login={this.login}/>}/>
           <Route path='/market' render={()=> <Market history={this.props.history} loggedIn={this.state.loggedIn}/>}/>
         </div>
       </div>

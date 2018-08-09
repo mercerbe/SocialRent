@@ -3,11 +3,12 @@ const Business = require('../models/business')
 module.exports = {
   // create new business route
   create: (req, res, next) => {
-    const { name, email, password } = req.body
+    const { type, name, email, password } = req.body
     Business.create({
       name,
       email,
-      password
+      password,
+      about
     })
       .then((business) => {
         console.log(business)

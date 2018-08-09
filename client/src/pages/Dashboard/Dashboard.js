@@ -1,13 +1,25 @@
 //standard dependencies
 import React, { Component } from 'react'
 //semantic components
-import { Container, Segment, Grid, Image, Header, List, Card } from 'semantic-ui-react'
+import { Container, Segment, Grid, Header, List, Card } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
 import CreateCampaignForm from '../../components/CreateCampaignForm'
 import PaypalButton from '../../components/PaypalButton/PaypalCheckoutButton'
 //import utils
 import Service from '../../utils/Service'
+//chart
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
+//chart data -- imported from campaign data
+const data = [
+      {name: 'Headline 1', clicks: 4000},
+      {name: 'Headline 2', clicks: 3000},
+      {name: 'Headline 3', clicks: 2000},
+      {name: 'Headline 4', clicks: 2780},
+      {name: 'Headline 5', clicks: 1890},
+      {name: 'Headline 6', clicks: 2390},
+      {name: 'Headline 7', clicks: 3490},
+];
 
 //data that needs to be on this page:
 //show taken and open ads
@@ -25,10 +37,11 @@ class Dashboard extends Component {
 
   //state params
   state = {
-    user: {}
+    user: {},
+    business: {}
   }
   //component cycle
-  componentDidMount() {
+  componentDidMount(props) {
     Service.get('/api/user')
       .then( res => {
         //on success, get user data
@@ -44,7 +57,7 @@ class Dashboard extends Component {
   static getStateFromProps(props) {
     console.log('dashboard cycle')
     if(!props.loggedIn) {
-      props.history.push('/')
+      props.history.push('/login')
     }
     return null
   }
@@ -133,7 +146,18 @@ class Dashboard extends Component {
             <Header as='h5' textAlign='center'>Completed Campaigns/Ads</Header>
             list of completed campaigns
           </Segment>
-          <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+          <Header as='h4' textAlign='center'>CAMPGAIN PERFORMANCE</Header>
+          {/* chart here? */}
+          <BarChart width={350} height={300} data={data}
+            margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+           <CartesianGrid strokeDasharray="3 3"/>
+           <XAxis dataKey="name"/>
+           <YAxis dataKey="clicks"/>
+           <Tooltip/>
+           <Legend />
+           <Bar dataKey="clicks" fill="#fbbd08" />
+          </BarChart>
+          {/* end chart */}
         </Grid.Column>
      </Grid>
      </Container>
