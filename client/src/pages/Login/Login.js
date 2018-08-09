@@ -6,6 +6,10 @@ import { Container, Divider, Segment, Header, Icon } from 'semantic-ui-react'
 import Footer from '../../components/Footer'
 import LoginForm from '../../components/LoginForm/LoginForm'
 
+const headerStyle = {
+  backgroundColor: '#065471',
+  marginBotton: '0px'
+}
 
 //page component
 export default class Login extends Component {
@@ -14,15 +18,18 @@ export default class Login extends Component {
 
    return(
     <div>
-      <p style={{backgroundColor: '#065471'}}> currently {this.props.loggedIn ? 'logged in' : 'not logged in'}</p>
-      <br />
-      <Container style={{marginTop:'4.5em', marginBottom:'20em'}}>
+      <Segment style={headerStyle} raised>
+        <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'3em', fontSize:'48px'}}>
+          <p style={{fontSize: '20px'}}></p>
+        </Header>
+      </Segment>
+      <Container style={{marginTop:'0em', marginBottom:'20em'}}>
         <br />
           <Divider
             as='h4'
             className='header'
             horizontal
-            style={{ margin: '3em 0em', textTransform: 'uppercase' }}
+            style={{ margin: '2em 0em', textTransform: 'uppercase' }}
           >
             <p color='black'>===</p>
           </Divider>
@@ -40,7 +47,7 @@ export default class Login extends Component {
           as='h4'
           className='header'
           horizontal
-          style={{ margin: '3em 0em', textTransform: 'uppercase' }}
+          style={{ margin: '2em 0em', textTransform: 'uppercase' }}
         >
           <p color='black'>===</p>
         </Divider>

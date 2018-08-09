@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 //router
 import { Route, Link, withRouter } from 'react-router-dom'
 //semantic components -- test this location
-//import {  } from 'semantic-ui-react'
+import { Header, List } from 'semantic-ui-react'
 //pages
 import { Home } from './pages/Home/Home'
 import Login from './pages/Login/Login'
@@ -15,10 +15,7 @@ import Service from './utils/Service'
 
 //styles
 const backgroundStyle = {
-  backgroundColor: '#e9ecef'
-}
-const menuStyle = {
-  backgroundColor: '#065471'
+  backgroundColor: '#e9ecef',
 }
 
 //App Component
@@ -64,13 +61,16 @@ class App extends Component {
   render() {
     return (
       <div style={backgroundStyle} className="App">
-        <div style={menuStyle}>{/*semantic menu*/}
-          <Link to='/'>Home</Link>
-          <Link to='/login'>Login/Signup</Link>
-          <Link to='/dashboard'>Dashboard</Link>
-          <Link to='/market'>Market</Link>
-          <span onClick={this.logout}>Logout</span>
-        </div>
+        <List horizontal animated relaxed= 'very' style={{backgroundColor: '#3e3c3d', padding: '15px', width:'70%'}}>
+          <List.Item><List.Content><Link to='/'>Home</Link></List.Content></List.Item>
+          <List.Item><List.Content><Link to='/login'>Login/Signup</Link></List.Content></List.Item>
+          <List.Item><List.Content><Link to='/dashboard'>Dashboard</Link></List.Content></List.Item>
+          <List.Item floated='right'><List.Content><Link to='/market'>Market</Link></List.Content></List.Item>
+        </List>
+        <List horizontal floated='right' style={{backgroundColor: '#3e3c3d', padding: '15px', width:'30%'}}>
+          <List.Item><List.Content floated='right'><Header textAlign='right' as='h5' onClick={this.logout} style={{color: 'white'}}>Logout</Header></List.Content></List.Item>
+          <List.Item><List.Content floated='right'><Header as='h5' textAlign='right' style={{backgroundColor: '#3e3c3d', color: 'white'}}> ({this.state.loggedIn ? 'logged in' : 'not logged in'})</Header></List.Content></List.Item>
+        </List>
         {/*routes to render pages*/}
         <div>
           <Route exact path='/' render={()=> <Home loggedIn={this.state.loggedIn}/>}/>

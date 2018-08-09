@@ -1,9 +1,10 @@
 //standard dependencies
 import React, { Component } from 'react'
-//import logo
+//import images
 import Logo from '../../images/logo_transparent.png'
+import Target from '../../images/target-ad.gif'
 //semantic components
-import { Container, Grid, Header, Segment, Image } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment, Image, Icon, Step, Button } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
 //utils
@@ -52,11 +53,10 @@ class Market extends Component {
  render(){
    return(
      <div>
-       <p style={{backgroundColor: '#065471'}}> currently {this.props.loggedIn ? 'logged in' : 'not logged in'}</p>
        <Segment style={headerStyle}>
            <Image src={Logo} style={logoStyle} fluid centered />
            <Header as='h2' inverted color='grey' textAlign='center'>
-             Browse open Campaigns on the Market
+             Browse Campaigns on the Market
            </Header>
         </Segment>
      <br/>
@@ -64,12 +64,32 @@ class Market extends Component {
        <Header textAlign='center'>OPEN CAMPAIGNS</Header>
      <Grid>
        <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8'}}>
-         <Segment color='yellow'>
-           One Campaign here... mapped with info. header - campaign title, body, link
+         <Segment color='yellow'> {/* this is the component to map over for all campaigns*/}
+           <Header as='h4'>Campaign Headline</Header>
+           <Header as='h5' block>Campaign copy: </Header>
+           <Header as='h6'> <Icon name='linkify'/><Header.Content>Url link: </Header.Content></Header>
+             <Step.Group stackable='tablet' size='mini'>
+                <Step>
+                  <Icon name='calendar check outline' color='green'/>
+                  <Step.Content>
+                    <Step.Title>Start Date</Step.Title>
+                    <Step.Description>Date</Step.Description>
+                  </Step.Content>
+                </Step>
+                <Step>
+                  <Icon name='calendar minus outline' color='red'/>
+                  <Step.Content>
+                    <Step.Title>End Date</Step.Title>
+                    <Step.Description>Date</Step.Description>
+                  </Step.Content>
+                </Step>
+              </Step.Group>
+           <Button floated='right' icon='check' content='Join Campaign' labelPosition='right'></Button>
          </Segment>
-        <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
         </Grid.Column>
      </Grid>
+     <br/>
+     {/*<Image src={Target} style={logoStyle} fluid centered />*/}
      </Container>
    <br />
      <Footer />
