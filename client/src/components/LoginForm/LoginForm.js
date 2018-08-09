@@ -70,15 +70,16 @@ class LoginForm extends Component {
       .catch(err =>
         //add alert or modal here
         console.log(err))
+        alert('Error Logging in. Please try again.')
   }
 
   //signup
   handleRegistration = (event) => {
     event.preventDefault()
 
-    const { handle, email, password, passwordCheck } = this.state
+    const { type, name, industry, about, handle, email, password, passwordCheck } = this.state
+    if(handle && email && password && about !== '' && password === passwordCheck) {
     console.log('signup', this.state)
-    if(handle && email && password !== '' && password === passwordCheck) {
       Service.post('/api/register',{
         handle: this.state.handle,
         email: this.state.email,
@@ -94,6 +95,8 @@ class LoginForm extends Component {
       .catch( err =>
         //add alert here or modal
         console.log('Registration failed. Please try again.'))
+    } else {
+      alert('Please fill in all the fields')
     }
   }
 
