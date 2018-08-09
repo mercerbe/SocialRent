@@ -60,6 +60,7 @@ userSchema.set('toJSON', {
       id: json._id,
       handle: json.handle,
       email: json.email,
+      about: json.about
     }
   }
 })

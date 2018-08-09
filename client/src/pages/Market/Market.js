@@ -52,6 +52,7 @@ class Market extends Component {
  render(){
    return(
      <div>
+       <p style={{backgroundColor: '#065471'}}> currently {this.props.loggedIn ? 'logged in' : 'not logged in'}</p>
        <Segment style={headerStyle}>
            <Image src={Logo} style={logoStyle} fluid centered />
            <Header as='h2' inverted color='grey' textAlign='center'>

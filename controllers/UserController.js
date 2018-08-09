@@ -3,11 +3,13 @@ const User = require('../models/user')
 module.exports = {
   // create new user route
   create: (req, res, next) => {
-    const { handle, email, password } = req.body
+    const { handle, email, password, about } = req.body
+    console.log(req.body)
     User.create({
       handle,
       email,
-      password
+      password,
+      about
     })
       .then((user) => {
         console.log(user)

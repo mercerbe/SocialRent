@@ -35,7 +35,7 @@ class LoginForm extends Component {
   }
 
 
-  //handle state and submit-- add usertype, industry, description?
+  //handle state and submit-- add usertype, industry, about
   toggleLogin = () => this.setState({createAccount: !this.state.createAccount})
   toggleType = (event) => this.setState({type: event.target.value})
   updatePassword = (event) => this.setState({password: event.target.value})
@@ -72,7 +72,8 @@ class LoginForm extends Component {
       Service.post('/api/register',{
         handle: this.state.handle,
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+        about: this.state.about
       })
       .then(({data}) => {
         console.log({data});
@@ -185,6 +186,7 @@ class LoginForm extends Component {
             control={TextArea}
             label='About'
             placeholder='Tell everyone a little about you...'
+            name='about'
             value={this.state.about}
             onChange={this.updateAbout}
           />

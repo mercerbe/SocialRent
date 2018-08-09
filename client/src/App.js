@@ -35,7 +35,6 @@ class App extends Component {
     if (token) {
       Service.get('/api/user')
         .then(({data}) => {
-          //console.log(data)
           if(data.success) {
             this.setState({ loggedIn: true })
             console.log('Login success!')
