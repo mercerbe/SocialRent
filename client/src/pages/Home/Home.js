@@ -13,8 +13,8 @@ import WideImage from '../../images/wide-marketing.png'
 //export functional component for props
 export const Home = (props) => (
       <div>
-        <p> currently {props.loggedIn ? 'logged in' : 'not logged in'}</p>
-      <PageHeader />
+        <p style={{backgroundColor: '#065471'}}> currently {props.loggedIn ? 'logged in' : 'not logged in'}</p>
+      <PageHeader/>
       <Segment style={{ padding: '8em 0em', border: 'none' }} vertical>
         <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
@@ -39,7 +39,7 @@ export const Home = (props) => (
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign='center'>
-              <Button size='huge' color='black'>See Who's Here</Button>
+              <Button size='huge' color='black' href='#next_h3'>More</Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -47,7 +47,7 @@ export const Home = (props) => (
 
       <Segment style={{ padding: '8em 0em' }} vertical>
         <Container text textAlign='center'>
-          <Header as='h3' style={{ fontSize: '2em' }}>
+          <Header as='h3' style={{ fontSize: '2em' }} id='next_h3'>
             What is Social Rent?
           </Header>
           <p style={{ fontSize: '1.33em' }}>
@@ -75,7 +75,7 @@ export const Home = (props) => (
             by the companies and products they support. That being said, it's a two-way street: companies get to work with
             the people who support thier products and pay them to promote the products they support. Call to action here --
           </p>
-          <Button size='huge' color='black'> Get Started </Button>
+          <Button size='huge' color='black' href='/login'> Get Started </Button>
         </Container>
       </Segment>
 

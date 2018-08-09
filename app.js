@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 //set express
 const app = express()
 
-//
+//config
 const config = require('./config')
 
 // connect to database
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 //set express to use imported routes
-app.use('/api', apiRoutes);
+app.use('/api', apiRoutes)
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

@@ -1,4 +1,6 @@
 const User = require('../models/user')
+const Business = require('../models/business')
+//set up to find business by Id
 
 module.exports = {
   index: (req, res, next) => {
