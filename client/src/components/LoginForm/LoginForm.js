@@ -130,6 +130,7 @@ class LoginForm extends Component {
         />
         }
         <Form.Group widths='equal'>
+
           <Form.Field
             id='emailInput'
             control={Input}
@@ -150,6 +151,8 @@ class LoginForm extends Component {
             value={this.state.password}
             onChange={this.updatePassword}
           />
+
+
         {this.state.createAccount &&
           <Form.Field
             id='passwordConfirm'
@@ -161,9 +164,11 @@ class LoginForm extends Component {
             value={this.state.passwordCheck}
             onChange={this.updatePasswordCheck}
             />
-        }{noPassMatch && <Header as='h6'>Passwords must match!</Header>}
+        }
+        {noPassMatch && <Header as='h6'>Passwords must match!</Header>}
         </Form.Group>
-        {this.state.createAccount &&
+
+        {this.state.createAccount && this.state.type === 'business' &&
       <Form.Group widths='equal'>
 
         <Form.Field
@@ -187,7 +192,7 @@ class LoginForm extends Component {
         />
       </Form.Group>
     }
-      {this.state.createAccount &&
+      {this.state.createAccount && this.state.type === 'user' &&
         <Form.Field
           id='handleInput'
           type='text'
@@ -199,7 +204,7 @@ class LoginForm extends Component {
           onChange={this.updateHandle}
         />
     }
-      {this.state.createAccount &&
+      {this.state.createAccount && this.state.type !== '' &&
           <Form.Field
             id='aboutInput'
             control={TextArea}
