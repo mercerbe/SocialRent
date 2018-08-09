@@ -10,6 +10,8 @@ const authController = require('../controllers/authController')
 const dashboardController = require('../controllers/dashboardController')
 
 
+
+// Routers for users and businesses
 router.route('/user')
   .get(jwtUtils.verify, usersController.findById, handleAuthFailure)
   .post(usersController.create)
@@ -22,6 +24,7 @@ router.route('/login')
 
 router.route('/logout')
   .get(authController.logout)
+
 
 
 // ----- routes protected by jwt below here ----- //
