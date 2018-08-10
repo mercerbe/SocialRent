@@ -11,7 +11,7 @@ const logoStyle = {
 }
 const headerStyle = {
   backgroundColor: '#065471',
-  marginTop: '0em'
+  marginTop: '0'
 }
 
 const PageHeader = () => (
