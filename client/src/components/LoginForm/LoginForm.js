@@ -21,26 +21,23 @@ const industryOptions = [
 
 //signup form component
 class LoginForm extends Component {
+
   //state
   state = {
-    type: '',
     email: '',
     password: '',
     passwordCheck: '',
     handle: '',
     name: '',
-    industry: '',
     about: '',
-    value: '',
     createAccount: false
   }
 
   //update state
-
   toggleLogin = () => this.setState({createAccount: !this.state.createAccount})
-  updateType = (event, {value}) => {
-    this.setState({value})
-    console.log('state: ', {value})
+  updateType = (event, {value, type}) => {
+    this.setState({value, type})
+    console.log('typestate: ', {value, type})
     this.setState({type: value})
     console.log(this.state.type)
   }
@@ -48,10 +45,9 @@ class LoginForm extends Component {
   updateEmail = (event) => this.setState({email: event.target.value})
   updateHandle = (event) => this.setState({handle: event.target.value})
   updateName = (event) => this.setState({name: event.target.value})
-  updateIndustry = (event, {value}) => {
-    event.persist()
-    this.setState({value})
-    console.log('industrystate: ', {value})
+  updateIndustry = (event, {value, industry}) => {
+    this.setState({value, industry})
+    console.log('industrystate: ', {value, industry})
     this.setState({industry: value})
     console.log(this.state.industry)
     console.log(this.state.type)
@@ -132,8 +128,10 @@ class LoginForm extends Component {
           label='Are you a business or user?'
           placeholder='Select One'
           options={userOptions}
+          selection
           name='type'
           value={value}
+          type={type}
           onChange={this.updateType}
         />
         }
@@ -185,7 +183,9 @@ class LoginForm extends Component {
           placeholder='Select One'
           label='Industry'
           options={industryOptions}
+          selection
           value={value}
+          industry={industry}
           onChange={this.updateIndustry}
         />
         <Form.Field
