@@ -31,15 +31,17 @@ class LoginForm extends Component {
     name: '',
     industry: '',
     about: '',
+    value: '',
     createAccount: false
   }
 
-  //handle state and submit-- add usertype, industry, about
+  //update state
+
   toggleLogin = () => this.setState({createAccount: !this.state.createAccount})
   updateType = (event, {value}) => {
     this.setState({value})
-    this.setState({type: value})
     console.log('state: ', {value})
+    this.setState({type: value})
     console.log(this.state.type)
   }
   updatePassword = (event) => this.setState({password: event.target.value})
@@ -49,14 +51,15 @@ class LoginForm extends Component {
   updateIndustry = (event, {value}) => {
     event.persist()
     this.setState({value})
+    console.log('industrystate: ', {value})
     this.setState({industry: value})
-    console.log('state: ', {value})
     console.log(this.state.industry)
+    console.log(this.state.type)
   }
   updatePasswordCheck = (event) => this.setState({passwordCheck: event.target.value})
   updateAbout = (event) => this.setState({about: event.target.value})
 
-  //methods to check all signup params
+  //==============methods to check all signup and login params==============//
 
   //login
   handleLogin = (event) => {
@@ -77,7 +80,8 @@ class LoginForm extends Component {
   handleRegistration = (event) => {
     event.preventDefault()
 
-    const { type, name, industry, about, handle, email, password, passwordCheck } = this.state
+    const { name, industry, about, handle, email, password, passwordCheck } = this.state
+
     if(handle && email && password && about !== '' && password === passwordCheck) {
     console.log('signup', this.state)
       Service.post('/api/register',{
@@ -99,10 +103,11 @@ class LoginForm extends Component {
       alert('Please fill in all the fields')
     }
   }
+//==============================================================================//
 
   render() {
     const noPassMatch = this.state.passwordCheck !== '' && this.state.passwordCheck !== this.state.password
-    const {value} = this.state
+    const { value, type, industry } = this.state
     return(
       <div>
 
