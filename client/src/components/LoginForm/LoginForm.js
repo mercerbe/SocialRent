@@ -41,7 +41,6 @@ class LoginForm extends Component {
     this.setState({value})
     console.log('typestate: ', {value})
     this.setState({type: value})
-    console.log(this.state.type)
   }
   updatePassword = (event) => this.setState({password: event.target.value})
   updateEmail = (event) => this.setState({email: event.target.value})

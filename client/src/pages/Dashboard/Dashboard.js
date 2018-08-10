@@ -38,28 +38,29 @@ class Dashboard extends Component {
   //state params
   state = {
     user: {},
-    business: {}
+    business: {},
   }
   //component cycle
   componentDidMount() {
-
+    //call for user
     Service.get('/api/user')
       .then( res => {
         //on success, get user data
-        if(res.data.success) {
+        if(res.data.success && res.data.user !== 'null') {
           console.log(res.data.user)
           this.setState({user: res.data.user})
-        } else {
-          Service.get('/api/business')
-            .then( res => {
-              if(res.data.success) {
-                console.log(res.data.business)
-                this.setState({user: res.data.business})
-              }
-            })
         }
       })
-      .catch( err => console.log('user error.'))
+      .catch( err => console.log('Not logged in.'))
+    //call for business
+    // Service.get('/api/business')
+    //   .then( res => {
+    //     if(res.data.success) {
+    //       console.log(res.data.business)
+    //       this.setState({business: res.data.business})
+    //     }
+    //   })
+    //   .catch( err => console.log('business error.'))
 
   }
 
@@ -74,12 +75,13 @@ class Dashboard extends Component {
   }
 
  render(){
-   const { user: {email} } = this.state
+   const {user: {email, handle, about}} = this.state
+
    return(
      <div>
        <Segment style={headerStyle} raised>
          <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'3em', fontSize:'48px'}}>
-           Welcome, { email }
+           Welcome, {email}
            <p style={{fontSize: '20px'}}>Manage your account</p>
          </Header>
        </Segment>
