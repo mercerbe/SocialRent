@@ -30,14 +30,16 @@ class LoginForm extends Component {
     handle: '',
     name: '',
     about: '',
+    type: '',
+    industry: '',
     createAccount: false
   }
 
   //update state
   toggleLogin = () => this.setState({createAccount: !this.state.createAccount})
-  updateType = (event, {value, type}) => {
-    this.setState({value, type})
-    console.log('typestate: ', {value, type})
+  updateType = (e, {value}) => {
+    this.setState({value})
+    console.log('typestate: ', {value})
     this.setState({type: value})
     console.log(this.state.type)
   }
@@ -45,9 +47,9 @@ class LoginForm extends Component {
   updateEmail = (event) => this.setState({email: event.target.value})
   updateHandle = (event) => this.setState({handle: event.target.value})
   updateName = (event) => this.setState({name: event.target.value})
-  updateIndustry = (event, {value, industry}) => {
-    this.setState({value, industry})
-    console.log('industrystate: ', {value, industry})
+  updateIndustry = (event, {value}) => {
+    this.setState({value})
+    console.log('industrystate: ', {value})
     this.setState({industry: value})
     console.log(this.state.industry)
     console.log(this.state.type)
@@ -76,11 +78,11 @@ class LoginForm extends Component {
   handleRegistration = (event) => {
     event.preventDefault()
 
-    const { name, industry, about, handle, email, password, passwordCheck } = this.state
-
-    if(handle && email && password && about !== '' && password === passwordCheck) {
-    console.log('signup', this.state)
-      Service.post('/api/register',{
+    const { type, name, industry, about, handle, email, password, passwordCheck } = this.state
+    //post to user
+    if(handle && email && password && about !== '' && password === passwordCheck && type === 'user') {
+    console.log('signup user', this.state)
+      Service.post('/api/user/register',{
         handle: this.state.handle,
         email: this.state.email,
         password: this.state.password,
@@ -89,21 +91,39 @@ class LoginForm extends Component {
       .then(({data}) => {
         console.log({data});
         if(data.status === 200) {
-          this.setState({ handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false })
+          this.setState({ type: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false })
         }
       })
       .catch( err =>
         //add alert here or modal
         console.log('Registration failed. Please try again.'))
-    } else {
-      alert('Please fill in all the fields')
+    }
+    //post to business
+    if(name && email && password && about && industry !== '' && password === passwordCheck && type === 'business') {
+    console.log('signup business', this.state)
+      Service.post('/api/business/register',{
+        name: this.state.name,
+        industry: this.state.industry,
+        email: this.state.email,
+        password: this.state.password,
+        about: this.state.about
+      })
+      .then(({data}) => {
+        console.log({data});
+        if(data.status === 200) {
+          this.setState({ type: '', industry: '', name: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false })
+        }
+      })
+      .catch( err =>
+        //add alert here or modal
+        console.log('Registration failed. Please try again.'))
     }
   }
 //==============================================================================//
 
   render() {
     const noPassMatch = this.state.passwordCheck !== '' && this.state.passwordCheck !== this.state.password
-    const { value, type, industry } = this.state
+    const { value } = this.state
     return(
       <div>
 
@@ -131,7 +151,6 @@ class LoginForm extends Component {
           selection
           name='type'
           value={value}
-          type={type}
           onChange={this.updateType}
         />
         }
@@ -185,7 +204,6 @@ class LoginForm extends Component {
           options={industryOptions}
           selection
           value={value}
-          industry={industry}
           onChange={this.updateIndustry}
         />
         <Form.Field

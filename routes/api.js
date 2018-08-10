@@ -23,6 +23,9 @@ router.route('/business')
   .get(jwtUtils.verify, BusinessController.findById, handleAuthFailure)
   .post(BusinessController.create)
 
+router.route('/business/register')
+  .post(BusinessController.create)
+
 //auth login/logout routes
 router.route('/login')
   .post(AuthController.userlogin)
