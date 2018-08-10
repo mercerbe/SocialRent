@@ -29,7 +29,6 @@ class App extends Component {
   //start app lifecyle
   componentDidMount() {
     console.log('app cycle started')
-    console.log(this.state)
     const token = Storage.getToken()
     if (token) {
       //check for user
@@ -38,19 +37,23 @@ class App extends Component {
           if(data.success) {
             this.setState({ loggedIn: true })
             console.log('Logged in as a user.')
+          } else {
+            //check for business
+            Service.get('/api/business')
+              .then(({data}) => {
+                if(data.success) {
+                  this.setState({ loggedIn: true })
+                  console.log('Logged in as a business.')
+                }
+              })
+              .catch( err => console.log('Login failed, please try again.'))
           }
         })
         .catch( err =>
           console.log('Login failed, please try again.'))
-      //check for business
-      Service.get('/api/business')
-        .then(({data}) => {
-          if(data.success) {
-            this.setState({ loggedIn: true })
-            console.log('Logged in as a business.')
-          }
-        })
-        .catch( err => console.log('Login failed, please try again.'))
+
+    } else {
+      console.log(this.state)
     }
   }
 

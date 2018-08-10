@@ -27,13 +27,13 @@ router.route('/business/register')
   .post(BusinessController.create)
 
 //auth login/logout routes
-router.route('/login')
+router.route('/user/login')
   .post(AuthController.userlogin)
 
 router.route('/logout')
   .get(AuthController.userlogout)
 
-router.route('/login')
+router.route('/business/login')
   .post(AuthController.businesslogin)
 
 router.route('/logout')

@@ -24,7 +24,7 @@ const data = [
 //data that needs to be on this page:
 //show taken and open ads
 //display username
-//display paypal/payment option--modal popup for success/fail transaction or route to paypal
+//display paypal/payment button -- sandbox to paypal dev
 //display number of ads created/taken
 
 //style header
@@ -42,20 +42,30 @@ class Dashboard extends Component {
   }
   //component cycle
   componentDidMount() {
+
     Service.get('/api/user')
       .then( res => {
         //on success, get user data
         if(res.data.success) {
           console.log(res.data.user)
           this.setState({user: res.data.user})
+        } else {
+          Service.get('/api/business')
+            .then( res => {
+              if(res.data.success) {
+                console.log(res.data.business)
+                this.setState({user: res.data.business})
+              }
+            })
         }
       })
-      .catch( err => console.log('Not logged in.'))
+      .catch( err => console.log('user error.'))
+
   }
 
   //determine state from props - if not logged in, redirect to login page
   static getDerivedStateFromProps(props) {
-    console.log('dashboard cycle')
+    console.log('dashboard cycle', props)
     if(!props.loggedIn) {
       props.history.push('/login')
       console.log('please login to view your dashboard.')
@@ -69,7 +79,7 @@ class Dashboard extends Component {
      <div>
        <Segment style={headerStyle} raised>
          <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'3em', fontSize:'48px'}}>
-           Welcome, {email}
+           Welcome, { email }
            <p style={{fontSize: '20px'}}>Manage your account</p>
          </Header>
        </Segment>

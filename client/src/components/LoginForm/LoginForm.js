@@ -62,8 +62,9 @@ class LoginForm extends Component {
   //login
   handleLogin = (event) => {
     event.preventDefault()
-
-    Service.post('/api/login', {
+    const { type } = this.state
+    if(type === 'user'){
+    Service.post('/api/user/login', {
       email: this.state.email,
       password: this.state.password
     })
@@ -72,6 +73,18 @@ class LoginForm extends Component {
         //add alert or modal here
         console.log(err))
         //alert('Error Logging in. Please try again.')
+      }
+    if(type === 'business'){
+      Service.post('/api/business/login', {
+        email: this.state.email,
+        password: this.state.password
+      })
+        .then(this.props.login)
+        .catch(err =>
+          //add alert or modal here
+          console.log(err))
+          //alert('Error Logging in. Please try again.')
+    }
   }
 
   //signup
@@ -141,7 +154,7 @@ class LoginForm extends Component {
             }
 
       <Form action=''>
-        {this.state.createAccount &&
+
         <Form.Field
           id='userType'
           control={Select}
@@ -153,7 +166,7 @@ class LoginForm extends Component {
           value={value}
           onChange={this.updateType}
         />
-        }
+
         <Form.Group widths='equal'>
 
           <Form.Field
