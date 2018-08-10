@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Header, Icon, Modal, Form, Input, TextArea } from 'semantic-ui-react'
 import DateSelect from './DatePicker'
+//utils
+import Service from '../../utils/Service'
 //SET PROPS AND STATE FOR FORM
 //styles
 const headStyle = {
@@ -12,6 +14,41 @@ const buttonStyle = {
 }
 
 class CreateCampaignForm extends Component{
+
+  //state
+  state = {
+    headline: '',
+    campaignLink: '',
+    startDate: '',
+    endDate: '',
+    bodyCopy: '',
+  }
+  //update form state
+  updateHeadline = (event) =>  this.setState({headline: event.target.value})
+  updateLink = (event) => this.setState({campaignLink: event.target.value})
+  updateBodyCopy = (event) => this.setState({bodyCopy: event.target.value})
+  //=======test these to ensure they capture values from date form========//
+  updateStartDate = (event) => this.setState({startDate: event.target.value})
+  updateEndDate = (event) => this.setState({endDate: event.target.value})
+  //==============================================================//
+
+  //handleSubmitandCreate
+  handleFormState = (event) => {
+    event.preventDefault()
+    const { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
+    //continue post from here to route
+    Service.post('/api/campaign', {
+      headline: this.state.headline,
+      url: this.state.campaignLink,
+      bodyCopy: '',
+      startDate: '',
+      endDate: ''
+    })
+      .then()
+      .catch()
+  }
+
+
   render() {
     return(
       <Modal trigger={<Button>Create Campaign</Button>}>
@@ -55,6 +92,7 @@ class CreateCampaignForm extends Component{
             id='submit'
             control={Button}
             content='Create Campaign'
+            onClick={this.handleFormState}
           />
         </Form>
           </Modal.Description>
