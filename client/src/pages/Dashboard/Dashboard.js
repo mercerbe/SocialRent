@@ -53,7 +53,7 @@ class Dashboard extends Component {
       .catch( err => console.log('Not logged in.'))
   }
 
-  //determine state from props
+  //determine state from props - if not logged in, redirect to login page
   static getDerivedStateFromProps(props) {
     console.log('dashboard cycle')
     if(!props.loggedIn) {

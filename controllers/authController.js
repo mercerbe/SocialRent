@@ -28,7 +28,7 @@ function verifyUserPassword(hashedPassword, suppliedPassword, setUserCredentials
 }
 
 module.exports = {
-  login: (req, res) => {
+  userlogin: (req, res) => {
     const { email, password } = req.body
     User.findOne({ email })
       .then((user) => {
@@ -46,7 +46,29 @@ module.exports = {
         throw err;
       })
   },
-  logout: (req, res) => {
+  userlogout: (req, res) => {
+    req.user = undefined;
+    res.json({ success: true, message: 'You have successfully logged out' })
+  },
+  businesslogin: (req, res) => {
+    const { email, password } = req.body
+    Business.findOne({ email })
+      .then((user) => {
+        console.log(user);
+        startUserAuthenticationFlow(user, password, (err, authenticated) => {
+          if (err || !authenticated) {
+            return res.status(403).json({ message: 'Authentication failed' })
+          }
+          const token = jwtUtils.createToken(user)
+
+          res.json({ success: true, message: 'Successfully logged in!', token })
+        });
+      })
+      .catch((err) => {
+        throw err;
+      })
+  },
+  businesslogout: (req, res) => {
     req.user = undefined;
     res.json({ success: true, message: 'You have successfully logged out' })
   }

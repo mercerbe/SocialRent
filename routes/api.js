@@ -10,22 +10,31 @@ const AuthController = require('../controllers/AuthController')
 const DashboardController = require('../controllers/DashboardController')
 const BusinessController = require('../controllers/businessController')
 
-//BRING IN BUSINESS CONTROLLER AND SET UP ROUTES
-
 //User routes
 router.route('/user')
   .get(jwtUtils.verify, UserController.findById, handleAuthFailure)
   .post(UserController.create)
 
-router.route('/register')
+router.route('/user/register')
   .post(UserController.create)
 
+//business routes
+router.route('/business')
+  .get(jwtUtils.verify, BusinessController.findById, handleAuthFailure)
+  .post(BusinessController.create)
+
+//auth login/logout routes
 router.route('/login')
-  .post(AuthController.login)
+  .post(AuthController.userlogin)
 
 router.route('/logout')
-  .get(AuthController.logout)
+  .get(AuthController.userlogout)
 
+router.route('/login')
+  .post(AuthController.businesslogin)
+
+router.route('/logout')
+  .get(AuthController.businesslogout)
 
 // ----- routes protected by jwt below here ----- //
 function handleAuthFailure(err, req, res, next) {
