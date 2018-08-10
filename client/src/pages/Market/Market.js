@@ -41,11 +41,12 @@ class Market extends Component {
       .catch( err => console.log('Not logged in.'))
   }
 
-  //check state for loggedIn
-  static getStateFromProps(props) {
-    console.log('marketplace')
+  //determine state from props
+  static getDerivedStateFromProps(props) {
+    console.log('market cycle')
     if(!props.loggedIn) {
-      props.history.push('/')
+      props.history.push('/login')
+      console.log('login to continue to the marketplace.')
     }
     return null
   }

@@ -8,8 +8,11 @@ const jwtUtils = require('../utils/jwt')
 const UserController = require('../controllers/UserController')
 const AuthController = require('../controllers/AuthController')
 const DashboardController = require('../controllers/DashboardController')
+const BusinessController = require('../controllers/businessController')
+
 //BRING IN BUSINESS CONTROLLER AND SET UP ROUTES
 
+//User routes
 router.route('/user')
   .get(jwtUtils.verify, UserController.findById, handleAuthFailure)
   .post(UserController.create)
@@ -27,6 +30,7 @@ router.route('/logout')
 // ----- routes protected by jwt below here ----- //
 function handleAuthFailure(err, req, res, next) {
   res.status(403).json({ success: false, message: 'Authentication failed' })
+  console.log('Authentication Failure.')
 }
 
 router.route('/dashboard')

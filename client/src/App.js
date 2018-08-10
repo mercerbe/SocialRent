@@ -25,6 +25,7 @@ class App extends Component {
   state = {
     loggedIn: false,
   }
+
   //start app lifecyle
   componentDidMount() {
     console.log('app cycle started')
@@ -37,7 +38,6 @@ class App extends Component {
             this.setState({ loggedIn: true })
             console.log('Login success!')
           }
-
         })
         .catch( err =>
           console.log('Login failed, please try again.'))

@@ -41,7 +41,7 @@ class Dashboard extends Component {
     business: {}
   }
   //component cycle
-  componentDidMount(props) {
+  componentDidMount() {
     Service.get('/api/user')
       .then( res => {
         //on success, get user data
@@ -54,10 +54,11 @@ class Dashboard extends Component {
   }
 
   //determine state from props
-  static getStateFromProps(props) {
+  static getDerivedStateFromProps(props) {
     console.log('dashboard cycle')
     if(!props.loggedIn) {
       props.history.push('/login')
+      console.log('please login to view your dashboard.')
     }
     return null
   }
