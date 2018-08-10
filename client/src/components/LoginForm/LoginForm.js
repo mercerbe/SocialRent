@@ -70,7 +70,7 @@ class LoginForm extends Component {
       .catch(err =>
         //add alert or modal here
         console.log(err))
-        alert('Error Logging in. Please try again.')
+        //alert('Error Logging in. Please try again.')
   }
 
   //signup
