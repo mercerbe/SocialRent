@@ -5,7 +5,9 @@ import { Container, Segment, Grid, Image, Header } from 'semantic-ui-react'
 //custom components
 import TopMenu from '../../components/Menu'
 import Footer from '../../components/Footer'
-//import CreateAdForm from '../../components/CreateAdForm'
+import CreateAdForm from '../../components/CreateAdForm'
+import BusinessCard from '../../components/BusinessCard'
+import CampaignSeg from '../../components/CampaignSegment'
 //import PaypalButton from '../../components/PaypalButton'
 //import api util
 import API from '../../utils/API'
@@ -61,14 +63,19 @@ class Dashboard extends Component {
      <Container style={{marginTop:'1em', marginBottom: '1em'}} >
      <Grid>
        <Grid.Column mobile={16} tablet={8} computer={8}>
-        <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+       <CreateAdForm/>
+       <br/>
+       <BusinessCard/>
+        <Image src='' />
         </Grid.Column>
+        
         <Grid.Column mobile={16} tablet={8} computer={8}>
+         <CampaignSeg/>
           <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
         </Grid.Column>
-     </Grid>
+       </Grid>
      </Container>
-   <br />
+ <br />
    <Footer />
      </div>
    )

@@ -7,6 +7,7 @@ import { Container, Grid, Icon, Header, Segment, Image } from 'semantic-ui-react
 //custom components
 import TopMenu from '../../components/Menu'
 import Footer from '../../components/Footer'
+import AdDisplay from '../../components/AdDisplay'
 
 
 //data this page needs to display:
@@ -39,7 +40,7 @@ class Market extends Component {
      <Container style={{marginTop:'1em', marginBottom: '1em'}} >
      <Grid>
        <Grid.Column mobile={16} tablet={8} computer={8}>
-        <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+        <AdDisplay></AdDisplay>
         </Grid.Column>
         <Grid.Column mobile={16} tablet={8} computer={8}>
           <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
