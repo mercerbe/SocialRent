@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const adsController = require('../../controllers/adsController')
+const adsController = require('../../controllers/AdController')
 
 // Matches with "/api/ads"
 // Find all ads
@@ -19,5 +19,8 @@ router.route('/:id')
   .get(adsController.findById)
   .put(adsController.update)
   .delete(adsController.remove)
+
+router.route('user/snatch/:id')
+  .post(adsController.snatch)
 
 module.exports = router

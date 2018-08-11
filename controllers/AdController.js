@@ -22,6 +22,23 @@ module.exports = {
       .then(ad => res.json(ad))
       .catch(err => res.status(422).json(err))
   },
+  // User creates an ad
+  snatch: (req, res, next) => {
+    let userId = req.params.id
+    const { campaignId = _id, headline, copy, srcUrl = url, startDate, endDate } = req.body
+    console.log(req.body)
+    Ad.create({
+      campaignId,
+      copy,
+      startDate,
+      endDate,
+      srcUrl
+    })
+      .then((dbAd) => {
+        User.findOneAndUpdate({  _id: req.params.id }, { $push: { ads: dbAd._id }}, { new: true })
+        Campaign.findOneAndUpdate({ _id: campaignId }, { $push: { users: userId }}, { new: true })
+      })
+  },
   // Update an ad
   update: function(req, res) {
     Ad.findOneAndUpdate({ _id: req.params.id }, req.body)
