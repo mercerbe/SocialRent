@@ -46,21 +46,22 @@ class Dashboard extends Component {
     Service.get('/api/user')
       .then( res => {
         //on success, get user data
-        if(res.data.success && res.data.user !== 'null') {
+        if(res.data.success && res.data.user !== null) {
           console.log(res.data.user)
           this.setState({user: res.data.user})
+        } else {
+          Service.get('/api/business')
+            .then( res => {
+              if(res.data.success && res.data.business) {
+                console.log(res.data.business)
+                this.setState({business: res.data.business})
+              }
+            })
+            .catch( err => console.log('cannot render as business.'))
         }
       })
       .catch( err => console.log('Not logged in.'))
-    //call for business
-    // Service.get('/api/business')
-    //   .then( res => {
-    //     if(res.data.success) {
-    //       console.log(res.data.business)
-    //       this.setState({business: res.data.business})
-    //     }
-    //   })
-    //   .catch( err => console.log('business error.'))
+
 
   }
 

@@ -62,6 +62,7 @@ class LoginForm extends Component {
   handleLogin = (event) => {
     event.preventDefault()
     const { type } = this.state
+    console.log(this.state)
     if(type === 'user'){
     Service.post('/api/user/login', {
       email: this.state.email,
@@ -82,7 +83,6 @@ class LoginForm extends Component {
         .catch(err =>
           //add alert or modal here
           console.log(err))
-          //alert('Error Logging in. Please try again.')
     }
   }
 

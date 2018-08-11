@@ -26,7 +26,7 @@ class App extends Component {
     loggedIn: false,
   }
 
-  //start app lifecyle
+  //start app lifecyle -- CONFIRM USER/BUSINESS
   componentDidMount() {
     console.log('app cycle started')
     const token = Storage.getToken()
@@ -36,7 +36,7 @@ class App extends Component {
         .then(({data}) => {
           if(data.success) {
             this.setState({ loggedIn: true })
-            console.log('Logged in as a user.')
+            console.log('Logged in.')
           } else {
             //check for business
             Service.get('/api/business')

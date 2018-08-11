@@ -19,8 +19,8 @@ mongoose.connect(
 
 //bring in routes
 const apiRoutes = require('./routes/api')
-//Ben bringing this in 
-const campaignRoutes = require('./routes/campaigns')
+//Ben bringing this in
+//const campaignRoutes = require('./routes/campaigns')
 
 // Serve static files from the built React app
 app.use(express.static(path.join(__dirname, 'client/build')))
