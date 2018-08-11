@@ -46,23 +46,20 @@ class Dashboard extends Component {
     Service.get('/api/user')
       .then( res => {
         //on success, get user data
-        if(res.data.success && res.data.user !== null) {
-          console.log(res.data.user)
+        if(res.data.success && res.data.user.handle) {
+          console.log('find data', res.data.user)
           this.setState({user: res.data.user})
-        } else {
-          Service.get('/api/business')
-            .then( res => {
-              if(res.data.success && res.data.business) {
-                console.log(res.data.business)
-                this.setState({business: res.data.business})
-              }
-            })
-            .catch( err => console.log('cannot render as business.'))
         }
       })
-      .catch( err => console.log('Not logged in.'))
-
-
+      .catch( err => console.log('Not a user.'))
+    Service.get('/api/business')
+      .then( res => {
+        if(res.data.success && res.data.business) {
+          console.log('business data', res.data)
+          this.setState({business: res.data.business})
+        }
+      })
+      .catch( err => console.log('Not a business'))
   }
 
   //determine state from props - if not logged in, redirect to login page
@@ -76,7 +73,7 @@ class Dashboard extends Component {
   }
 
  render(){
-   const {user: {email, handle, about}} = this.state
+   const {user: {email, handle, about, name, industry}} = this.state
 
    return(
      <div>
@@ -96,16 +93,16 @@ class Dashboard extends Component {
           <List>
             <List.Item>
               <List.Icon name='building outline' />
-              <List.Content>Business Name</List.Content>
+              <List.Content>Business Name: {name}</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name='cogs' />
-              <List.Content>Industry</List.Content>
+              <List.Content>Industry {industry}</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name='mail' />
               <List.Content>
-                <a href='mailto:test@mail.com'>Email Address</a>
+                <a href='mailto:test@mail.com'>Email Address: {email}</a>
               </List.Content>
             </List.Item>
             <List.Item>
@@ -117,16 +114,16 @@ class Dashboard extends Component {
             <List.Item>
               <List.Icon name='twitter'/>
               <List.Content>
-                <a href='' target='_blank'>Handle</a>
+                <a href='' target='_blank'>Handle: {handle}</a>
               </List.Content>
             </List.Item>
             <List.Item>
                 <List.Icon name='users'/>
-                  <List.Content>About Section</List.Content>
+                  <List.Content>About Section {about}</List.Content>
             </List.Item>
           </List>
         <Header as='h4'>CAMPAIGN STATS</Header>
-        <Card.Group itemsPerRow={3}>
+        <Card.Group>
           <Card raised color='blue'
             header='Total Campaigns'
             meta='active and finished'

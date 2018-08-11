@@ -62,7 +62,6 @@ class LoginForm extends Component {
   handleLogin = (event) => {
     event.preventDefault()
     const { type } = this.state
-    console.log(this.state)
     if(type === 'user'){
     Service.post('/api/user/login', {
       email: this.state.email,
