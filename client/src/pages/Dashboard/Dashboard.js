@@ -38,15 +38,15 @@ class Dashboard extends Component {
   //state params
   state = {
     user: {},
-    business: {},
   }
   //component cycle
   componentDidMount() {
     Service.get('/api/business')
       .then( res => {
-        if(res.data.success && res.data.business.industry) {
+        if(res.data.success && res.data.name !== null) {
           console.log('find business data', res.data)
-          this.setState({business: res.data.business})
+          this.setState({user: res.data.business})
+          console.log(this.state)
         }
       })
       .catch( err => console.log('Not a business.'))
@@ -73,13 +73,13 @@ class Dashboard extends Component {
   }
 
  render(){
-   const {user: {email, handle, about, name, industry}} = this.state
+   //console.log(this.state)
 
    return(
      <div>
        <Segment style={headerStyle} raised>
          <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'3em', fontSize:'48px'}}>
-           Welcome, {email}
+           Welcome, {this.state.user.email}
            <p style={{fontSize: '20px'}}>Manage your account</p>
          </Header>
        </Segment>
@@ -93,16 +93,16 @@ class Dashboard extends Component {
           <List>
             <List.Item>
               <List.Icon name='building outline' />
-              <List.Content>Business Name: {name}</List.Content>
+              <List.Content>Business Name: {this.state.user.name}</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name='cogs' />
-              <List.Content>Industry {industry}</List.Content>
+              <List.Content>Industry {this.state.user.industry}</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name='mail' />
               <List.Content>
-                <a href='mailto:test@mail.com'>Email Address: {email}</a>
+                <a href='mailto:test@mail.com'>Email Address: {this.state.user.email}</a>
               </List.Content>
             </List.Item>
             <List.Item>
@@ -111,15 +111,17 @@ class Dashboard extends Component {
                 <a href='' target='_blank'>Website</a>
               </List.Content>
             </List.Item>
+            {this.state.user.handle &&
             <List.Item>
               <List.Icon name='twitter'/>
               <List.Content>
-                <a href='' target='_blank'>Handle: {handle}</a>
+                <a href='' target='_blank'>Handle: {this.state.user.handle}</a>
               </List.Content>
             </List.Item>
+            }
             <List.Item>
                 <List.Icon name='users'/>
-                  <List.Content>About Section {about}</List.Content>
+                  <List.Content>About Section {this.state.user.about}</List.Content>
             </List.Item>
           </List>
         <Header as='h4'>CAMPAIGN STATS</Header>

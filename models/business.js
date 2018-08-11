@@ -62,6 +62,9 @@ businessSchema.set('toJSON', {
       id: json._id,
       name: json.name,
       email: json.email,
+      about: json.about,
+      industry: json.industry,
+      campaigns: json.campaigns
     }
   }
 })
