@@ -1,17 +1,17 @@
 //standard dependencies
 import React, { Component } from 'react'
-//import logo
+//import images
 import Logo from '../../images/logo_transparent.png'
+//import Target from '../../images/target-ad.gif'
 //semantic components
-import { Container, Grid, Icon, Header, Segment, Image } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment, Image, Icon, Step, Button } from 'semantic-ui-react'
 //custom components
-import TopMenu from '../../components/Menu'
 import Footer from '../../components/Footer'
-import AdDisplay from '../../components/AdDisplay'
+//utils
+import Service from '../../utils/Service'
 
-
-//data this page needs to display:
-//map all ads created, put them in segments- include: ad title, ad creator, number available, ad body
+//this page needs to display:
+//map all campaigns created, put them in segments- include: Campaign creator, Campaign headline, copy, link,  start/end dates
 
 //styles
 const logoStyle = {
@@ -22,37 +22,74 @@ const headerStyle = {
   backgroundColor: '#065471'
 }
 
-
 //page component
 class Market extends Component {
+
+  //state
+  state = {
+    user: {}
+  }
+  //component cycle start
+  componentDidMount() {
+    Service.get('/api/user')
+      .then( res => {
+        if(res.data.success) {
+          console.log(res.data.user)
+          this.setState({user: res.data.user})
+        }
+      })
+      .catch( err => console.log('Not logged in.'))
+  }
+
+  //check state for loggedIn
+  static getStateFromProps(props) {
+    console.log('marketplace')
+    if(!props.loggedIn) {
+      props.history.push('/')
+    }
+    return null
+  }
 
  render(){
    return(
      <div>
        <Segment style={headerStyle}>
-         <TopMenu />
            <Image src={Logo} style={logoStyle} fluid centered />
            <Header as='h2' inverted color='grey' textAlign='center'>
-             Browse open Ads on the Market
+             Browse Campaigns on the Market
            </Header>
         </Segment>
      <br/>
      <Container style={{marginTop:'1em', marginBottom: '1em'}} >
+       <Header textAlign='center'>OPEN CAMPAIGNS</Header>
      <Grid>
-       <Grid.Column mobile={16} tablet={8} computer={8}>
-        <AdDisplay></AdDisplay>
+       <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8'}}>
+         <Segment color='yellow'> {/* this is the component to map over for all campaigns*/}
+           <Header as='h4'>Campaign Headline</Header>
+           <Header as='h5' block>Campaign copy: </Header>
+           <Header as='h6'> <Icon name='linkify'/><Header.Content>Url link: </Header.Content></Header>
+             <Step.Group stackable='tablet' size='mini'>
+                <Step>
+                  <Icon name='calendar check outline' color='green'/>
+                  <Step.Content>
+                    <Step.Title>Start Date</Step.Title>
+                    <Step.Description>Date</Step.Description>
+                  </Step.Content>
+                </Step>
+                <Step>
+                  <Icon name='calendar minus outline' color='red'/>
+                  <Step.Content>
+                    <Step.Title>End Date</Step.Title>
+                    <Step.Description>Date</Step.Description>
+                  </Step.Content>
+                </Step>
+              </Step.Group>
+           <Button floated='right' icon='check' content='Join Campaign' labelPosition='right'></Button>
+         </Segment>
         </Grid.Column>
-        <Grid.Column mobile={16} tablet={8} computer={8}>
-          <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-        </Grid.Column>
-        <Grid.Column mobile={16} tablet={8} computer={8}>
-          <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-        </Grid.Column>
-        <Grid.Column mobile={16} tablet={8} computer={8}>
-          <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-        </Grid.Column>
-
      </Grid>
+     <br/>
+     {/*<Image src={Target} style={logoStyle} fluid centered />*/}
      </Container>
    <br />
      <Footer />

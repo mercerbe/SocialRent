@@ -1,5 +1,5 @@
 //standard dependencies
-import React, { Component } from 'react'
+import React from 'react'
 //semanitc compononents
 import { Container, Segment, Header, Grid, Image, Button, Divider } from 'semantic-ui-react'
 //custom components
@@ -10,13 +10,10 @@ import MarketingImage from '../../images/social-marketing.png'
 import WideImage from '../../images/wide-marketing.png'
 
 
-//page export
-class Home extends Component {
-  render() {
-    return(
+//export functional component for props
+export const Home = (props) => (
       <div>
-      <PageHeader />
-
+      <PageHeader/>
       <Segment style={{ padding: '8em 0em', border: 'none' }} vertical>
         <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
@@ -41,7 +38,7 @@ class Home extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign='center'>
-              <Button size='huge' color='black'>See Who's Here</Button>
+              <Button size='huge' color='black' href='#next_h3'>More</Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -49,7 +46,7 @@ class Home extends Component {
 
       <Segment style={{ padding: '8em 0em' }} vertical>
         <Container text textAlign='center'>
-          <Header as='h3' style={{ fontSize: '2em' }}>
+          <Header as='h3' style={{ fontSize: '2em' }} id='next_h3'>
             What is Social Rent?
           </Header>
           <p style={{ fontSize: '1.33em' }}>
@@ -77,7 +74,7 @@ class Home extends Component {
             by the companies and products they support. That being said, it's a two-way street: companies get to work with
             the people who support thier products and pay them to promote the products they support. Call to action here --
           </p>
-          <Button size='huge' color='black'> Get Started </Button>
+          <Button size='huge' color='black' href='/login'> Get Started </Button>
         </Container>
       </Segment>
 
@@ -85,7 +82,3 @@ class Home extends Component {
       <Footer />
       </div>
     )
-  }
-}
-
-export default Home
