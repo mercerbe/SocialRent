@@ -19,7 +19,7 @@ module.exports = {
   },
   //find business
   findById: (req, res, next) => {
-    Business.findById(req.business.id)
+    Business.findById(req.user.id)
       .then(business => res.json({ business, success: true, message: 'Business Found' }))
       .catch(err => next(err))
   }

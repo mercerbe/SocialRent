@@ -34,10 +34,11 @@ class App extends Component {
       //check for user
       Service.get('/api/user')
         .then(({data}) => {
-          if(data.success) {
+          if(data.success && data.user !== null) {
             this.setState({ loggedIn: true })
-            console.log('Logged in.')
-          } else {
+            console.log('Logged in.', data)
+          }
+          else {
             //check for business
             Service.get('/api/business')
               .then(({data}) => {

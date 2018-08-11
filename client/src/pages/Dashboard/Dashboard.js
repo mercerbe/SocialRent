@@ -42,24 +42,24 @@ class Dashboard extends Component {
   }
   //component cycle
   componentDidMount() {
-    //call for user
-    Service.get('/api/user')
+    Service.get('/api/business')
+      .then( res => {
+        if(res.data.success && res.data.business.industry) {
+          console.log('find business data', res.data)
+          this.setState({business: res.data.business})
+        }
+      })
+      .catch( err => console.log('Not a business.'))
+      .then(Service.get('/api/user'))
       .then( res => {
         //on success, get user data
         if(res.data.success && res.data.user.handle) {
-          console.log('find data', res.data.user)
+          console.log('find user data', res.data.user)
           this.setState({user: res.data.user})
         }
       })
       .catch( err => console.log('Not a user.'))
-    Service.get('/api/business')
-      .then( res => {
-        if(res.data.success && res.data.business.industry) {
-          console.log('business data', res.data)
-          this.setState({business: res.data.business})
-        }
-      })
-      .catch( err => console.log('Not a business'))
+
   }
 
   //determine state from props - if not logged in, redirect to login page
