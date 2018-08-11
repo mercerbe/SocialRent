@@ -24,7 +24,7 @@ const data = [
 //data that needs to be on this page:
 //show taken and open ads
 //display username
-//display paypal/payment option--modal popup for success/fail transaction or route to paypal
+//display paypal/payment button -- sandbox to paypal dev
 //display number of ads created/taken
 
 //style header
@@ -38,32 +38,43 @@ class Dashboard extends Component {
   //state params
   state = {
     user: {},
-    business: {}
+    business: {},
   }
   //component cycle
-  componentDidMount(props) {
+  componentDidMount() {
+    //call for user
     Service.get('/api/user')
       .then( res => {
         //on success, get user data
-        if(res.data.success) {
-          console.log(res.data.user)
+        if(res.data.success && res.data.user.handle) {
+          console.log('find data', res.data.user)
           this.setState({user: res.data.user})
         }
       })
-      .catch( err => console.log('Not logged in.'))
+      .catch( err => console.log('Not a user.'))
+    Service.get('/api/business')
+      .then( res => {
+        if(res.data.success && res.data.business.industry) {
+          console.log('business data', res.data)
+          this.setState({business: res.data.business})
+        }
+      })
+      .catch( err => console.log('Not a business'))
   }
 
-  //determine state from props
-  static getStateFromProps(props) {
-    console.log('dashboard cycle')
+  //determine state from props - if not logged in, redirect to login page
+  static getDerivedStateFromProps(props) {
+    console.log('dashboard cycle', props)
     if(!props.loggedIn) {
       props.history.push('/login')
+      console.log('please login to view your dashboard.')
     }
     return null
   }
 
  render(){
-   const { user: {email} } = this.state
+   const {user: {email, handle, about, name, industry}} = this.state
+
    return(
      <div>
        <Segment style={headerStyle} raised>
@@ -82,16 +93,16 @@ class Dashboard extends Component {
           <List>
             <List.Item>
               <List.Icon name='building outline' />
-              <List.Content>Business Name</List.Content>
+              <List.Content>Business Name: {name}</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name='cogs' />
-              <List.Content>Industry</List.Content>
+              <List.Content>Industry {industry}</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name='mail' />
               <List.Content>
-                <a href='mailto:test@mail.com'>Email Address</a>
+                <a href='mailto:test@mail.com'>Email Address: {email}</a>
               </List.Content>
             </List.Item>
             <List.Item>
@@ -103,16 +114,16 @@ class Dashboard extends Component {
             <List.Item>
               <List.Icon name='twitter'/>
               <List.Content>
-                <a href='' target='_blank'>Handle</a>
+                <a href='' target='_blank'>Handle: {handle}</a>
               </List.Content>
             </List.Item>
             <List.Item>
                 <List.Icon name='users'/>
-                  <List.Content>About Section</List.Content>
+                  <List.Content>About Section {about}</List.Content>
             </List.Item>
           </List>
         <Header as='h4'>CAMPAIGN STATS</Header>
-        <Card.Group itemsPerRow={3}>
+        <Card.Group>
           <Card raised color='blue'
             header='Total Campaigns'
             meta='active and finished'
