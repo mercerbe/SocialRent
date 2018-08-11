@@ -54,7 +54,7 @@ class Dashboard extends Component {
       .catch( err => console.log('Not a user.'))
     Service.get('/api/business')
       .then( res => {
-        if(res.data.success && res.data.business) {
+        if(res.data.success && res.data.business.industry) {
           console.log('business data', res.data)
           this.setState({business: res.data.business})
         }

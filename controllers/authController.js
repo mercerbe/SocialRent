@@ -53,13 +53,13 @@ module.exports = {
   businesslogin: (req, res) => {
     const { email, password } = req.body
     Business.findOne({ email })
-      .then((user) => {
-        console.log(user);
-        startUserAuthenticationFlow(user, password, (err, authenticated) => {
+      .then((business) => {
+        console.log(business)
+        startUserAuthenticationFlow(business, password, (err, authenticated) => {
           if (err || !authenticated) {
             return res.status(403).json({ message: 'Authentication failed' })
           }
-          const token = jwtUtils.createToken(user)
+          const token = jwtUtils.createToken(business)
 
           res.json({ success: true, message: 'Successfully logged in!', token })
         });

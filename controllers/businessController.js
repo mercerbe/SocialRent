@@ -13,7 +13,7 @@ module.exports = {
     })
       .then((business) => {
         console.log(business)
-        res.json({ status: 200, message: 'User created!', business: business });
+        res.json({ status: 200, message: 'Business created!', business: business });
       })
       .catch(err => next(err))
   },
