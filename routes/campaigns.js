@@ -1,10 +1,9 @@
 const router = require('express').Router()
-const campaignController = require('../../controllers/campaignController')
+const campaignController = require('../controllers/campaignController')
 
-// Matches with "/api/campaigns"
 // Find all campaigns
 // Business creates a campaign
-router.route('/')
+router.route('/campaign')
   .get(campaignController.findAll)
   .post(campaignController.create)
 

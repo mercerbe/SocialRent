@@ -23,48 +23,49 @@ const industryOptions = [
 
 //signup form component
 class LoginForm extends Component {
+
   //state
   state = {
-    type: '',
     email: '',
     password: '',
     passwordCheck: '',
     handle: '',
     name: '',
-    industry: '',
     about: '',
+    type: '',
+    industry: '',
     createAccount: false
   }
 
-  //handle state and submit-- add usertype, industry, about
+  //update state
   toggleLogin = () => this.setState({createAccount: !this.state.createAccount})
-  updateType = (event, {value}) => {
+  updateType = (e, {value}) => {
     this.setState({value})
+    console.log('typestate: ', {value})
     this.setState({type: value})
-    console.log('state: ', {value})
-    console.log(this.state.type)
   }
   updatePassword = (event) => this.setState({password: event.target.value})
   updateEmail = (event) => this.setState({email: event.target.value})
   updateHandle = (event) => this.setState({handle: event.target.value})
   updateName = (event) => this.setState({name: event.target.value})
   updateIndustry = (event, {value}) => {
-    event.persist()
     this.setState({value})
+    console.log('industrystate: ', {value})
     this.setState({industry: value})
-    console.log('state: ', {value})
     console.log(this.state.industry)
+    console.log(this.state.type)
   }
   updatePasswordCheck = (event) => this.setState({passwordCheck: event.target.value})
   updateAbout = (event) => this.setState({about: event.target.value})
 
-  //methods to check all signup params
+  //==============methods to check all signup and login params==============//
 
   //login
   handleLogin = (event) => {
     event.preventDefault()
-
-    Service.post('/api/login', {
+    const { type } = this.state
+    if(type === 'user'){
+    Service.post('/api/user/login', {
       email: this.state.email,
       password: this.state.password
     })
@@ -73,6 +74,17 @@ class LoginForm extends Component {
         //add alert or modal here
         console.log(err))
         //alert('Error Logging in. Please try again.')
+      }
+    if(type === 'business'){
+      Service.post('/api/business/login', {
+        email: this.state.email,
+        password: this.state.password
+      })
+        .then(this.props.login)
+        .catch(err =>
+          //add alert or modal here
+          console.log(err))
+    }
   }
 
   //signup
@@ -80,9 +92,10 @@ class LoginForm extends Component {
     event.preventDefault()
 
     const { type, name, industry, about, handle, email, password, passwordCheck } = this.state
-    if(handle && email && password && about !== '' && password === passwordCheck) {
-    console.log('signup', this.state)
-      Service.post('/api/register',{
+    //post to user
+    if(handle && email && password && about !== '' && password === passwordCheck && type === 'user') {
+    console.log('signup user', this.state)
+      Service.post('/api/user/register',{
         handle: this.state.handle,
         email: this.state.email,
         password: this.state.password,
@@ -91,20 +104,39 @@ class LoginForm extends Component {
       .then(({data}) => {
         console.log({data});
         if(data.status === 200) {
-          this.setState({ handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false })
+          this.setState({ type: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false })
         }
       })
       .catch( err =>
         //add alert here or modal
         console.log('Registration failed. Please try again.'))
-    } else {
-      alert('Please fill in all the fields')
+    }
+    //post to business
+    if(name && email && password && about && industry !== '' && password === passwordCheck && type === 'business') {
+    console.log('signup business', this.state)
+      Service.post('/api/business/register',{
+        name: this.state.name,
+        industry: this.state.industry,
+        email: this.state.email,
+        password: this.state.password,
+        about: this.state.about
+      })
+      .then(({data}) => {
+        console.log({data});
+        if(data.status === 200) {
+          this.setState({ type: '', industry: '', name: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false })
+        }
+      })
+      .catch( err =>
+        //add alert here or modal
+        console.log('Registration failed. Please try again.'))
     }
   }
+//==============================================================================//
 
   render() {
     const noPassMatch = this.state.passwordCheck !== '' && this.state.passwordCheck !== this.state.password
-    const {value} = this.state
+    const { value } = this.state
     return(
       <div>
 
@@ -122,18 +154,19 @@ class LoginForm extends Component {
             }
 
       <Form action=''>
-        {this.state.createAccount &&
+
         <Form.Field
           id='userType'
           control={Select}
           label='Are you a business or user?'
           placeholder='Select One'
           options={userOptions}
+          selection
           name='type'
           value={value}
           onChange={this.updateType}
         />
-        }
+
         <Form.Group widths='equal'>
 
           <Form.Field
@@ -182,6 +215,7 @@ class LoginForm extends Component {
           placeholder='Select One'
           label='Industry'
           options={industryOptions}
+          selection
           value={value}
           onChange={this.updateIndustry}
         />
