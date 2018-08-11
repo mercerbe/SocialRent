@@ -23,7 +23,7 @@ class CreateCampaignForm extends Component{
     endDate: '',
     bodyCopy: '',
   }
-  //update form state
+  //update form state -- add these as onChange of form attr.
   updateHeadline = (event) =>  this.setState({headline: event.target.value})
   updateLink = (event) => this.setState({campaignLink: event.target.value})
   updateBodyCopy = (event) => this.setState({bodyCopy: event.target.value})
@@ -36,16 +36,19 @@ class CreateCampaignForm extends Component{
   handleFormState = (event) => {
     event.preventDefault()
     const { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
-    //continue post from here to route
+    //continue post from here to route -- confirm this route is correct
     Service.post('/api/campaign', {
+      //confirm camgaign post is tied to business that posts
       headline: this.state.headline,
       url: this.state.campaignLink,
-      bodyCopy: '',
-      startDate: '',
-      endDate: ''
+      copy: this.state.bodyCopy,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate
     })
-      .then()
-      .catch()
+      .then(({data}) => {
+
+      })
+      .catch(err => console.log(err, 'campaign post error.'))
   }
 
 
