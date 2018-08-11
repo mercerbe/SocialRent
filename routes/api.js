@@ -39,10 +39,9 @@ router.route('/business/login')
 router.route('/logout')
   .get(AuthController.businesslogout)
 
-// ----- routes protected by jwt below here ----- //
+// ----- routes protected by jwt below here ----- // -- this is where it's failing...
 function handleAuthFailure(err, req, res, next) {
   res.status(403).json({ success: false, message: 'Authentication failed' })
-  console.log('Authentication Failure.')
 }
 
 router.route('/dashboard')
