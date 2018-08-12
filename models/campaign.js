@@ -22,7 +22,7 @@ const campaignSchema = new Schema({
     default: Date.now,
     validate: {
       validator: function(v) {
-      return v >= Date.now
+        return v >= Date.now()
       },
       message: "Your campaign cannot start in the past."
     }
