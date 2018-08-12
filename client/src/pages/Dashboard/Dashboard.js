@@ -41,25 +41,27 @@ class Dashboard extends Component {
   }
   //component cycle
   componentDidMount() {
+    //check for business
     Service.get('/api/business')
       .then( res => {
-        if(res.data.success && res.data.name !== null) {
+        if(res.data.success && res.data.business !== null) {
           console.log('find business data', res.data)
           this.setState({user: res.data.business})
           console.log(this.state)
+        } else {
+          //check for user
+          Service.get('/api/user')
+            .then(res => {
+              if(res.data.success && data.user !== null) {
+                console.log('find user data', res.data)
+                this.setState({user: res.data.user})
+                console.log(this.state)
+              }
+            })
+            .catch( err => console.log('not a user.'))
         }
       })
       .catch( err => console.log('Not a business.'))
-      .then(Service.get('/api/user'))
-      .then( res => {
-        //on success, get user data
-        if(res.data.success && res.data.user.handle) {
-          console.log('find user data', res.data.user)
-          this.setState({user: res.data.user})
-        }
-      })
-      .catch( err => console.log('Not a user.'))
-
   }
 
   //determine state from props - if not logged in, redirect to login page
@@ -91,37 +93,44 @@ class Dashboard extends Component {
          <CreateCampaignForm />
          <Header as='h4'>PROFILE</Header>
           <List>
+            {this.state.user.name &&
             <List.Item>
               <List.Icon name='building outline' />
-              <List.Content>Business Name: {this.state.user.name}</List.Content>
+              <List.Content>Business:  {this.state.user.name}</List.Content>
             </List.Item>
+            }
+            {this.state.user.industry &&
             <List.Item>
               <List.Icon name='cogs' />
-              <List.Content>Industry {this.state.user.industry}</List.Content>
+              <List.Content>Industry:  {this.state.user.industry}</List.Content>
             </List.Item>
+            }
             <List.Item>
               <List.Icon name='mail' />
               <List.Content>
-                <a href='mailto:test@mail.com'>Email Address: {this.state.user.email}</a>
+                <a href='mailto:{this.state.user.email}'> {this.state.user.email}</a>
               </List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name='linkify' />
               <List.Content>
-                <a href='' target='_blank'>Website</a>
+                <a href='' target='_blank'>Website: </a>
               </List.Content>
             </List.Item>
             {this.state.user.handle &&
             <List.Item>
               <List.Icon name='twitter'/>
               <List.Content>
-                <a href='' target='_blank'>Handle: {this.state.user.handle}</a>
+                <a href='https://twitter.com/{this.state.user.handle}' target='_blank'>
+                  {this.state.user.handle}</a>
               </List.Content>
             </List.Item>
             }
             <List.Item>
                 <List.Icon name='users'/>
-                  <List.Content>About Section {this.state.user.about}</List.Content>
+                  <List.Content>
+                    About:  {this.state.user.about}
+                  </List.Content>
             </List.Item>
           </List>
         <Header as='h4'>CAMPAIGN STATS</Header>
