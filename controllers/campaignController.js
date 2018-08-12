@@ -1,4 +1,4 @@
-const Campaign = require('../models');
+const Campaign = require('../models/campaign');
 
 // CRUD methods for campaignController
 module.exports = {

@@ -1,4 +1,5 @@
 const Ad = require('../models/ad')
+const Campaign = require('../models/campaign')
 
 // Defining CRUD methods for the adsController
 module.exports = {
@@ -22,6 +23,41 @@ module.exports = {
       .then(ad => res.json(ad))
       .catch(err => res.status(422).json(err))
   },
+  // User creates an ad
+  snatch: function(req, res) {
+    const { userId, campaignId } = req.body
+    Campaign.findOneAndUpdate( {_id: campaignId}, { $push: { users: userId }}, { new: true} )
+    .then((dbCamp) => {
+      const { campaignId, headline, copy, srcUrl = url, startDate, endDate } = dbCamp
+      Ad.create({
+        campaignId,
+        copy,
+        startDate,
+        endDate,
+        srcUrl
+      })
+      .then((dbAd) => {
+        User.findOneAndUpdate({  _id: req.params.id }, { $push: { ads: dbAd._id }}, { new: true })
+        Campaign.findOneAndUpdate({ _id: campaignId }, { $push: { users: userId }}, { new: true })
+      }).catch(err => res.status(422).json(err))
+    })
+  },
+  // snatch: (req, res, next) => {
+  //   let userId = req.params.UserId
+  //   const { campaignId , headline, copy, srcUrl = url, startDate, endDate } = req.body
+  //   console.log(req.body)
+  //   Ad.create({
+  //     campaignId,
+  //     copy,
+  //     startDate,
+  //     endDate,
+  //     srcUrl
+  //   })
+  //     .then((dbAd) => {
+  //       User.findOneAndUpdate({  _id: req.params.id }, { $push: { ads: dbAd._id }}, { new: true })
+  //       Campaign.findOneAndUpdate({ _id: campaignId }, { $push: { users: userId }}, { new: true })
+  //     }).catch(err => res.status(422).json(err))
+  // },
   // Update an ad
   update: function(req, res) {
     Ad.findOneAndUpdate({ _id: req.params.id }, req.body)
