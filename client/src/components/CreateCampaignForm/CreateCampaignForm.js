@@ -22,6 +22,7 @@ class CreateCampaignForm extends Component{
     startDate: '',
     endDate: '',
     bodyCopy: '',
+    modalOpen: false
   }
   //update form state -- add these as onChange of form attr.
   updateHeadline = (event) =>  this.setState({headline: event.target.value})
@@ -46,11 +47,12 @@ class CreateCampaignForm extends Component{
       endDate: this.state.endDate
     })
       .then(({data}) => {
-
+        console.log({data})
       })
       .catch(err => console.log(err, 'campaign post error.'))
   }
-
+//close the modal
+handleClose = () => this.setState({ modalOpen: false })
 
   render() {
     return(
@@ -67,20 +69,28 @@ class CreateCampaignForm extends Component{
               control={Input}
               label='Headline'
               placeholder='This is our product!'
+              value={this.state.headline}
+              onChange={this.updateHeadline}
             />
             <Form.Field
               id='campaignLink'
               control={Input}
               label='Campaign Link'
               placeholder='Link to your product'
+              value={this.state.campaignLink}
+              onChange={this.updateLink}
             />
           </Form.Group>
           <Form.Group widths='equal'>
           <Form.Field>
           <p style={{fontWeight: '600'}}>Start Date</p><DateSelect />
+          <a value={this.state.startDate}
+          onChange={this.updateStartDate}/>
           </Form.Field>
           <Form.Field>
-          <p style={{fontWeight: '600'}}>End Date</p><DateSelect />
+          <p style={{fontWeight: '600'}}>End Date</p>
+          <a value={this.state.endDate}
+          onChange={this.updateEndDate}/><DateSelect />
           </Form.Field>
           </Form.Group>
           <Form.Field
@@ -88,6 +98,8 @@ class CreateCampaignForm extends Component{
             control={TextArea}
             label='Advertisement Body'
             placeholder='place the exact content you would like your campaign contributors to tweet here...'
+            value={this.state.bodyCopy}
+            onChange={this.updateBodyCopy}          
           />
           <Form.Field
             style={buttonStyle}

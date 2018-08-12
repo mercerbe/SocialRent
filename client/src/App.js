@@ -44,7 +44,7 @@ class App extends Component {
               .then(({data}) => {
                 if(data.success) {
                   this.setState({ loggedIn: true })
-                  console.log('Logged in as a business.')
+                  console.log('Logged in as a business.', data)
                 }
               })
               .catch( err => console.log('Login failed, please try again.'))
