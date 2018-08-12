@@ -114,14 +114,14 @@ class Dashboard extends Component {
             <List.Item>
               <List.Icon name='linkify' />
               <List.Content>
-                <a href='' target='_blank'>Website: </a>
+                <a href='' target='_blank' rel="noopener noreferrer">Website: </a>
               </List.Content>
             </List.Item>
             {this.state.user.handle &&
             <List.Item>
               <List.Icon name='twitter'/>
               <List.Content>
-                <a href='https://twitter.com/{this.state.user.handle}' target='_blank'>
+                <a href='https://twitter.com/{this.state.user.handle}' target='_blank' rel="noopener noreferrer">
                   {this.state.user.handle}</a>
               </List.Content>
             </List.Item>
