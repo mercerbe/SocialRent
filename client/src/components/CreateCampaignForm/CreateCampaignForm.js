@@ -25,6 +25,7 @@ class CreateCampaignForm extends Component{
     startDate: moment(),
     endDate: moment(),
     bodyCopy: '',
+    modalOpen: false
   }
 
   //update form state -- add these as onChange of form attr.
@@ -35,11 +36,13 @@ class CreateCampaignForm extends Component{
   updateStartDate = (date) => this.setState({startDate: date})
   updateEndDate = (date) => this.setState({endDate: date})
   //==============================================================//
+  closeModal = () => {
+    this.setState({ showModal: false })
+  }
 
   //handleSubmitandCreate
   handleFormState = (event) => {
     event.preventDefault()
-    console.log(this.state)
     const { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
     if(headline && campaignLink && startDate && endDate && bodyCopy !== '') {
     //continue post from here to route -- confirm this route is correct
@@ -53,9 +56,12 @@ class CreateCampaignForm extends Component{
     })
       .then(({data}) => {
         console.log({data})
-        this.setState({headline: '', campaignLink: '', startDate: '', endDate: '', bodyCopy: ''})
+        this.setState({headline: '', campaignLink: '', startDate: moment(), endDate: moment(), bodyCopy: ''})
+        this.closeModal()
       })
       .catch(err => console.log(err, 'campaign post error.'))
+  } else {
+    alert('Campaign not created. Please fill out all fields to create a campaign.')
   }
 }
 
