@@ -27,15 +27,15 @@ class Market extends Component {
 
   //state
   state = {
-    user: {}
+    campaign: {}
   }
   //component cycle start
   componentDidMount() {
-    Service.get('/api/user')
+    Service.get('/campaign')
       .then( res => {
-        if(res.data.success) {
-          console.log(res.data.user)
-          this.setState({user: res.data.user})
+        if(res.data.success && res.data.business.name) {
+          console.log(res.data.business)
+          this.setState({campaign: res.data.business})
         }
       })
       .catch( err => console.log('Not logged in.'))
@@ -43,10 +43,9 @@ class Market extends Component {
 
   //determine state from props
   static getDerivedStateFromProps(props) {
-    console.log('market cycle')
     if(!props.loggedIn) {
       props.history.push('/login')
-      console.log('login to continue to the marketplace.')
+      console.log('please log in to continue to the market.')
     }
     return null
   }
