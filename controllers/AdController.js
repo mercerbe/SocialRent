@@ -31,7 +31,7 @@ module.exports = {
         startDate,
         endDate,
         url,
-        mRoute
+        route
       })
       .then((dbAd) => {
         User.findOneAndUpdate({  _id: userId }, { $push: { ads: dbAd._id }}, { new: true }).then(updatedUser => {
