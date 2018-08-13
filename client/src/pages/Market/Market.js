@@ -33,9 +33,10 @@ class Market extends Component {
   componentDidMount() {
     Service.get('/campaign')
       .then( res => {
-        if(res.data.success && res.data.business.name) {
-          console.log(res.data.business)
-          this.setState({campaign: res.data.business})
+          console.log('all campaigns', res)
+        if(res.data) {
+          this.setState({campaign: res.data})
+          console.log(this.state)
         }
       })
       .catch( err => console.log('Not logged in.'))
