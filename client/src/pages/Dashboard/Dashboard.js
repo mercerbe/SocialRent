@@ -42,17 +42,15 @@ class Dashboard extends Component {
     Service.get('/api/business')
       .then( res => {
         if(res.data.success && res.data.business !== null) {
-          console.log('find business data', res.data)
           this.setState({user: res.data.business})
-          console.log(this.state)
+          console.log('Public business json data: ', this.state)
         } else {
           //check for user
           Service.get('/api/user')
             .then(res => {
               if(res.data.success && data.user !== null) {
-                console.log('find user data', res.data)
                 this.setState({user: res.data.user})
-                console.log(this.state)
+                console.log('Public user json data: ', this.state)
               }
             })
             .catch( err => console.log('not a user.'))
@@ -63,10 +61,8 @@ class Dashboard extends Component {
 
   //determine state from props - if not logged in, redirect to login page
   static getDerivedStateFromProps(props) {
-    console.log('dashboard cycle', props)
     if(!props.loggedIn) {
       props.history.push('/login')
-      console.log('please login to view your dashboard.')
     }
     return null
   }

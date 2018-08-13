@@ -28,7 +28,7 @@ class App extends Component {
 
   //start app lifecyle -- CONFIRM USER/BUSINESS
   componentDidMount() {
-    console.log('app cycle started')
+    console.log('Application cycle initiated.')
     const token = Storage.getToken()
     if (token) {
       //check for user
