@@ -15,7 +15,7 @@ const AdSchema = new Schema({
     type: String,
     required: true
   },
-  route: {
+  mRoute: {
     type: String,
     required: true
   },
