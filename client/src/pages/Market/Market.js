@@ -27,19 +27,18 @@ class Market extends Component {
 
   //state
   state = {
-    campaign: {}
+    campaigns: [],
   }
   //component cycle start
   componentDidMount() {
     Service.get('/campaign')
       .then( res => {
-          console.log('all campaigns', res)
         if(res.data) {
-          this.setState({campaign: res.data})
-          console.log(this.state)
+          this.setState({campaigns: res.data})
+          console.log('all campaigns', this.state.campaigns)
         }
       })
-      .catch( err => console.log('Not logged in.'))
+      .catch( err => console.log('No campaigns.'))
   }
 
   //determine state from props
@@ -65,28 +64,30 @@ class Market extends Component {
        <Header textAlign='center'>OPEN CAMPAIGNS</Header>
      <Grid>
        <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8'}}>
+        {this.state.campaigns.map(campaign =>(
          <Segment color='yellow'> {/* this is the component to map over for all campaigns*/}
-           <Header as='h4'>Campaign Headline</Header>
-           <Header as='h5' block>Campaign copy: </Header>
-           <Header as='h6'> <Icon name='linkify'/><Header.Content>Url link: </Header.Content></Header>
+           <Header as='h3'>{campaign.headline}</Header>
+           <Header as='h5' block>{campaign.copy}</Header>
+           <Header as='h5'> <Icon name='linkify'/><Header.Content>{campaign.url}</Header.Content></Header>
              <Step.Group stackable='tablet' size='mini'>
                 <Step>
                   <Icon name='calendar check outline' color='green'/>
                   <Step.Content>
                     <Step.Title>Start Date</Step.Title>
-                    <Step.Description>Date</Step.Description>
+                    <Step.Description>{campaign.startDate}</Step.Description>
                   </Step.Content>
                 </Step>
                 <Step>
                   <Icon name='calendar minus outline' color='red'/>
                   <Step.Content>
                     <Step.Title>End Date</Step.Title>
-                    <Step.Description>Date</Step.Description>
+                    <Step.Description>{campaign.endDate}</Step.Description>
                   </Step.Content>
                 </Step>
               </Step.Group>
            <Button floated='right' icon='check' content='Join Campaign' labelPosition='right'></Button>
          </Segment>
+        ))}
         </Grid.Column>
      </Grid>
      <br/>
