@@ -25,7 +25,7 @@ class CreateCampaignForm extends Component{
     startDate: moment(),
     endDate: moment(),
     bodyCopy: '',
-    showModal: false
+    showModal: false,
   }
 
   //update form state -- add these as onChange of form attr.
@@ -44,6 +44,7 @@ class CreateCampaignForm extends Component{
   handleFormState = (event) => {
     event.preventDefault()
     const { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
+    console.log(this.state)
     if(headline && campaignLink && startDate && endDate && bodyCopy !== '') {
     //continue post from here to route -- confirm this route is correct
     Service.post('/campaign', {
@@ -52,7 +53,8 @@ class CreateCampaignForm extends Component{
       url: this.state.campaignLink,
       copy: this.state.bodyCopy,
       startDate: this.state.startDate,
-      endDate: this.state.endDate
+      endDate: this.state.endDate,
+      businessId: this.props.businessId
     })
       .then(({data}) => {
         console.log({data})

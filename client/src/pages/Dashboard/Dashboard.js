@@ -85,7 +85,7 @@ class Dashboard extends Component {
          <Header as='h4'>CREATE A CAMPAIGN</Header>
          }
          {this.state.user.name &&
-         <CreateCampaignForm />
+         <CreateCampaignForm loggedIn={this.state.loggedIn} businessId={this.state.user.id}/>
          }
          <Header as='h4'>PROFILE</Header>
           <List>
