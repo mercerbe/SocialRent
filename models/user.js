@@ -60,7 +60,8 @@ UserSchema.set('toJSON', {
       id: json._id,
       handle: json.handle,
       email: json.email,
-      about: json.about
+      about: json.about,
+      ads: json.ads
     }
   }
 })

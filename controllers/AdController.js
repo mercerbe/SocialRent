@@ -1,5 +1,6 @@
 const Ad = require('../models/ad')
 const Campaign = require('../models/campaign')
+const User = require('../models/user')
 
 // Defining CRUD methods for the adsController
 module.exports = {
@@ -17,47 +18,36 @@ module.exports = {
     .then(ad => res.json(ad))
     .catch(err => res.status(422).json(err))
   },
-  // Business creates an ad
-  create: function(req, res) {
-    Ad.create(req.body)
-      .then(ad => res.json(ad))
-      .catch(err => res.status(422).json(err))
-  },
-  // User creates an ad
+  // User agrees to a campaign and an ad
   snatch: function(req, res) {
     const { userId, campaignId } = req.body
     Campaign.findOneAndUpdate( {_id: campaignId}, { $push: { users: userId }}, { new: true} )
     .then((dbCamp) => {
-      const { campaignId, headline, copy, srcUrl = url, startDate, endDate } = dbCamp
+      const { _id, headline, copy, url, startDate, endDate } = dbCamp
+      let route = "route goes here"
       Ad.create({
-        campaignId,
+        campaignId: _id,
         copy,
         startDate,
         endDate,
-        srcUrl
+        url,
+        route
       })
       .then((dbAd) => {
-        User.findOneAndUpdate({  _id: req.params.id }, { $push: { ads: dbAd._id }}, { new: true })
-        Campaign.findOneAndUpdate({ _id: campaignId }, { $push: { users: userId }}, { new: true })
+        User.findOneAndUpdate({  _id: userId }, { $push: { ads: dbAd._id }}, { new: true }).then(updatedUser => {
+          res.json(updatedUser)
+        })
       }).catch(err => res.status(422).json(err))
     })
   },
-  // snatch: (req, res, next) => {
-  //   let userId = req.params.UserId
-  //   const { campaignId , headline, copy, srcUrl = url, startDate, endDate } = req.body
-  //   console.log(req.body)
-  //   Ad.create({
-  //     campaignId,
-  //     copy,
-  //     startDate,
-  //     endDate,
-  //     srcUrl
-  //   })
-  //     .then((dbAd) => {
-  //       User.findOneAndUpdate({  _id: req.params.id }, { $push: { ads: dbAd._id }}, { new: true })
-  //       Campaign.findOneAndUpdate({ _id: campaignId }, { $push: { users: userId }}, { new: true })
-  //     }).catch(err => res.status(422).json(err))
-  // },
+  // mRoute will find the ad with that mRoute,
+  // add 1 to the clicks, then redirects the browser to the url for the same ad
+  mRoute: function(req, res) {
+    Ad.findOneAndUpdate( { _id: req.params.id }, req.body.mRoute) // Not sure if this how to reference mRoute properly
+      .then(ad => ad.clicks += 1) // update clicks for ad
+      .then(ad => res.redirect('ads/:mRoute')) // then redirect
+      .catch(err => res.status(422).json(err))
+  },
   // Update an ad
   update: function(req, res) {
     Ad.findOneAndUpdate({ _id: req.params.id }, req.body)

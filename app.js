@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 //set express to use imported routes
 app.use('/api', apiRoutes)
-app.use(campaignRoutes)
+app.use('/campaign', campaignRoutes)
 app.use(adRoutes)
 
 // The "catchall" handler: for any request that doesn't

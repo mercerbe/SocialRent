@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Header, Icon, Modal, Form, Input, TextArea } from 'semantic-ui-react'
-import DateSelect from './DatePicker'
+//date picker
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
+import 'react-datepicker/dist/react-datepicker.css'
 //utils
 import Service from '../../utils/Service'
 //SET PROPS AND STATE FOR FORM
@@ -19,26 +22,31 @@ class CreateCampaignForm extends Component{
   state = {
     headline: '',
     campaignLink: '',
-    startDate: '',
-    endDate: '',
+    startDate: moment(),
+    endDate: moment(),
     bodyCopy: '',
-    modalOpen: false
+    showModal: false
   }
+
   //update form state -- add these as onChange of form attr.
   updateHeadline = (event) =>  this.setState({headline: event.target.value})
   updateLink = (event) => this.setState({campaignLink: event.target.value})
   updateBodyCopy = (event) => this.setState({bodyCopy: event.target.value})
   //=======test these to ensure they capture values from date form========//
-  updateStartDate = (event) => this.setState({startDate: event.target.value})
-  updateEndDate = (event) => this.setState({endDate: event.target.value})
+  updateStartDate = (date) => this.setState({startDate: date})
+  updateEndDate = (date) => this.setState({endDate: date})
   //==============================================================//
+  closeModal = () => {
+    this.setState({ showModal: false })
+  }
 
   //handleSubmitandCreate
   handleFormState = (event) => {
     event.preventDefault()
     const { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
+    if(headline && campaignLink && startDate && endDate && bodyCopy !== '') {
     //continue post from here to route -- confirm this route is correct
-    Service.post('/api/campaign', {
+    Service.post('/campaign', {
       //confirm camgaign post is tied to business that posts
       headline: this.state.headline,
       url: this.state.campaignLink,
@@ -48,15 +56,20 @@ class CreateCampaignForm extends Component{
     })
       .then(({data}) => {
         console.log({data})
+        this.setState({headline: '', campaignLink: '', startDate: moment(), endDate: moment(), bodyCopy: ''})
+        this.closeModal()
       })
       .catch(err => console.log(err, 'campaign post error.'))
+  } else {
+    alert('Campaign not created. Please fill out all fields to create a campaign.')
   }
-//close the modal
-handleClose = () => this.setState({ modalOpen: false })
+}
+
 
   render() {
+    const {showModal} = this.state
     return(
-      <Modal trigger={<Button>Create Campaign</Button>}>
+      <Modal closeIcon onClose={this.closeModal} open={showModal} trigger={<Button onClick={() => this.setState({ showModal: true })}>Create Campaign</Button>}>
         <Modal.Header style={headStyle}>Create a new campaign</Modal.Header>
         <Modal.Content>
           <Modal.Description>
@@ -83,14 +96,18 @@ handleClose = () => this.setState({ modalOpen: false })
           </Form.Group>
           <Form.Group widths='equal'>
           <Form.Field>
-          <p style={{fontWeight: '600'}}>Start Date</p><DateSelect />
-          <a value={this.state.startDate}
-          onChange={this.updateStartDate}/>
+          <p style={{fontWeight: '600'}}>Start Date</p>
+          <DatePicker
+            selected={this.state.startDate}
+            onChange={this.updateStartDate}
+            />
           </Form.Field>
           <Form.Field>
           <p style={{fontWeight: '600'}}>End Date</p>
-          <a value={this.state.endDate}
-          onChange={this.updateEndDate}/><DateSelect />
+          <DatePicker
+            selected={this.state.endDate}
+            onChange={this.updateEndDate}
+            />
           </Form.Field>
           </Form.Group>
           <Form.Field
@@ -99,13 +116,12 @@ handleClose = () => this.setState({ modalOpen: false })
             label='Advertisement Body'
             placeholder='place the exact content you would like your campaign contributors to tweet here...'
             value={this.state.bodyCopy}
-            onChange={this.updateBodyCopy}          
+            onChange={this.updateBodyCopy}
           />
-          <Form.Field
+        <Form.Button
             style={buttonStyle}
             floated='right'
             id='submit'
-            control={Button}
             content='Create Campaign'
             onClick={this.handleFormState}
           />

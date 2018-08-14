@@ -1,13 +1,11 @@
 const router = require('express').Router()
-const adsController = require('../controllers/adController')
+const adsController = require('../controllers/AdController')
 
 // Matches with "/api/ads"
 // Find all ads
 // Business can create an ad
 
-router.route('/')
- .get(adsController.findAll)
- .post(adsController.create)
+router.route('/').get(adsController.findAll)
 
 // Matches with "/api/ads/:id"
 // Finds a specific ad
@@ -15,12 +13,13 @@ router.route('/')
 // Users also update the clicks field on an ad?
 // Business can delete an ad
 
-router.route('/:id')
-  .get(adsController.findById)
-  .put(adsController.update)
-  .delete(adsController.remove)
+router.route('/:id').get(adsController.findById).put(adsController.update).delete(adsController.remove)
 
-router.route('ad/snatch')
-  .post(adsController.snatch)
+router.route('/ad/snatch').post(adsController.snatch)
+
+// Create a route right off the domain '/:mRoute' that finds the ad with that mRoute,
+// adds 1 to the clicks, then redirects the browser to the url for the same ad
+
+router.route('ad/:mRoute').post(adsController.mRoute)
 
 module.exports = router

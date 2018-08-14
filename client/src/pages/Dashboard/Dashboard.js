@@ -21,15 +21,12 @@ const data = [
       {name: 'Headline 7', clicks: 3490},
 ];
 
-//data that needs to be on this page:
-//show taken and open ads
-//display username
-//display paypal/payment button -- sandbox to paypal dev
-//display number of ads created/taken
-
 //style header
 const headerStyle = {
   backgroundColor: '#065471'
+}
+const userHeaderStyle = {
+  backgroundColor: '#66ada9'
 }
 
 //page component
@@ -45,17 +42,15 @@ class Dashboard extends Component {
     Service.get('/api/business')
       .then( res => {
         if(res.data.success && res.data.business !== null) {
-          console.log('find business data', res.data)
           this.setState({user: res.data.business})
-          console.log(this.state)
+          console.log('Public business json data: ', this.state)
         } else {
           //check for user
           Service.get('/api/user')
             .then(res => {
               if(res.data.success && data.user !== null) {
-                console.log('find user data', res.data)
                 this.setState({user: res.data.user})
-                console.log(this.state)
+                console.log('Public user json data: ', this.state)
               }
             })
             .catch( err => console.log('not a user.'))
@@ -66,16 +61,13 @@ class Dashboard extends Component {
 
   //determine state from props - if not logged in, redirect to login page
   static getDerivedStateFromProps(props) {
-    console.log('dashboard cycle', props)
     if(!props.loggedIn) {
       props.history.push('/login')
-      console.log('please login to view your dashboard.')
     }
     return null
   }
 
  render(){
-   //console.log(this.state)
 
    return(
      <div>
@@ -89,8 +81,12 @@ class Dashboard extends Component {
      <Container style={{marginTop:'1em', marginBottom: '5em'}} fluid>
      <Grid style={{margin:'0em 1em 0em 1em'}}>
        <Grid.Column mobile={16} tablet={7} computer={7} style={{backgroundColor: '#f8f8f8', margin:'1em'}}>
+         {this.state.user.name &&
          <Header as='h4'>CREATE A CAMPAIGN</Header>
+         }
+         {this.state.user.name &&
          <CreateCampaignForm />
+         }
          <Header as='h4'>PROFILE</Header>
           <List>
             {this.state.user.name &&
@@ -133,47 +129,50 @@ class Dashboard extends Component {
                   </List.Content>
             </List.Item>
           </List>
-        <Header as='h4'>CAMPAIGN STATS</Header>
+        <Header as='h4'>{this.state.user.name ? 'CAMPAIGN STATS' : 'ADVERTISEMENT STATS'}</Header>
         <Card.Group>
-          <Card raised color='blue'
-            header='Total Campaigns'
-            meta='active and finished'
-            description='12'
-            />
-            <Divider horizontal></Divider>
-          <Card raised  color='blue'
-            header='Payouts Received/Sent'
-            meta='number of payouts'
-            description='8'
-            />
-          <Card raised  color='blue'
-            header='Clicks Generated'
-            meta='From all Campaigns'
-            description='530'
-            />
+          <Card raised color='blue'>
+            <Card.Header textAlign='center'>Total {this.state.user.name ? 'Campaigns' : 'Ads'}</Card.Header>
+            <Card.Meta textAlign='center'>active and finished</Card.Meta>
+            <Card.Description textAlign='center'>{this.state.user.campaigns}</Card.Description>
+          </Card>
+          <Card raised color='blue'>
+            <Card.Header textAlign='center'>Payouts {this.state.user.name ? 'Sent' : 'Recieved'}</Card.Header>
+            <Card.Meta textAlign='center'>active and finished</Card.Meta>
+            <Card.Description textAlign='center'>8</Card.Description>
+          </Card>
+          <Card raised color='blue'>
+            <Card.Header textAlign='center'>Clicks Generated</Card.Header>
+            <Card.Meta textAlign='center'>from all {this.state.user.name ? 'campaigns' : 'ads'} </Card.Meta>
+            <Card.Description textAlign='center'>530</Card.Description>
+          </Card>
         </Card.Group>
+        {this.state.user.name &&
         <Header as='h5'>MAKE A PAYMENT</Header>
+        }
+        {this.state.user.name &&
         <PaypalButton />
+        }
         </Grid.Column>
         <Grid.Column mobile={16} tablet={7} computer={7} style={{backgroundColor: '#f8f8f8', margin:'1em'}}>
-          <Header as='h4' textAlign='center'>MANAGE CAMPAIGNS/ADS</Header>
+          <Header as='h4' textAlign='center'>MANAGE {this.state.user.name ? 'CAMPAIGNS' : 'ADVERTISEMENTS'}</Header>
           <Segment color='blue' raised padded>
-            <Header as='h5' textAlign='center'>Current Campaigns/Ads</Header>
-            list of current campaigns
+            <Header as='h5' textAlign='center'>Current {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
+            list of current
           </Segment>
           <Segment color='blue' raised padded>
-            <Header as='h5' textAlign='center'>Upcoming Campaigns/Ads</Header>
-            list of upcoming campaigns
+            <Header as='h5' textAlign='center'>Upcoming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
+            list of upcoming
           </Segment>
           <Segment color='blue' raised padded>
-            <Header as='h5' textAlign='center'>Completed Campaigns/Ads</Header>
-            list of completed campaigns
+            <Header as='h5' textAlign='center'>Completed {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
+            list of completed
           </Segment>
-          <Header as='h4' textAlign='center'>CAMPGAIN PERFORMANCE</Header>
+          <Header as='h4' textAlign='center'>{this.state.user.name ? 'CAMPAIGN' : 'AD'} PERFORMANCE</Header>
           {/* chart here? */}
           <Responsive>
           <BarChart width={350} height={300} data={data}
-            margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+            margin={{top: 5, right: 0, left: 0, bottom: 5}}>
            <CartesianGrid strokeDasharray="3 3"/>
            <XAxis dataKey="name"/>
            <YAxis dataKey="clicks"/>
