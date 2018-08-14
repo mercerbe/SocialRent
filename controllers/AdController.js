@@ -2,6 +2,39 @@ const Ad = require('../models/ad')
 const Campaign = require('../models/campaign')
 const User = require('../models/user')
 
+const charArray => {
+  let arr = []
+  for (i = 30; i < 40; i++){
+    arr.push(String.fromCharcode(i))
+  }
+  for (i = 65; i < 91; i++){
+    arr.push(String.fromCharcode(i))
+  }
+  for (i = 97; i < 122; i++){
+    arr.push(String.fromCharcode(i))
+  }
+  return arr
+}
+const generateRoute(arr, len) => {
+  let route = []
+  for (i = 0; i < len; i++) {
+    let rand = Math.floor(Math.random() * arr.length)
+    route.push(arr[rand])
+  }
+  return route.join('')
+}
+
+function createMRoute() {
+  let chars = charArray()
+  let route = ''
+  do {
+    route = ''
+    route = generateRoute(chars, 8)
+    unique = Ad.findOne({mRoute: route}, (err, result) => (result))
+  } while (!unique);
+  return route
+}
+
 // Defining CRUD methods for the adsController
 module.exports = {
   // Get all ads
@@ -24,14 +57,13 @@ module.exports = {
     Campaign.findOneAndUpdate( {_id: campaignId}, { $push: { users: userId }}, { new: true} )
     .then((dbCamp) => {
       const { _id, headline, copy, url, startDate, endDate } = dbCamp
-      let route = "route goes here"
       Ad.create({
         campaignId: _id,
         copy,
         startDate,
         endDate,
         url,
-        route
+        route: createMRoute()
       })
       .then((dbAd) => {
         User.findOneAndUpdate({  _id: userId }, { $push: { ads: dbAd._id }}, { new: true }).then(updatedUser => {
