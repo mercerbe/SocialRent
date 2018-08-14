@@ -2,17 +2,16 @@
 import React, { Component } from 'react'
 //import images
 import Logo from '../../images/logo_transparent.png'
-//import Target from '../../images/target-ad.gif'
 //semantic components
 import { Container, Grid, Header, Segment, Image, Icon, Step, Button } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
 //utils
 import Service from '../../utils/Service'
+//moment
+import moment from 'moment'
 
-//this page needs to display:
-//map all campaigns created, put them in segments- include: Campaign creator, Campaign headline, copy, link,  start/end dates
-
+const data = ''
 //styles
 const logoStyle = {
   maxHeight: '350px',
@@ -28,9 +27,11 @@ class Market extends Component {
   //state
   state = {
     campaigns: [],
+    user: {},
   }
   //component cycle start
   componentDidMount() {
+    //get all campaigns
     Service.get('/campaign')
       .then( res => {
         if(res.data) {
@@ -39,13 +40,50 @@ class Market extends Component {
         }
       })
       .catch( err => console.log('No campaigns.'))
+      //check for business
+      Service.get('/api/business')
+        .then( res => {
+          if(res.data.success && res.data.business !== null) {
+            this.setState({user: res.data.business})
+            console.log('Public business json data: ', this.state.user)
+          } else {
+            //check for user
+            Service.get('/api/user')
+              .then(res => {
+                if(res.data.success && data.user !== null) {
+                  this.setState({user: res.data.user})
+                  console.log('Public user json data: ', this.state.user)
+                }
+              })
+              .catch( err => console.log('not a user.'))
+          }
+        })
+        .catch( err => console.log('Not a business.'))
+
+    }
+  //handle ad creation & join campaign button
+  handleAdCreation = (event) => {
+    event.preventDefault()
+    Service.post('/ad/snatch', {
+      //get data from specific campaign -- if needed
+      copy: '',
+      url: '',
+      route: '',
+      startDate: '',
+      endDate: '',
+    })
+    .then(({data}) => {
+      console.log({data})
+      //if successful, reroute to the users' dashboard
+
+    })
+    .catch(err => console.log(err, 'ad creation error'))
   }
 
   //determine state from props
   static getDerivedStateFromProps(props) {
     if(!props.loggedIn) {
       props.history.push('/login')
-      console.log('please log in to continue to the market.')
     }
     return null
   }
@@ -65,27 +103,30 @@ class Market extends Component {
      <Grid>
        <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8'}}>
         {this.state.campaigns.map(campaign =>(
-         <Segment color='yellow'> {/* this is the component to map over for all campaigns*/}
+         <Segment color='yellow' key={campaign.id}>
            <Header as='h3'>{campaign.headline}</Header>
            <Header as='h5' block>{campaign.copy}</Header>
-           <Header as='h5'> <Icon name='linkify'/><Header.Content>{campaign.url}</Header.Content></Header>
+           <Header as='h5'> <Icon name='linkify'/><Header.Content><a href={campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Header.Content></Header>
              <Step.Group stackable='tablet' size='mini'>
                 <Step>
                   <Icon name='calendar check outline' color='green'/>
                   <Step.Content>
                     <Step.Title>Start Date</Step.Title>
-                    <Step.Description>{campaign.startDate}</Step.Description>
+                    <Step.Description>
+                      {moment(campaign.startDate).format('LLL')}
+                    </Step.Description>
                   </Step.Content>
                 </Step>
                 <Step>
                   <Icon name='calendar minus outline' color='red'/>
                   <Step.Content>
                     <Step.Title>End Date</Step.Title>
-                    <Step.Description>{campaign.endDate}</Step.Description>
+                    <Step.Description>{moment(campaign.endDate).format('LLL')}</Step.Description>
                   </Step.Content>
                 </Step>
               </Step.Group>
-           <Button floated='right' icon='check' content='Join Campaign' labelPosition='right'></Button>
+              {this.state.user.handle &&
+           <Button floated='right' icon='check' content='Join Campaign' labelPosition='right' onClick={this.handleAdCreation}></Button> }
          </Segment>
         ))}
         </Grid.Column>

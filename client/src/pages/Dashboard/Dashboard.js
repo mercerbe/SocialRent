@@ -134,7 +134,7 @@ class Dashboard extends Component {
           <Card raised color='blue'>
             <Card.Header textAlign='center'>Total {this.state.user.name ? 'Campaigns' : 'Ads'}</Card.Header>
             <Card.Meta textAlign='center'>active and finished</Card.Meta>
-            <Card.Description textAlign='center'>{this.state.user.campaigns ? 'length of array' : '0'}</Card.Description>
+            <Card.Description textAlign='center'>{this.state.user.campaigns}</Card.Description>
           </Card>
           <Card raised color='blue'>
             <Card.Header textAlign='center'>Payouts {this.state.user.name ? 'Sent' : 'Recieved'}</Card.Header>

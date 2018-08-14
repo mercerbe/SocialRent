@@ -25,7 +25,7 @@ class CreateCampaignForm extends Component{
     startDate: moment(),
     endDate: moment(),
     bodyCopy: '',
-    modalOpen: false
+    showModal: false
   }
 
   //update form state -- add these as onChange of form attr.
@@ -67,8 +67,9 @@ class CreateCampaignForm extends Component{
 
 
   render() {
+    const {showModal} = this.state
     return(
-      <Modal trigger={<Button>Create Campaign</Button>}>
+      <Modal closeIcon onClose={this.closeModal} open={showModal} trigger={<Button onClick={() => this.setState({ showModal: true })}>Create Campaign</Button>}>
         <Modal.Header style={headStyle}>Create a new campaign</Modal.Header>
         <Modal.Content>
           <Modal.Description>
