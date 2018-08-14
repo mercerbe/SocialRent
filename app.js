@@ -20,6 +20,7 @@ mongoose.connect(
 //bring in routes
 const apiRoutes = require('./routes/api')
 const campaignRoutes = require('./routes/campaigns')
+const adRoutes = require('./routes/ads')
 
 // Serve static files from the built React app
 app.use(express.static(path.join(__dirname, 'client/build')))
@@ -30,7 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 //set express to use imported routes
 app.use('/api', apiRoutes)
-app.use(campaignRoutes)
+app.use('/campaign', campaignRoutes)
+app.use(adRoutes)
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

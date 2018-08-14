@@ -3,7 +3,7 @@ const campaignController = require('../controllers/campaignController')
 
 // Find all campaigns
 // Business creates a campaign
-router.route('/campaign')
+router.route('/')
   .get(campaignController.findAll)
   .post(campaignController.create)
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const campaignSchema = new Schema({
+const CampaignSchema = new Schema({
   headline: {
     type: String,
     required: true
@@ -9,7 +9,9 @@ const campaignSchema = new Schema({
   copy: {
     type: String,
     required: true,
-    min: [10, 'Too few characters.'],
+    min: [
+      10, 'Too few characters.'
+    ],
     max: [260, 'Leave room for the link!']
   },
   url: {
@@ -37,14 +39,23 @@ const campaignSchema = new Schema({
       message: "End date must be after start date."
     }
   },
+  businessId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
   users: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User'
     }
-  ]
+  ],
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now
+  }
 })
 
-const Campaign = mongoose.model('Campaign', campaignSchema)
+let Campaign = mongoose.model('Campaign', CampaignSchema)
 
 module.exports = Campaign
