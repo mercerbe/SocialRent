@@ -20,6 +20,7 @@ module.exports = {
   //find business
   findById: (req, res, next) => {
     Business.findById(req.business.id)
+      .populate('campaigns')
       .then(business => res.json({ business, success: true, message: 'Business Found' }))
       .catch(err => next(err))
   }

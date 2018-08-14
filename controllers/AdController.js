@@ -15,6 +15,7 @@ module.exports = {
   // Get a specific ad
   findById: function(req, res) {
     Ad.findById(req.params.id)
+    .populate('users')
     .then(ad => res.json(ad))
     .catch(err => res.status(422).json(err))
   },
