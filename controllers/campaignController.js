@@ -1,4 +1,5 @@
 const Campaign = require('../models/campaign');
+const Business = require('../models/business');
 
 // CRUD methods for campaignController
 module.exports = {
@@ -20,6 +21,11 @@ module.exports = {
   create: function(req, res) {
     Campaign.create(req.body)
     .then(campaign => res.json(campaign))
+    // Push newly created campaign into business collection.  (Needs to be tested)
+    .then((dbCampaign) => {
+      Business.findOneAndUpdate({ _id: businessId }, { $push: { campaigns: dbCampaign._id}}, { new: true}).then(updatedBusiness => {res.json(updatedBusiness)
+      })
+    })
     .catch(err => res.status(422).json(err))
   },
   // Update a campaign

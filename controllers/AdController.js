@@ -40,6 +40,14 @@ module.exports = {
       }).catch(err => res.status(422).json(err))
     })
   },
+  // mRoute will find the ad with that mRoute,
+  // add 1 to the clicks, then redirects the browser to the url for the same ad
+  mRoute: function(req, res) {
+    Ad.findOneAndUpdate( { _id: req.params.id }, req.body.mRoute) // Not sure if this how to reference mRoute properly
+      .then(ad => ad.clicks += 1) // update clicks for ad
+      .then(ad => res.redirect('ads/:mRoute')) // then redirect
+      .catch(err => res.status(422).json(err))
+  },
   // Update an ad
   update: function(req, res) {
     Ad.findOneAndUpdate({ _id: req.params.id }, req.body)

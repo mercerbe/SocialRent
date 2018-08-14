@@ -15,7 +15,7 @@ const AdSchema = new Schema({
     type: String,
     required: true
   },
-  route: {
+  mRoute: {
     type: String,
     required: true
   },
@@ -30,6 +30,11 @@ const AdSchema = new Schema({
   clicks: {
     type: Number,
     default: 0
+  },
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now
   }
 })
 
