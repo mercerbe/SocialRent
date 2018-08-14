@@ -9,7 +9,9 @@ const CampaignSchema = new Schema({
   copy: {
     type: String,
     required: true,
-    min: [10, 'Too few characters.'],
+    min: [
+      10, 'Too few characters.'
+    ],
     max: [260, 'Leave room for the link!']
   },
   url: {
@@ -46,7 +48,12 @@ const CampaignSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'User'
     }
-  ]
+  ],
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now
+  }
 })
 
 let Campaign = mongoose.model('Campaign', CampaignSchema)
