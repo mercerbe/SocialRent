@@ -24,7 +24,7 @@ module.exports = {
           campaigns: dbCampaign._id
         }
       }, {new: true}).then(updatedBusiness => {
-        res.json(updatedBusiness)
+        res.json(updatedBusiness).populate('campaigns')
       })
     }).catch(err => res.status(422).json(err))
   },

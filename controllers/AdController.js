@@ -35,7 +35,7 @@ module.exports = {
       })
       .then((dbAd) => {
         User.findOneAndUpdate({  _id: userId }, { $push: { ads: dbAd._id }}, { new: true }).then(updatedUser => {
-          res.json(updatedUser)
+          res.json(updatedUser).populate('ads')
         })
       }).catch(err => res.status(422).json(err))
     })
