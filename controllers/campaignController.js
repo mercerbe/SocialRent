@@ -23,8 +23,8 @@ module.exports = {
         $push: {
           campaigns: dbCampaign._id
         }
-      }, {new: true}).then(updatedBusiness => {
-        res.json(updatedBusiness).populate('campaigns')
+      }, {new: true}).populate('campaigns').then(updatedBusiness => {
+        res.json(updatedBusiness)
       })
     }).catch(err => res.status(422).json(err))
   },
