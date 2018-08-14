@@ -75,6 +75,7 @@ class Market extends Component {
     .then(({data}) => {
       console.log({data})
       //if successful, reroute to the users' dashboard
+      //possibly by just using this.props.login
 
     })
     .catch(err => console.log(err, 'ad creation error'))
