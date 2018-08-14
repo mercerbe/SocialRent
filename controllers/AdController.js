@@ -2,20 +2,21 @@ const Ad = require('../models/ad')
 const Campaign = require('../models/campaign')
 const User = require('../models/user')
 
-const charArray => {
+const charArray = () => {
   let arr = []
-  for (i = 30; i < 40; i++){
-    arr.push(String.fromCharcode(i))
+  for (i = '0'.charCodeAt(0); i <= '9'.charCodeAt(0); i++){
+    arr.push(String.fromCharCode(i))
   }
-  for (i = 65; i < 91; i++){
-    arr.push(String.fromCharcode(i))
+  for (i = 'a'.charCodeAt(0); i <= 'z'.charCodeAt(0); i++){
+    arr.push(String.fromCharCode(i))
   }
-  for (i = 97; i < 122; i++){
-    arr.push(String.fromCharcode(i))
+  for (i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++){
+    arr.push(String.fromCharCode(i))
   }
   return arr
 }
-const generateRoute(arr, len) => {
+
+function generateRoute(arr, len) {
   let route = []
   for (i = 0; i < len; i++) {
     let rand = Math.floor(Math.random() * arr.length)
@@ -32,6 +33,7 @@ function createMRoute() {
     route = generateRoute(chars, 8)
     unique = Ad.findOne({mRoute: route}, (err, result) => (result))
   } while (!unique);
+  console.log(route)
   return route
 }
 
@@ -63,7 +65,7 @@ module.exports = {
         startDate,
         endDate,
         url,
-        route: createMRoute()
+        mRoute: createMRoute()
       })
       .then((dbAd) => {
         User.findOneAndUpdate({  _id: userId }, { $push: { ads: dbAd._id }}, { new: true }).then(updatedUser => {
