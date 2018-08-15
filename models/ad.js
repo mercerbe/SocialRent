@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const adSchema = new Schema({
+const AdSchema = new Schema({
   campaignId: {
     type: Schema.Types.ObjectId,
     required: true,
@@ -15,7 +15,7 @@ const adSchema = new Schema({
     type: String,
     required: true
   },
-  route: {
+  mRoute: {
     type: String,
     required: true
   },
@@ -30,9 +30,12 @@ const adSchema = new Schema({
   clicks: {
     type: Number,
     default: 0
+  },
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now
   }
 })
 
-const Ad = mongoose.model('Ad', adSchema)
-
-module.exports = Ad
+module.exports = mongoose.model('Ad', AdSchema)
