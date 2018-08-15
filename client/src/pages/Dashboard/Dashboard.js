@@ -25,9 +25,6 @@ const data = [
 const headerStyle = {
   backgroundColor: '#065471'
 }
-const userHeaderStyle = {
-  backgroundColor: '#66ada9'
-}
 
 //page component
 class Dashboard extends Component {
@@ -74,7 +71,7 @@ class Dashboard extends Component {
    return(
      <div>
        <Segment style={headerStyle} raised>
-         <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'3em', fontSize:'48px'}}>
+         <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'3em', fontSize:'40px'}}>
            Welcome, {this.state.user.email}
            <p style={{fontSize: '20px'}}>Manage your account</p>
          </Header>

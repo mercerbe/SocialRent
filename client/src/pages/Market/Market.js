@@ -62,23 +62,24 @@ class Market extends Component {
 
     }
   //handle ad creation & join campaign button
-  handleAdCreation = (event) => {
-    event.preventDefault()
+  handleAdCreation = (id) => {
+    //event.preventDefault()
+    console.log('join campaign click', id)
     Service.post('/ad/snatch', {
-      //get data from specific campaign -- if needed
-      copy: '',
-      url: '',
-      route: '',
-      startDate: '',
-      endDate: '',
+      //get data from clicked campaign
+      copy: id.copy,
+      url: id.url,
+      startDate: id.startDate,
+      endDate: id.endDate,
+      campaignId: id._id
     })
     .then(({data}) => {
       console.log({data})
-      //if successful, reroute to the users' dashboard
-      //possibly by just using this.props.login
-
+      console.log('success, and then...')
+      //redirect to the users' dashboard 
+      this.props.history.push('/dashboard')
     })
-    .catch(err => console.log(err, 'ad creation error'))
+    .catch(err => console.log(err, 'ad creation error.'))
   }
 
   //determine state from props
@@ -103,8 +104,8 @@ class Market extends Component {
        <Header textAlign='center'>OPEN CAMPAIGNS</Header>
      <Grid>
        <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8'}}>
-        {this.state.campaigns.map(campaign =>(
-         <Segment color='yellow' key={campaign.id}>
+        {this.state.campaigns.map((campaign, i) =>(
+         <Segment color='yellow' key={i}>
            <Header as='h3'>{campaign.headline}</Header>
            <Header as='h5' block>{campaign.copy}</Header>
            <Header as='h5'> <Icon name='linkify'/><Header.Content><a href={campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Header.Content></Header>
@@ -127,7 +128,7 @@ class Market extends Component {
                 </Step>
               </Step.Group>
               {this.state.user.handle &&
-           <Button floated='right' icon='check' content='Join Campaign' labelPosition='right' onClick={this.handleAdCreation}></Button> }
+           <Button floated='right' icon='check' content='Join Campaign' labelPosition='right' onClick={ this.handleAdCreation.bind(this,campaign)}></Button> }
          </Segment>
         ))}
         </Grid.Column>
