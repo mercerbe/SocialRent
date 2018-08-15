@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 //semantic components
 import { Container, Segment, Grid, Header, List, Card } from 'semantic-ui-react'
+//moment
+import moment from 'moment'
 //custom components
 import Footer from '../../components/Footer'
 import CreateCampaignForm from '../../components/CreateCampaignForm'
@@ -79,7 +81,7 @@ class Dashboard extends Component {
      <br/>
      <Container style={{marginTop:'1em', marginBottom: '5em'}} fluid>
      <Grid style={{margin:'0em 1em 0em 1em'}}>
-       <Grid.Column mobile={16} tablet={7} computer={7} style={{backgroundColor: '#f8f8f8', margin:'1em'}}>
+       <Grid.Column mobile={16} tablet={6} computer={6} style={{backgroundColor: '', margin:'1em'}}>
          {this.state.user.name &&
          <Header as='h4'>CREATE A CAMPAIGN</Header>
          }
@@ -153,23 +155,53 @@ class Dashboard extends Component {
         <PaypalButton />
         }
         </Grid.Column>
-        <Grid.Column mobile={16} tablet={7} computer={7} style={{backgroundColor: '#f8f8f8', margin:'1em'}}>
+        <Grid.Column mobile={16} tablet={8} computer={8} style={{backgroundColor: '#f8f8f8', margin:'1em'}}>
           <Header as='h4' textAlign='center'>MANAGE {this.state.user.name ? 'CAMPAIGNS' : 'ADVERTISEMENTS'}</Header>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Current {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            list of current
+            {/* show campaigns in range in list via map using moment */}
+            total: {this.state.user.name ? this.state.campaigns.length : this.state.ads.length}
+            <List style={{backgroundColor: '#d1d0b2', padding: '10px'}}>
+              <List.Item icon='users' content='Semantic UI' />
+              <List.Item icon='marker' content='New York, NY' />
+              <List.Item
+                icon='mail'
+                content={<a href='mailto:jack@semantic-ui.com'>jack@semantic-ui.com</a>}
+              />
+              <List.Item icon='linkify' content={<a href='http://www.semantic-ui.com'>semantic-ui.com</a>} />
+            </List>
           </Segment>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Upcomming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            list of upcomming
+            {/* check date on moment, if less than moment, move here */}
+            total: {this.state.user.name ? this.state.campaigns.length : this.state.ads.length}
+            <List style={{backgroundColor: '#d1d0b2', padding: '10px'}}>
+              <List.Item icon='users' content='Semantic UI' />
+              <List.Item icon='marker' content='New York, NY' />
+              <List.Item
+                icon='mail'
+                content={<a href='mailto:jack@semantic-ui.com'>jack@semantic-ui.com</a>}
+              />
+              <List.Item icon='linkify' content={<a href='http://www.semantic-ui.com'>semantic-ui.com</a>} />
+            </List>
           </Segment>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Completed {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            list of completed
+            {/* check date on moment, if greater than moment, move here */}
+            total: {this.state.user.name ? this.state.campaigns.length : this.state.ads.length}
+            <List style={{backgroundColor: '#d1d0b2', padding: '10px'}}>
+              <List.Item icon='users' content='Semantic UI' />
+              <List.Item icon='marker' content='New York, NY' />
+              <List.Item
+                icon='mail'
+                content={<a href='mailto:jack@semantic-ui.com'>jack@semantic-ui.com</a>}
+              />
+              <List.Item icon='linkify' content={<a href='http://www.semantic-ui.com'>semantic-ui.com</a>} />
+            </List>
           </Segment>
           <Header as='h4' textAlign='center'>{this.state.user.name ? 'CAMPAIGN' : 'AD'} PERFORMANCE</Header>
-          {/* chart here? */}
-          <BarChart width={350} height={300} data={data}
+          {/* chart here-- 200x200 is great for mobile */}
+          <BarChart width={200} height={200} data={data}
             margin={{top: 5, right: 0, left: 0, bottom: 5}}>
            <CartesianGrid strokeDasharray="3 3"/>
            <XAxis dataKey="name"/>
