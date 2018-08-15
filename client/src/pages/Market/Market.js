@@ -133,7 +133,6 @@ class Market extends Component {
         </Grid.Column>
      </Grid>
      <br/>
-     {/*<Image src={Target} style={logoStyle} fluid centered />*/}
      </Container>
    <br />
      <Footer />

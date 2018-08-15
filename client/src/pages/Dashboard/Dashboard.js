@@ -35,6 +35,8 @@ class Dashboard extends Component {
   //state params
   state = {
     user: {},
+    campaigns: [],
+    ads: [],
   }
   //component cycle
   componentDidMount() {
@@ -42,14 +44,14 @@ class Dashboard extends Component {
     Service.get('/api/business')
       .then( res => {
         if(res.data.success && res.data.business !== null) {
-          this.setState({user: res.data.business})
+          this.setState({user: res.data.business, campaigns: res.data.business.campaigns})
           console.log('Public business json data: ', this.state)
         } else {
           //check for user
           Service.get('/api/user')
             .then(res => {
               if(res.data.success && data.user !== null) {
-                this.setState({user: res.data.user})
+                this.setState({user: res.data.user, ads: res.data.user.ads})
                 console.log('Public user json data: ', this.state)
               }
             })
@@ -134,7 +136,7 @@ class Dashboard extends Component {
           <Card raised color='blue'>
             <Card.Header textAlign='center'>Total {this.state.user.name ? 'Campaigns' : 'Ads'}</Card.Header>
             <Card.Meta textAlign='center'>active and finished</Card.Meta>
-            <Card.Description textAlign='center'>{this.state.user.campaigns}</Card.Description>
+            <Card.Description textAlign='center'>{this.state.campaigns.length}</Card.Description>
           </Card>
           <Card raised color='blue'>
             <Card.Header textAlign='center'>Payouts {this.state.user.name ? 'Sent' : 'Recieved'}</Card.Header>
