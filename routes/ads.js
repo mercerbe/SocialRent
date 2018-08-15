@@ -15,11 +15,9 @@ router.route('/').get(adsController.findAll)
 
 router.route('/:id').get(adsController.findById).put(adsController.update).delete(adsController.remove)
 
-router.route('/ad/snatch').post(adsController.snatch)
+router.route('/snatch').post(adsController.snatch)
 
 // Create a route right off the domain '/:mRoute' that finds the ad with that mRoute,
 // adds 1 to the clicks, then redirects the browser to the url for the same ad
-
-router.route('ad/:mRoute').post(adsController.mRoute)
 
 module.exports = router

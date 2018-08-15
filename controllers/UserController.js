@@ -19,6 +19,7 @@ module.exports = {
   },
   findById: (req, res, next) => {
     User.findById(req.user.id)
+      .populate('ads')
       .then(user => res.json({ user, success: true, message: 'User Found' }))
       .catch(err => next(err))
   }
