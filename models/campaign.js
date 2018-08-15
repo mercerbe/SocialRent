@@ -41,7 +41,8 @@ const CampaignSchema = new Schema({
   },
   businessId: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Business'
   },
   users: [
     {
