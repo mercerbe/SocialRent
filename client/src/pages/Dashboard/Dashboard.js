@@ -1,7 +1,7 @@
 //standard dependencies
 import React, { Component } from 'react'
 //semantic components
-import { Container, Segment, Grid, Header, List, Card } from 'semantic-ui-react'
+import { Container, Segment, Grid, Header, List, Card, Table } from 'semantic-ui-react'
 //moment
 import moment from 'moment'
 //custom components
@@ -27,10 +27,12 @@ const data = [
 const headerStyle = {
   backgroundColor: '#065471'
 }
+//get current date/time
+const now = moment()
+console.log(now)
 
 //page component
 class Dashboard extends Component {
-
   //state params
   state = {
     user: {},
@@ -39,6 +41,7 @@ class Dashboard extends Component {
   }
   //component cycle
   componentDidMount() {
+
     //check for business
     Service.get('/api/business')
       .then( res => {
@@ -59,6 +62,7 @@ class Dashboard extends Component {
       })
       .catch( err => console.log('Not a business.'))
   }
+
 
   //determine state from props - if not logged in, redirect to login page
   static getDerivedStateFromProps(props) {
@@ -154,63 +158,85 @@ class Dashboard extends Component {
         {this.state.user.name &&
         <PaypalButton />
         }
+        <Header as='h4'>{this.state.user.name ? 'CAMPAIGN' : 'AD'} PERFORMANCE</Header>
+        {/* chart here-- 200x200 is great for mobile */}
+        <BarChart width={200} height={200} data={data}
+          margin={{top: 5, right: 0, left: 0, bottom: 5}}>
+         <CartesianGrid strokeDasharray="3 3"/>
+         <XAxis dataKey="name"/>
+         <YAxis dataKey="clicks"/>
+         <Tooltip/>
+         <Legend />
+         <Bar dataKey="clicks" fill="#fbbd08" />
+        </BarChart>
+        {/* end chart */}
         </Grid.Column>
         <Grid.Column mobile={16} tablet={8} computer={8} style={{backgroundColor: '#f8f8f8', margin:'1em'}}>
           <Header as='h4' textAlign='center'>MANAGE {this.state.user.name ? 'CAMPAIGNS' : 'ADVERTISEMENTS'}</Header>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Current {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            {/* show campaigns in range in list via map using moment */}
-            total: {this.state.user.name ? this.state.campaigns.length : this.state.ads.length}
-            <List style={{backgroundColor: '#d1d0b2', padding: '10px'}}>
-              <List.Item icon='users' content='Semantic UI' />
-              <List.Item icon='marker' content='New York, NY' />
-              <List.Item
-                icon='mail'
-                content={<a href='mailto:jack@semantic-ui.com'>jack@semantic-ui.com</a>}
-              />
-              <List.Item icon='linkify' content={<a href='http://www.semantic-ui.com'>semantic-ui.com</a>} />
-            </List>
+            <Table striped style={{backgroundColor: '#1c9e3b'}} inverted>
+              <Table.Body>
+                {this.state.campaigns.map((campaign, i)=> (
+                  now.isAfter(moment(campaign.startDate)) && now.isBefore(moment(campaign.endDate)) ?
+                  <Table.Row key={i}>
+                    <Table.Cell>{campaign.headline}</Table.Cell>
+                    <Table.Cell>{campaign.copy}</Table.Cell>
+                    <Table.Cell>{campaign.url}</Table.Cell>
+                    <Table.Cell>clicks</Table.Cell>
+                    <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
+                  </Table.Row> :
+                  <Table.Row key={i}>
+                    <Table.Cell>No Current Campaigns</Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
           </Segment>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Upcomming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            {/* check date on moment, if less than moment, move here */}
-            total: {this.state.user.name ? this.state.campaigns.length : this.state.ads.length}
-            <List style={{backgroundColor: '#d1d0b2', padding: '10px'}}>
-              <List.Item icon='users' content='Semantic UI' />
-              <List.Item icon='marker' content='New York, NY' />
-              <List.Item
-                icon='mail'
-                content={<a href='mailto:jack@semantic-ui.com'>jack@semantic-ui.com</a>}
-              />
-              <List.Item icon='linkify' content={<a href='http://www.semantic-ui.com'>semantic-ui.com</a>} />
-            </List>
+            <Table striped style={{backgroundColor: '#f99b24'}} inverted>
+              <Table.Body>
+                {this.state.campaigns.map((campaign, i)=>(
+                  now.isBefore(moment(campaign.startDate)) ?
+                  <Table.Row key={i}>
+                    <Table.Cell>{campaign.headline}</Table.Cell>
+                    <Table.Cell>{campaign.copy}</Table.Cell>
+                    <Table.Cell>{campaign.url}</Table.Cell>
+                    <Table.Cell>clicks</Table.Cell>
+                    <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
+                  </Table.Row> :
+                  <Table.Row key={i}>
+                    <Table.Cell>No Upcomming Campaigns</Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
           </Segment>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Completed {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            {/* check date on moment, if greater than moment, move here */}
-            total: {this.state.user.name ? this.state.campaigns.length : this.state.ads.length}
-            <List style={{backgroundColor: '#d1d0b2', padding: '10px'}}>
-              <List.Item icon='users' content='Semantic UI' />
-              <List.Item icon='marker' content='New York, NY' />
-              <List.Item
-                icon='mail'
-                content={<a href='mailto:jack@semantic-ui.com'>jack@semantic-ui.com</a>}
-              />
-              <List.Item icon='linkify' content={<a href='http://www.semantic-ui.com'>semantic-ui.com</a>} />
-            </List>
+            <Table striped style={{backgroundColor: '#ba2222'}} inverted>
+              <Table.Body>
+                {this.state.campaigns.map((campaign, i)=>(
+                  now.isAfter(moment(campaign.endDate)) ?
+                  <Table.Row key={i}>
+                    <Table.Cell>{campaign.headline}</Table.Cell>
+                    <Table.Cell>{campaign.copy}</Table.Cell>
+                    <Table.Cell>{campaign.url}</Table.Cell>
+                    <Table.Cell>clicks</Table.Cell>
+                    <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
+                  </Table.Row> :
+                  <Table.Row key={i}>
+                    <Table.Cell>No Completed Campaigns</Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
           </Segment>
-          <Header as='h4' textAlign='center'>{this.state.user.name ? 'CAMPAIGN' : 'AD'} PERFORMANCE</Header>
-          {/* chart here-- 200x200 is great for mobile */}
-          <BarChart width={200} height={200} data={data}
-            margin={{top: 5, right: 0, left: 0, bottom: 5}}>
-           <CartesianGrid strokeDasharray="3 3"/>
-           <XAxis dataKey="name"/>
-           <YAxis dataKey="clicks"/>
-           <Tooltip/>
-           <Legend />
-           <Bar dataKey="clicks" fill="#fbbd08" />
-          </BarChart>
-          {/* end chart */}
+
         </Grid.Column>
      </Grid>
      </Container>

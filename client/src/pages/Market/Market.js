@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 //import images
 import Logo from '../../images/logo_transparent.png'
 //semantic components
-import { Container, Grid, Header, Segment, Image, Icon, Step, Button } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment, Image, Icon, Step, Button, Pagination } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
 //utils
@@ -28,7 +28,11 @@ class Market extends Component {
   state = {
     campaigns: [],
     user: {},
+    activePage: 1
   }
+  //handle page change
+  handlePaginationChange = (e, { activePage }) => this.setState({ activePage })
+
   //component cycle start
   componentDidMount() {
     //get all campaigns
@@ -76,7 +80,7 @@ class Market extends Component {
     .then(({data}) => {
       console.log({data})
       console.log('success, and then...')
-      //redirect to the users' dashboard 
+      //redirect to the users' dashboard
       this.props.history.push('/dashboard')
     })
     .catch(err => console.log(err, 'ad creation error.'))
@@ -91,6 +95,7 @@ class Market extends Component {
   }
 
  render(){
+   const { activePage } = this.state
    return(
      <div>
        <Segment style={headerStyle}>
@@ -105,7 +110,7 @@ class Market extends Component {
      <Grid>
        <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8'}}>
         {this.state.campaigns.map((campaign, i) =>(
-         <Segment color='yellow' key={i}>
+         <Segment color='yellow' key={i} clearing>
            <Header as='h3'>{campaign.headline}</Header>
            <Header as='h5' block>{campaign.copy}</Header>
            <Header as='h5'> <Icon name='linkify'/><Header.Content><a href={campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Header.Content></Header>
@@ -134,7 +139,18 @@ class Market extends Component {
         </Grid.Column>
      </Grid>
      <br/>
+       <Pagination
+          activePage={activePage}
+          onPageChange={this.handlePaginationChange}
+          ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
+          firstItem={{ content: <Icon name='angle double left' />, icon: true }}
+          lastItem={{ content: <Icon name='angle double right' />, icon: true }}
+          prevItem={{ content: <Icon name='angle left' />, icon: true }}
+          nextItem={{ content: <Icon name='angle right' />, icon: true }}
+          totalPages={3}
+            />
      </Container>
+
    <br />
      <Footer />
      </div>
