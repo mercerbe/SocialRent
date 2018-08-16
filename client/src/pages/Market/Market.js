@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 //import images
 import Logo from '../../images/logo_transparent.png'
 //semantic components
-import { Container, Grid, Header, Segment, Image, Icon, Step, Button } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment, Image, Icon, Step, Button, Responsive } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
 //utils
@@ -59,7 +59,8 @@ class Market extends Component {
           }
         })
         .catch( err => console.log('Not a business.'))
-
+//compare ads array with campaigns array in order to eliminate
+//splice the ad out of the array
     }
   //handle ad creation & join campaign button
   handleAdCreation = (event) => {
@@ -126,10 +127,13 @@ class Market extends Component {
                   </Step.Content>
                 </Step>
               </Step.Group>
-              {this.state.user.handle &&
+              <Responsive as={Button} {...Responsive.onlyMobile}>
+              {this.state.user.handle && 
            <Button floated='right' icon='check' content='Join Campaign' labelPosition='right' onClick={this.handleAdCreation}></Button> }
+           </Responsive>
          </Segment>
         ))}
+        
         </Grid.Column>
      </Grid>
      <br/>
