@@ -19,8 +19,6 @@ const data = [
       {name: 'Headline 3', clicks: 2000},
       {name: 'Headline 4', clicks: 2780},
       {name: 'Headline 5', clicks: 1890},
-      {name: 'Headline 6', clicks: 2390},
-      {name: 'Headline 7', clicks: 3490},
 ];
 
 //style header
@@ -33,11 +31,24 @@ console.log(now)
 
 //page component
 class Dashboard extends Component {
+  constructor(props) {
+      super(props);
+      this.handleCampaignUpdate = this.handleCampaignUpdate.bind(this);
+    }
+  //handleUpdate on new campaign
+  handleCampaignUpdate() {
+    Service.get('/api/business')
+      .then(res => {
+        this.setState({user: res.data.business, campaigns: res.data.business.campaigns})
+      })
+  }
   //state params
   state = {
     user: {},
     campaigns: [],
     ads: [],
+    payouts: [],
+    clicks: [],
   }
   //component cycle
   componentDidMount() {
@@ -90,7 +101,7 @@ class Dashboard extends Component {
          <Header as='h4'>CREATE A CAMPAIGN</Header>
          }
          {this.state.user.name &&
-         <CreateCampaignForm loggedIn={this.state.loggedIn} businessId={this.state.user.id}/>
+         <CreateCampaignForm loggedIn={this.state.loggedIn} businessId={this.state.user.id} handleUpdate={this.handleCampaignUpdate}/>
          }
          <Header as='h4'>PROFILE</Header>
           <List>
@@ -138,18 +149,18 @@ class Dashboard extends Component {
         <Card.Group>
           <Card raised color='blue'>
             <Card.Header textAlign='center'>Total {this.state.user.name ? 'Campaigns' : 'Ads'}</Card.Header>
-            <Card.Meta textAlign='center'>active and finished</Card.Meta>
+            <Card.Meta textAlign='center'>active upcoming and finished</Card.Meta>
             <Card.Description textAlign='center'>{this.state.campaigns.length}</Card.Description>
           </Card>
           <Card raised color='blue'>
             <Card.Header textAlign='center'>Payouts {this.state.user.name ? 'Sent' : 'Recieved'}</Card.Header>
             <Card.Meta textAlign='center'>active and finished</Card.Meta>
-            <Card.Description textAlign='center'>8</Card.Description>
+            <Card.Description textAlign='center'>{this.state.payouts.length}</Card.Description>
           </Card>
           <Card raised color='blue'>
             <Card.Header textAlign='center'>Clicks Generated</Card.Header>
             <Card.Meta textAlign='center'>from all {this.state.user.name ? 'campaigns' : 'ads'} </Card.Meta>
-            <Card.Description textAlign='center'>530</Card.Description>
+            <Card.Description textAlign='center'>{this.state.clicks.length}</Card.Description>
           </Card>
         </Card.Group>
         {this.state.user.name &&
@@ -183,7 +194,7 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell>{campaign.url}</Table.Cell>
-                    <Table.Cell>clicks</Table.Cell>
+                    <Table.Cell>user handles and assoc clicks</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> :
@@ -204,7 +215,7 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell>{campaign.url}</Table.Cell>
-                    <Table.Cell>clicks</Table.Cell>
+                    <Table.Cell>user handles and assoc clicks</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> :
@@ -225,7 +236,7 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell>{campaign.url}</Table.Cell>
-                    <Table.Cell>clicks</Table.Cell>
+                    <Table.Cell>user handles and assoc clicks</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> :

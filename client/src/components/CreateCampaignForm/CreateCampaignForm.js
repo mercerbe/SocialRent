@@ -60,6 +60,7 @@ class CreateCampaignForm extends Component{
         console.log({data})
         this.setState({headline: '', campaignLink: '', startDate: moment(), endDate: moment(), bodyCopy: ''})
         this.closeModal()
+        this.props.handleUpdate()
       })
       .catch(err => console.log(err, 'campaign post error.'))
   } else {
