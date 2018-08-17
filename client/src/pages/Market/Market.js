@@ -12,6 +12,11 @@ import Service from '../../utils/Service'
 import moment from 'moment'
 
 const data = ''
+
+//get current date/time
+const now = moment()
+console.log(now)
+
 //styles
 const logoStyle = {
   maxHeight: '350px',
@@ -110,6 +115,7 @@ class Market extends Component {
      <Grid>
        <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8'}}>
         {this.state.campaigns.map((campaign, i) =>(
+          now.isAfter(moment(campaign.startDate)) && now.isBefore(moment(campaign.endDate)) ?
          <Segment color='yellow' key={i} clearing>
            <Header as='h3'>{campaign.headline}</Header>
            <Header as='h5' block>{campaign.copy}</Header>
@@ -134,7 +140,8 @@ class Market extends Component {
               </Step.Group>
               {this.state.user.handle &&
            <Button floated='right' icon='check' content='Join Campaign' labelPosition='right' onClick={ this.handleAdCreation.bind(this,campaign)}></Button> }
-         </Segment>
+         </Segment> :
+         null
         ))}
         </Grid.Column>
      </Grid>

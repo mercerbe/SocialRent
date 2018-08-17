@@ -123,12 +123,6 @@ class Dashboard extends Component {
                 <a href='mailto:{this.state.user.email}'> {this.state.user.email}</a>
               </List.Content>
             </List.Item>
-            <List.Item>
-              <List.Icon name='linkify' />
-              <List.Content>
-                <a href='' target='_blank' rel="noopener noreferrer">Website: </a>
-              </List.Content>
-            </List.Item>
             {this.state.user.handle &&
             <List.Item>
               <List.Icon name='twitter'/>
@@ -202,12 +196,27 @@ class Dashboard extends Component {
                     <Table.Cell>No Current Campaigns</Table.Cell>
                   </Table.Row>
                 ))}
+                {/* add same methods to map ads */}
+                {this.state.ads.map((ad, i)=> (
+                  now.isAfter(moment(ad.startDate)) &&  now.isBefore(moment(ad.endDate)) ?
+                  <Table.Row key={i}>
+                    <Table.Cell>{ad.headline}</Table.Cell>
+                    <Table.Cell>{ad.copy}</Table.Cell>
+                    <Table.Cell>{ad.url}</Table.Cell>
+                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
+                  </Table.Row> :
+                  <Table.Row key={i}>
+                    <Table.Cell>No Current Ads</Table.Cell>
+                  </Table.Row>
+                ))}
               </Table.Body>
             </Table>
           </Segment>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Upcomming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            <Table striped style={{backgroundColor: '#f99b24'}} inverted>
+            <Table striped style={{backgroundColor: '#e26d0e'}} inverted>
               <Table.Body>
                 {this.state.campaigns.map((campaign, i)=>(
                   now.isBefore(moment(campaign.startDate)) ?
@@ -221,6 +230,21 @@ class Dashboard extends Component {
                   </Table.Row> :
                   <Table.Row key={i}>
                     <Table.Cell>No Upcomming Campaigns</Table.Cell>
+                  </Table.Row>
+                ))}
+                {/* add same methods to map ads */}
+                {this.state.ads.map((ad, i)=>(
+                  now.isBefore(moment(ad.startDate)) ?
+                  <Table.Row key={i}>
+                    <Table.Cell>{ad.headline}</Table.Cell>
+                    <Table.Cell>{ad.copy}</Table.Cell>
+                    <Table.Cell>{ad.url}</Table.Cell>
+                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
+                  </Table.Row> :
+                  <Table.Row key={i}>
+                    <Table.Cell>No Upcomming Ads</Table.Cell>
                   </Table.Row>
                 ))}
               </Table.Body>
@@ -242,6 +266,21 @@ class Dashboard extends Component {
                   </Table.Row> :
                   <Table.Row key={i}>
                     <Table.Cell>No Completed Campaigns</Table.Cell>
+                  </Table.Row>
+                ))}
+                {/* add same methods to map ads */}
+                {this.state.ads.map((ad, i)=>(
+                  now.isAfter(moment(ad.endDate)) ?
+                  <Table.Row key={i}>
+                    <Table.Cell>{ad.headline}</Table.Cell>
+                    <Table.Cell>{ad.copy}</Table.Cell>
+                    <Table.Cell>{ad.url}</Table.Cell>
+                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
+                  </Table.Row> :
+                  <Table.Row key={i}>
+                    <Table.Cell>No Completed Ads</Table.Cell>
                   </Table.Row>
                 ))}
               </Table.Body>
