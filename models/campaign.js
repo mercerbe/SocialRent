@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const today = () => (Date.now())
+
+console.log(today())
 
 const CampaignSchema = new Schema({
   headline: {
@@ -21,10 +24,10 @@ const CampaignSchema = new Schema({
   startDate: {
     type: Date,
     required: true,
-    default: Date.now,
+    default: today(),
     validate: {
       validator: function(v) {
-        return v >= Date.now()
+        return v >= today()
       },
       message: "Your campaign cannot start in the past."
     }
@@ -53,7 +56,7 @@ const CampaignSchema = new Schema({
   createdAt: {
     type: Date,
     required: true,
-    default: Date.now
+    default: today()
   }
 })
 
