@@ -5,7 +5,7 @@ const Business = require('../models/business');
 module.exports = {
   // Get all campaigns
   findAll: function(req, res) {
-    Campaign.find(req.query)
+    Campaign.find({})
     // Sort campaigns by ending soon to just posted
       .sort({endDate: -1}).populate('Business').then(campaign => res.json(campaign)).catch(err => res.status(422).json(err))
   },

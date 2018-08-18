@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const moment = require('moment')
+const today = () => (Date.now())
 
-
-const today = () => (moment().utc().startOf('day').toISOString())
+console.log(today())
 
 const CampaignSchema = new Schema({
   headline: {
