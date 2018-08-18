@@ -33,8 +33,8 @@ class CreateCampaignForm extends Component{
   updateLink = (event) => this.setState({campaignLink: event.target.value})
   updateBodyCopy = (event) => this.setState({bodyCopy: event.target.value})
   //=======test these to ensure they capture values from date form========//
-  updateStartDate = (date) => this.setState({startDate: date})
-  updateEndDate = (date) => this.setState({endDate: date})
+  updateStartDate = (date) => this.setState({startDate: moment(date)})
+  updateEndDate = (date) => this.setState({endDate: moment(date)})
   //==============================================================//
   closeModal = () => {
     this.setState({ showModal: false })
@@ -52,8 +52,8 @@ class CreateCampaignForm extends Component{
       headline: this.state.headline,
       url: this.state.campaignLink,
       copy: this.state.bodyCopy,
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
+      startDate: moment(this.state.startDate).format('YYYY-MM-DD'),
+      endDate: moment(this.state.endDate).format('YYYY-MM-DD'),
       businessId: this.props.businessId
     })
       .then(({data}) => {

@@ -14,6 +14,7 @@ import moment from 'moment'
 const data = ''
 
 //get current date/time
+//const now = moment().format('YYYY-MM-DD')
 const now = moment()
 console.log(now)
 
