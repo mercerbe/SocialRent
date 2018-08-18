@@ -32,30 +32,7 @@ module.exports = {
   }
 }
 
-function myTweets() {
-  console.log("Stay off Twitter!");
-  client.get('search/tweets', {
-    q: 'fully_coded',
-
-  }, function (error, tweets, response) {
-    console.log(tweets);
-    for (i = 0; i < tweets.statuses.length; i++) {
-      if (i === 21) {
-        break;
-
-      }
-      // log the actual tweet
-      console.log(tweets.statuses[i].text);
-      // logs when the tweet was created
-      console.log(tweets.statuses[i].created_at);
-
-    }
-
-  });
-}
-
-//myTweets();
-
+//to do: we'll need to make sure to be able to plug in the screen name of the user using an onclick function
 function getMyFollowers() {
   console.log("Here are the Walkers!");
   client.get('followers/list', {
