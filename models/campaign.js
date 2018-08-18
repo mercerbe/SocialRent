@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const today = () => (Date.now())
+const today = () => {
+  let date = new Date
+  date.setHours(0,0,0,0)
+  return date
+}
 
 console.log(today())
 
