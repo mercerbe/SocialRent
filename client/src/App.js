@@ -92,7 +92,7 @@ class App extends Component {
       
      <Header style={{backgroundColor: '#3e3c3d', padding: '30px', height: '60px', width:'100%'}}> 
      <Button compact onClick={this.handleButtonClick} icon='bars' floated='left' content='menu' inverted color='blue'/> 
-     <Button compact onClick={this.logout}  icon='sign out' floated='right' content='logout' inverted color='blue' label ='panther' /> 
+     <Button compact onClick={this.logout}  icon='sign out' floated='right' content='logout' inverted color='blue'/> 
      
      
      </Header>
@@ -123,11 +123,12 @@ class App extends Component {
         <Menu.Item as='a'>
           <Icon name='handshake' />
           <Link to='/market'>Market</Link>
-        </Menu.Item>
+        </Menu.Item>  
+                
       </Sidebar>
       </Sticky>
       <Sidebar.Pushable as={Header}>
-        <List horizontal animated relaxed= 'very' >
+        {/*<List horizontal animated relaxed= 'very' >
         
           <List.Item><List.Content><Link to='/'>Home</Link></List.Content></List.Item>
           <List.Item><List.Content><Link to='/login'>Login/Signup</Link></List.Content></List.Item>
@@ -137,7 +138,7 @@ class App extends Component {
         <List horizontal floated='right' style={{backgroundColor: '#3e3c3d', padding: '15px', width:'30%'}}>
           <List.Item><List.Content floated='right'><Header textAlign='right' as='h5' onClick={this.logout} style={{color: 'white'}}>Logout</Header></List.Content></List.Item>
           <List.Item><List.Content floated='right'><Header as='h5' textAlign='right' style={{backgroundColor: '#3e3c3d', color: 'white'}}> ({this.state.loggedIn ? 'logged in' : 'not logged in'})</Header></List.Content></List.Item>
-        </List>
+    </List>*/}
         </Sidebar.Pushable>
         {/*routes to render pages*/}
         <div>
