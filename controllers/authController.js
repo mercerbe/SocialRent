@@ -32,14 +32,15 @@ module.exports = {
     const { email, password } = req.body
     User.findOne({ email })
       .then((user) => {
-        console.log(user);
+        console.log('user auth controller', user);
         startUserAuthenticationFlow(user, password, (err, authenticated) => {
           if (err || !authenticated) {
             return res.status(403).json({ message: 'Authentication failed' })
           }
           const token = jwtUtils.createToken(user)
 
-          res.json({ success: true, message: 'Successfully logged in!', token })
+          res.json({ success: true, message: 'Successfully logged from user login in!', token })
+          console.log('auth controller successs user login.')
         });
       })
       .catch((err) => {
@@ -53,15 +54,16 @@ module.exports = {
   businesslogin: (req, res) => {
     const { email, password } = req.body
     Business.findOne({ email })
-      .then((business) => {
-        console.log(business)
-        startUserAuthenticationFlow(business, password, (err, authenticated) => {
+      .then((user) => {
+        console.log('business auth controller', user)
+        startUserAuthenticationFlow(user, password, (err, authenticated) => {
           if (err || !authenticated) {
             return res.status(403).json({ message: 'Authentication failed' })
           }
-          const token = jwtUtils.createToken(business)
+          const token = jwtUtils.createToken(user)
 
-          res.json({ success: true, message: 'Successfully logged in!', token })
+          res.json({ success: true, message: 'Successfully logged from business login in!', token })
+          console.log(' auth controller success business login.')
         });
       })
       .catch((err) => {

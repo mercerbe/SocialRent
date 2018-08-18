@@ -28,22 +28,23 @@ class App extends Component {
 
   //start app lifecyle -- CONFIRM USER/BUSINESS
   componentDidMount() {
-    console.log('app cycle started')
+    console.log('Application cycle initiated.')
     const token = Storage.getToken()
     if (token) {
       //check for user
       Service.get('/api/user')
         .then(({data}) => {
-          if(data.success) {
+          if(data.success && data.user !== null) {
             this.setState({ loggedIn: true })
-            console.log('Logged in.')
-          } else {
+            console.log('Logged in.', data)
+          }
+          else {
             //check for business
             Service.get('/api/business')
               .then(({data}) => {
                 if(data.success) {
                   this.setState({ loggedIn: true })
-                  console.log('Logged in as a business.')
+                  console.log('Logged in as a business.', data)
                 }
               })
               .catch( err => console.log('Login failed, please try again.'))
