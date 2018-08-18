@@ -72,7 +72,6 @@ class Market extends Component {
     }
   //handle ad creation & join campaign button
   handleAdCreation = (id) => {
-    //event.preventDefault()
     console.log('join campaign click', id)
     Service.post('/ad/snatch', {
       //get data from clicked campaign
@@ -82,8 +81,8 @@ class Market extends Component {
       endDate: id.endDate,
       campaignId: id._id
     })
-    .then(({data}) => {
-      console.log({data})
+    .then(res => {
+      console.log(res)
       console.log('success, and then...')
       //redirect to the users' dashboard
       this.props.history.push('/dashboard')

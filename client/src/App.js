@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 //router
 import { Route, Link, withRouter } from 'react-router-dom'
 //semantic components -- test this location
-import { Header, List } from 'semantic-ui-react'
+import { Header, Button, Icon, Sticky, Menu, Sidebar, Segment } from 'semantic-ui-react'
 //pages
 import { Home } from './pages/Home/Home'
 import Login from './pages/Login/Login'
@@ -24,6 +24,8 @@ class App extends Component {
   //state for login
   state = {
     loggedIn: false,
+    //adding a sidebar, so we can toggle its visiblity with a button click
+    visible: false
   }
 
   //start app lifecyle -- CONFIRM USER/BUSINESS
@@ -73,29 +75,62 @@ class App extends Component {
     this.setState({ loggedIn: false })
     this.props.history.push('/')
   }
+  //adding functions for the sidebar
+  handleButtonClick = () => this.setState({ visible: !this.state.visible })
+  handleSidebarHide = () => this.setState({ visible: false })
 
   render() {
+    const {visible} = this.state
     return (
       <div style={backgroundStyle} className="App">
-        <List horizontal animated relaxed= 'very' style={{backgroundColor: '#3e3c3d', padding: '15px', width:'70%'}}>
-          <List.Item><List.Content><Link to='/'>Home</Link></List.Content></List.Item>
-          <List.Item><List.Content><Link to='/login'>Login/Signup</Link></List.Content></List.Item>
-          <List.Item><List.Content><Link to='/dashboard'>Dashboard</Link></List.Content></List.Item>
-          <List.Item floated='right'><List.Content><Link to='/market'>Market</Link></List.Content></List.Item>
-        </List>
-        <List horizontal floated='right' style={{backgroundColor: '#3e3c3d', padding: '15px', width:'30%'}}>
-          <List.Item><List.Content floated='right'><Header textAlign='right' as='h5' onClick={this.logout} style={{color: 'white'}}>Logout</Header></List.Content></List.Item>
-          <List.Item><List.Content floated='right'><Header as='h5' textAlign='right' style={{backgroundColor: '#3e3c3d', color: 'white'}}> ({this.state.loggedIn ? 'logged in' : 'not logged in'})</Header></List.Content></List.Item>
-        </List>
-        {/*routes to render pages*/}
-        <div>
-          <Route exact path='/' render={()=> <Home loggedIn={this.state.loggedIn}/>}/>
-          <Route path='/login' render={()=> <Login login={this.login} loggedIn={this.state.loggedIn}/>}/>
-          <Route path='/dashboard' render={()=> <Dashboard history={this.props.history} loggedIn={this.state.loggedIn} login={this.login}/>}/>
-          <Route path='/market' render={()=> <Market history={this.props.history} loggedIn={this.state.loggedIn}/>}/>
-        </div>
-      </div>
 
+        <Header style={{backgroundColor: '#1b1c1d', padding: '10px', height: '50px', width:'100%', marginBottom: '-18px'}}>
+          <Button compact onClick={this.handleButtonClick} icon='bars' floated='left' content='menu' inverted color='grey'/>
+          {this.state.loggedIn &&
+          <Button compact onClick={this.logout}  icon='sign out' floated='right' content='logout' inverted color='grey'/>
+          }
+        </Header>
+        <Sidebar.Pushable as={Segment}>
+         <Sticky>
+           <Sidebar
+             as={Menu}
+             animation='overlay'
+             icon='labeled'
+             inverted
+             onHide={this.handleSidebarHide}
+             vertical
+             visible={visible}
+             width='thin'
+           >
+             <Menu.Item as=''>
+               <Icon name='home'/>
+               <Link to='/' onClick={this.handleButtonClick}>Home</Link>
+             </Menu.Item>
+             <Menu.Item as=''>
+               <Icon name='sign in' />
+               <Link to='/login' onClick={this.handleButtonClick}>Login/Signup</Link>
+             </Menu.Item>
+             <Menu.Item as=''>
+               <Icon name='columns' />
+               <Link to='/dashboard' onClick={this.handleButtonClick}>Dashboard</Link>
+             </Menu.Item>
+             <Menu.Item as=''>
+               <Icon name='handshake' />
+               <Link to='/market' onClick={this.handleButtonClick}>Market</Link>
+             </Menu.Item>
+           </Sidebar>
+         </Sticky>
+           {/*routes to render pages*/}
+           <Sidebar.Pusher dimmed={visible}>
+           <div style={{margin: 0}}>
+             <Route exact path='/' render={()=> <Home loggedIn={this.state.loggedIn}/>}/>
+             <Route path='/login' render={()=> <Login login={this.login} loggedIn={this.state.loggedIn}/>}/>
+             <Route path='/dashboard' render={()=> <Dashboard history={this.props.history} loggedIn={this.state.loggedIn} login={this.login}/>}/>
+             <Route path='/market' render={()=> <Market history={this.props.history} loggedIn={this.state.loggedIn}/>}/>
+           </div>
+         </Sidebar.Pusher>
+         </Sidebar.Pushable>
+         </div>
     );
   }
 }
