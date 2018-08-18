@@ -78,6 +78,7 @@ module.exports = {
   // Update an ad
   update: function(req, res) {
     Ad.findOneAndUpdate({ _id: req.params.id }, req.body)
+    .populate('users')
     .then(ad => res.json(ad))
     .catch(err => res.status(422).json(err))
   },
