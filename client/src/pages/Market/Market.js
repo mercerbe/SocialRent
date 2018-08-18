@@ -73,15 +73,13 @@ class Market extends Component {
 //splice the ad out of the array
     }
   //handle ad creation & join campaign button
-  handleAdCreation = (id) => {
-    console.log('join campaign click', id)
+  handleAdCreation = (campaign) => {
+    //let { copy, url, startDate, endDate, campaignId } = this.state
+    console.log('join campaign click', this.state)
     Service.post('/ad/snatch', {
       //get data from clicked campaign
-      copy: id.copy,
-      url: id.url,
-      startDate: id.startDate,
-      endDate: id.endDate,
-      campaignId: id._id
+      userId: this.state.user.id,
+      campaignId: campaign._id
     })
     .then(res => {
       console.log(res)
