@@ -141,12 +141,14 @@ class App extends Component {
     </List>*/}
         </Sidebar.Pushable>
         {/*routes to render pages*/}
+       
         <div>
           <Route exact path='/' render={()=> <Home loggedIn={this.state.loggedIn}/>}/>
           <Route path='/login' render={()=> <Login login={this.login} loggedIn={this.state.loggedIn}/>}/>
           <Route path='/dashboard' render={()=> <Dashboard history={this.props.history} loggedIn={this.state.loggedIn} login={this.login}/>}/>
           <Route path='/market' render={()=> <Market history={this.props.history} loggedIn={this.state.loggedIn}/>}/>
         </div>
+    
      
       </div>
       
