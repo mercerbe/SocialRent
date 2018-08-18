@@ -33,8 +33,8 @@ class CreateCampaignForm extends Component{
   updateLink = (event) => this.setState({campaignLink: event.target.value})
   updateBodyCopy = (event) => this.setState({bodyCopy: event.target.value})
   //=======test these to ensure they capture values from date form========//
-  updateStartDate = (date) => this.setState({startDate: date})
-  updateEndDate = (date) => this.setState({endDate: date})
+  updateStartDate = (date) => this.setState({startDate: moment(date)})
+  updateEndDate = (date) => this.setState({endDate: moment(date)})
   //==============================================================//
   closeModal = () => {
     this.setState({ showModal: false })
@@ -43,23 +43,25 @@ class CreateCampaignForm extends Component{
   //handleSubmitandCreate
   handleFormState = (event) => {
     event.preventDefault()
-    const { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
+    let { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
     console.log(this.state)
+    console.log(startDate.format('YYYY-MM-DD'))
     if(headline && campaignLink && startDate && endDate && bodyCopy !== '') {
     //continue post from here to route -- confirm this route is correct
     Service.post('/campaign', {
       //confirm camgaign post is tied to business that posts
-      headline: this.state.headline,
-      url: this.state.campaignLink,
-      copy: this.state.bodyCopy,
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
+      headline: headline,
+      url: campaignLink,
+      copy: bodyCopy,
+      startDate: startDate.format('YYYY-MM-DD'),
+      endDate: endDate.format('YYYY-MM-DD'),
       businessId: this.props.businessId
     })
       .then(({data}) => {
         console.log({data})
         this.setState({headline: '', campaignLink: '', startDate: moment(), endDate: moment(), bodyCopy: ''})
         this.closeModal()
+        this.props.handleUpdate()
       })
       .catch(err => console.log(err, 'campaign post error.'))
   } else {

@@ -1,5 +1,7 @@
 //standard dependencies
-import React, { Component } from 'react'
+import React, {
+  Component
+} from 'react'
 //semantic components
 import { Form, Input, TextArea, Select, Header } from 'semantic-ui-react'
 //utils
