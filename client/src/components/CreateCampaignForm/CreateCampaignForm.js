@@ -43,17 +43,18 @@ class CreateCampaignForm extends Component{
   //handleSubmitandCreate
   handleFormState = (event) => {
     event.preventDefault()
-    const { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
+    let { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
     console.log(this.state)
+    console.log(startDate.format('YYYY-MM-DD'))
     if(headline && campaignLink && startDate && endDate && bodyCopy !== '') {
     //continue post from here to route -- confirm this route is correct
     Service.post('/campaign', {
       //confirm camgaign post is tied to business that posts
-      headline: this.state.headline,
-      url: this.state.campaignLink,
-      copy: this.state.bodyCopy,
-      startDate: moment(this.state.startDate).format('YYYY-MM-DD'),
-      endDate: moment(this.state.endDate).format('YYYY-MM-DD'),
+      headline: headline,
+      url: campaignLink,
+      copy: bodyCopy,
+      startDate: startDate.format('YYYY-MM-DD'),
+      endDate: endDate.format('YYYY-MM-DD'),
       businessId: this.props.businessId
     })
       .then(({data}) => {
