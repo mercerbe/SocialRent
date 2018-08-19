@@ -12,14 +12,10 @@ import PaypalButton from '../../components/PaypalButton/PaypalCheckoutButton'
 import Service from '../../utils/Service'
 //chart
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
-//chart data -- imported from campaign data
-const data = [
-      {name: 'Headline 1', clicks: 4000},
-      {name: 'Headline 2', clicks: 3000},
-      {name: 'Headline 3', clicks: 2000},
-      {name: 'Headline 4', clicks: 2780},
-      {name: 'Headline 5', clicks: 1890},
-];
+//chart data -- imported from campaign and ad data
+let chartData = []
+
+let data = ''
 
 //style header
 const headerStyle = {
@@ -59,6 +55,7 @@ class Dashboard extends Component {
         if(res.data.success && res.data.business !== null) {
           this.setState({user: res.data.business, campaigns: res.data.business.campaigns})
           console.log('Public business json data: ', this.state)
+          this.setCampaignChart()
         } else {
           //check for user
           Service.get('/api/user')
@@ -66,13 +63,36 @@ class Dashboard extends Component {
               if(res.data.success && data.user !== null) {
                 this.setState({user: res.data.user, ads: res.data.user.ads})
                 console.log('Public user json data: ', this.state)
+                this.setAdChart()
               }
             })
             .catch( err => console.log('not a user.'))
-        }
-      })
+          }
+        })
       .catch( err => console.log('Not a business.'))
-  }
+    }
+
+    //set data for chart
+    setCampaignChart = () => {
+      this.state.campaigns.forEach(camp => {
+          let dataObj = {
+          name: camp.headline,
+          users: camp.users.length
+        }
+        chartData.push(dataObj)
+        console.log(chartData)
+      })
+    }
+    setAdChart = () => {
+      this.state.ads.forEach(ad => {
+        let dataObj = {
+          name: ad.headline,
+          clicks: ad.clicks
+        }
+        chartData.push(dataObj)
+        console.log(chartData)
+      })
+    }
 
 
   //determine state from props - if not logged in, redirect to login page
@@ -165,14 +185,14 @@ class Dashboard extends Component {
         }
         <Header as='h4'>{this.state.user.name ? 'CAMPAIGN' : 'AD'} PERFORMANCE</Header>
         {/* chart here-- 200x200 is great for mobile */}
-        <BarChart width={200} height={200} data={data}
+        <BarChart width={200} height={200} data={chartData}
           margin={{top: 5, right: 0, left: 0, bottom: 5}}>
          <CartesianGrid strokeDasharray="3 3"/>
          <XAxis dataKey="name"/>
-         <YAxis dataKey="clicks"/>
+         <YAxis dataKey="users"/>
          <Tooltip/>
          <Legend />
-         <Bar dataKey="clicks" fill="#fbbd08" />
+         <Bar dataKey="users" fill="#fbbd08" />
         </BarChart>
         {/* end chart */}
         </Grid.Column>

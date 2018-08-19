@@ -5,10 +5,10 @@ require("dotenv").config({
   path: '../.env'
 });
 
-//getting api keys 
-var keys = require("../keys");
+//getting api keys
+//var keys = require("../keys");
 
-var client = new Twitter(keys.twitter);
+//var client = new Twitter(keys.twitter);
 
 //set up to find business by Id
 
@@ -43,8 +43,8 @@ function getMyFollowers() {
   }, function (error, followers, response) {
     console.log(followers.users.length);
     for (i = 0; i < followers.users.length; i++) {
-     
-      
+
+
 
     }
 
