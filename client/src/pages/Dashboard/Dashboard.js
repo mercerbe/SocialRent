@@ -84,15 +84,15 @@ class Dashboard extends Component {
    return(
      <div>
        <Segment style={headerStyle} raised>
-         <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'3em', fontSize:'40px'}}>
-           Welcome, {this.state.user.email}
+         <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'2em', fontSize:'40px'}}>
+           Welcome, <br></br> {this.state.user.email}
            <p style={{fontSize: '20px'}}>Manage your account</p>
          </Header>
        </Segment>
      <br/>
      <Container style={{marginTop:'1em', marginBottom: '5em'}} fluid>
-     <Grid style={{margin:'0em 1em 0em 1em'}}>
-       <Grid.Column mobile={16} tablet={6} computer={6} style={{backgroundColor: '', margin:'1em'}}>
+     <Grid style={{margin:'0em 0.05em 0em 0.05em'}}>
+       <Grid.Column mobile={16} tablet={6} computer={6} floated='left' style={{backgroundColor: '', margin:'1em'}}>
          {this.state.user.name &&
          <Header as='h4'>CREATE A CAMPAIGN</Header>
          }
@@ -185,7 +185,7 @@ class Dashboard extends Component {
         }
         {/* end chart */}
         </Grid.Column>
-        <Grid.Column mobile={16} tablet={8} computer={8} style={{backgroundColor: '#fbbd08', margin:'0em', padding: '20px 40px'}}>
+        <Grid.Column mobile={16} tablet={8} computer={8} floated='right' style={{borderRadius: '5px', backgroundColor: '#fbbd08', margin:'0em', padding: '20px 40px'}}>
           <Header as='h4' textAlign='center'>MANAGE {this.state.user.name ? 'CAMPAIGNS' : 'ADVERTISEMENTS'}</Header>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Current {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
@@ -239,7 +239,7 @@ class Dashboard extends Component {
                   <Table.Row key={i} warning>
                     <Table.Cell>{ad.url}</Table.Cell>
                     <Table.Cell><Message>{ad.copy}</Message></Table.Cell>
-                    <Table.Cell>clicks: {ad.clicks}</Table.Cell> 
+                    <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
                   </Table.Row> : null
