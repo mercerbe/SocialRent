@@ -87,7 +87,7 @@ class App extends Component {
   render() {
     const {visible} = this.state
     return (
-      
+
       <div style={backgroundStyle} className="App">
 
         <Header style={{backgroundColor: '#1b1c1d', padding: '10px', height: '50px', width:'100%', marginBottom: '-18px'}}>

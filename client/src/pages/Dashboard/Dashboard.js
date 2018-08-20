@@ -12,9 +12,7 @@ import PaypalButton from '../../components/PaypalButton/PaypalCheckoutButton'
 import Service from '../../utils/Service'
 //chart
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
-//chart data -- imported from campaign and ad data
-let chartData = []
-
+//
 let data = ''
 
 //style header
@@ -28,8 +26,8 @@ console.log(now)
 //page component
 class Dashboard extends Component {
   constructor(props) {
-      super(props);
-      this.handleCampaignUpdate = this.handleCampaignUpdate.bind(this);
+      super(props)
+      this.handleCampaignUpdate = this.handleCampaignUpdate.bind(this)
     }
   //handleUpdate on new campaign
   handleCampaignUpdate() {
@@ -48,14 +46,13 @@ class Dashboard extends Component {
   }
   //component cycle
   componentDidMount() {
-
+    console.log(data)
     //check for business
     Service.get('/api/business')
       .then( res => {
         if(res.data.success && res.data.business !== null) {
           this.setState({user: res.data.business, campaigns: res.data.business.campaigns})
           console.log('Public business json data: ', this.state)
-          this.setCampaignChart()
         } else {
           //check for user
           Service.get('/api/user')
@@ -63,35 +60,12 @@ class Dashboard extends Component {
               if(res.data.success && data.user !== null) {
                 this.setState({user: res.data.user, ads: res.data.user.ads})
                 console.log('Public user json data: ', this.state)
-                this.setAdChart()
               }
             })
             .catch( err => console.log('not a user.'))
           }
         })
       .catch( err => console.log('Not a business.'))
-    }
-
-    //set data for chart
-    setCampaignChart = () => {
-      this.state.campaigns.forEach(camp => {
-          let dataObj = {
-          name: camp.headline,
-          users: camp.users.length
-        }
-        chartData.push(dataObj)
-        console.log(chartData)
-      })
-    }
-    setAdChart = () => {
-      this.state.ads.forEach(ad => {
-        let dataObj = {
-          name: ad.headline,
-          clicks: ad.clicks
-        }
-        chartData.push(dataObj)
-        console.log(chartData)
-      })
     }
 
 
@@ -184,16 +158,29 @@ class Dashboard extends Component {
         <PaypalButton />
         }
         <Header as='h4'>{this.state.user.name ? 'CAMPAIGN' : 'AD'} PERFORMANCE</Header>
-        {/* chart here-- 200x200 is great for mobile */}
-        <BarChart width={200} height={200} data={chartData}
-          margin={{top: 5, right: 0, left: 0, bottom: 5}}>
+        {/* chart here */}
+        {this.state.user.name &&
+        <BarChart width={225} height={225} data={this.state.campaigns}
+          margin={{top: 5, right: 0, left: -30, bottom: 5}}>
          <CartesianGrid strokeDasharray="3 3"/>
-         <XAxis dataKey="name"/>
-         <YAxis dataKey="users"/>
+         <XAxis dataKey="headline"/>
+         <YAxis dataKey="users.length"/>
          <Tooltip/>
          <Legend />
-         <Bar dataKey="users" fill="#fbbd08" />
+         <Bar dataKey="users.length" content="users" fill="#fbbd08" />
         </BarChart>
+        }
+        {this.state.user.handle &&
+          <BarChart width={225} height={225} data={this.state.ads}
+            margin={{top: 5, right: 0, left: -30, bottom: 5}}>
+           <CartesianGrid strokeDasharray="3 3"/>
+           <XAxis dataKey="url"/>
+           <YAxis dataKey="clicks"/>
+           <Tooltip/>
+           <Legend />
+           <Bar dataKey="clicks" content="users" fill="#fbbd08" />
+          </BarChart>
+        }
         {/* end chart */}
         </Grid.Column>
         <Grid.Column mobile={16} tablet={8} computer={8} style={{backgroundColor: '#f8f8f8', margin:'1em'}}>
