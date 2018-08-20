@@ -1,3 +1,4 @@
+// importing other react components
 import React, { Component } from 'react'
 import { Button, Header, Icon, Modal, Form, Input, TextArea } from 'semantic-ui-react'
 //date picker
