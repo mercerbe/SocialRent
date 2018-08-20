@@ -109,15 +109,17 @@ class Market extends Component {
            </Header>
         </Segment>
      <br/>
-     <Container style={{marginTop:'1em', marginBottom: '1em'}} >
-       <Header textAlign='center'>OPEN CAMPAIGNS</Header>
+     <Container style={{marginTop:'0.5em', marginBottom: '1em'}} >
+       <Header style={{textAlign:'center'}}>OPEN CAMPAIGNS</Header>
      <Grid>
-       <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8'}}>
+       <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8', marginTop: '1em'}}>
         {this.state.campaigns.map((campaign, i) =>(
           now.isAfter(moment(campaign.startDate)) && now.isBefore(moment(campaign.endDate)) ?
          <Segment color='yellow' key={i} clearing>
+           <Grid>
+             <Grid.Column mobile={16} tablet={12} computer={12}>
            <Header as='h3'>{campaign.headline}</Header>
-           <Header as='h5' block>{campaign.copy}</Header>
+           <Header as='h5' block compact="true">{campaign.copy}</Header>
            <Header as='h5'> <Icon name='linkify'/><Header.Content><a href={campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Header.Content></Header>
              <Step.Group stackable='tablet' size='mini'>
                 <Step>
@@ -137,16 +139,23 @@ class Market extends Component {
                   </Step.Content>
                 </Step>
               </Step.Group>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={4} computer={4}>
+            <Segment clearing style={{border: 'none', boxShadow: 'none'}}>
+            <Header as='h5' > <Icon name='users'/>users on campaign:{campaign.users.length}</Header>
               {this.state.user.handle &&
-           <Button floated='right' icon='check' content='Join Campaign' labelPosition='right' onClick={ this.handleAdCreation.bind(this,campaign)}></Button> }
+           <Button  icon='check' content='Join Campaign' labelPosition='right' onClick={ this.handleAdCreation.bind(this,campaign)}></Button> }
+           </Segment>
+         </Grid.Column>
+         </Grid>
          </Segment> :
          null
         ))}
-        
+
         </Grid.Column>
      </Grid>
      <br/>
-       <Pagination
+       <Pagination style={{marginTop: '20px'}}
           activePage={activePage}
           onPageChange={this.handlePaginationChange}
           ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}

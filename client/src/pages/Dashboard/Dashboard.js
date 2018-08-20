@@ -1,7 +1,7 @@
 //standard dependencies
 import React, { Component } from 'react'
 //semantic components
-import { Container, Segment, Grid, Header, List, Card, Table } from 'semantic-ui-react'
+import { Container, Segment, Grid, Header, List, Card, Table, Message } from 'semantic-ui-react'
 //moment
 import moment from 'moment'
 //custom components
@@ -36,6 +36,7 @@ class Dashboard extends Component {
         this.setState({user: res.data.business, campaigns: res.data.business.campaigns})
       })
   }
+
   //state params
   state = {
     user: {},
@@ -44,6 +45,7 @@ class Dashboard extends Component {
     payouts: [],
     clicks: [],
   }
+
   //component cycle
   componentDidMount() {
     console.log(data)
@@ -183,51 +185,45 @@ class Dashboard extends Component {
         }
         {/* end chart */}
         </Grid.Column>
-        <Grid.Column mobile={16} tablet={8} computer={8} style={{backgroundColor: '#f8f8f8', margin:'1em'}}>
+        <Grid.Column mobile={16} tablet={8} computer={8} style={{backgroundColor: '#fbbd08', margin:'0em', padding: '20px 40px'}}>
           <Header as='h4' textAlign='center'>MANAGE {this.state.user.name ? 'CAMPAIGNS' : 'ADVERTISEMENTS'}</Header>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Current {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            <Table striped style={{backgroundColor: '#1c9e3b'}} inverted>
+            <Table striped>
               <Table.Body>
                 {this.state.campaigns.map((campaign, i)=> (
                   now.isAfter(moment(campaign.startDate)) && now.isBefore(moment(campaign.endDate)) ?
-                  <Table.Row key={i}>
+                  <Table.Row key={i} positive>
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell>{campaign.url}</Table.Cell>
                     <Table.Cell>user handles and assoc clicks</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
-                  </Table.Row> :
-                  <Table.Row key={i}>
-                    <Table.Cell>No Current Campaigns</Table.Cell>
-                  </Table.Row>
+                  </Table.Row> : null
+
                 ))}
                 {/* add same methods to map ads */}
                 {this.state.ads.map((ad, i)=> (
                   now.isAfter(moment(ad.startDate)) &&  now.isBefore(moment(ad.endDate)) ?
-                  <Table.Row key={i}>
-                    <Table.Cell>{ad.headline}</Table.Cell>
-                    <Table.Cell>{ad.copy}</Table.Cell>
+                  <Table.Row key={i} positive>
                     <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell><Message>{ad.copy}</Message></Table.Cell>
+                    <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
-                  </Table.Row> :
-                  <Table.Row key={i}>
-                    <Table.Cell>No Current Ads</Table.Cell>
-                  </Table.Row>
+                  </Table.Row> : null
                 ))}
               </Table.Body>
             </Table>
           </Segment>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Upcomming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            <Table striped style={{backgroundColor: '#e26d0e'}} inverted>
+            <Table striped>
               <Table.Body>
                 {this.state.campaigns.map((campaign, i)=>(
                   now.isBefore(moment(campaign.startDate)) ?
-                  <Table.Row key={i}>
+                  <Table.Row key={i} warning>
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell>{campaign.url}</Table.Cell>
@@ -235,60 +231,49 @@ class Dashboard extends Component {
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> :
-                  <Table.Row key={i}>
-                    <Table.Cell>No Upcomming Campaigns</Table.Cell>
-                  </Table.Row>
+                  null
                 ))}
                 {/* add same methods to map ads */}
                 {this.state.ads.map((ad, i)=>(
                   now.isBefore(moment(ad.startDate)) ?
-                  <Table.Row key={i}>
-                    <Table.Cell>{ad.headline}</Table.Cell>
-                    <Table.Cell>{ad.copy}</Table.Cell>
+                  <Table.Row key={i} warning>
                     <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell><Message>{ad.copy}</Message></Table.Cell>
+                    <Table.Cell>clicks: {ad.clicks}</Table.Cell> 
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
-                  </Table.Row> :
-                  <Table.Row key={i}>
-                    <Table.Cell>No Upcomming Ads</Table.Cell>
-                  </Table.Row>
+                  </Table.Row> : null
                 ))}
               </Table.Body>
             </Table>
           </Segment>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Completed {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
-            <Table striped style={{backgroundColor: '#ba2222'}} inverted>
+            <Table striped>
               <Table.Body>
                 {this.state.campaigns.map((campaign, i)=>(
                   now.isAfter(moment(campaign.endDate)) ?
-                  <Table.Row key={i}>
+                  <Table.Row key={i} negative>
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell>{campaign.url}</Table.Cell>
                     <Table.Cell>user handles and assoc clicks</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
-                  </Table.Row> :
-                  <Table.Row key={i}>
-                    <Table.Cell>No Completed Campaigns</Table.Cell>
-                  </Table.Row>
+                  </Table.Row> : null
+
                 ))}
                 {/* add same methods to map ads */}
                 {this.state.ads.map((ad, i)=>(
                   now.isAfter(moment(ad.endDate)) ?
-                  <Table.Row key={i}>
-                    <Table.Cell>{ad.headline}</Table.Cell>
-                    <Table.Cell>{ad.copy}</Table.Cell>
+                  <Table.Row key={i} negative>
                     <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell><Message>{ad.copy}</Message></Table.Cell>
+                    <Table.Cell>{ad.mroute}</Table.Cell>
+                    <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
-                  </Table.Row> :
-                  <Table.Row key={i}>
-                    <Table.Cell>No Completed Ads</Table.Cell>
-                  </Table.Row>
+                  </Table.Row> : null
                 ))}
               </Table.Body>
             </Table>

@@ -127,7 +127,7 @@ class App extends Component {
            </Sidebar>
          </Sticky>
            {/*routes to render pages*/}
-           <Sidebar.Pusher dimmed={visible}>
+           <Sidebar.Pusher dimmed={visible} style={{margin: 0}}>
            <div style={{margin: 0}}>
              <Route exact path='/' render={()=> <Home loggedIn={this.state.loggedIn}/>}/>
              <Route path='/login' render={()=> <Login login={this.login} loggedIn={this.state.loggedIn}/>}/>
