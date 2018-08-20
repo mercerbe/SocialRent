@@ -116,14 +116,14 @@ class Dashboard extends Component {
             <List.Item>
               <List.Icon name='mail' />
               <List.Content>
-                <a href='mailto:{this.state.user.email}'> {this.state.user.email}</a>
+                <a href={'mailto:'+ this.state.user.email}> {this.state.user.email}</a>
               </List.Content>
             </List.Item>
             {this.state.user.handle &&
             <List.Item>
               <List.Icon name='twitter'/>
               <List.Content>
-                <a href='https://twitter.com/{this.state.user.handle}' target='_blank' rel="noopener noreferrer">
+                <a href={'https://twitter.com/'+ this.state.user.handle} target='_blank' rel="noopener noreferrer">
                   {this.state.user.handle}</a>
               </List.Content>
             </List.Item>
