@@ -7,7 +7,7 @@ module.exports = {
   findAll: function(req, res) {
     Campaign.find({})
     // Sort campaigns by ending soon to just posted
-      .sort({endDate: -1}).populate('Business').then(campaign => res.json(campaign)).catch(err => res.status(422).json(err))
+      .populate('businessId').sort({endDate: -1}).then(campaign => res.json(campaign)).catch(err => res.status(422).json(err))
   },
   // Get a specific campaign
   findById: function(req, res) {
