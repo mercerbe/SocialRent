@@ -218,7 +218,7 @@ class Dashboard extends Component {
             </Table>
           </Segment>
           <Segment color='blue' raised padded>
-            <Header as='h5' textAlign='center'>Upcomming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
+            <Header as='h5' textAlign='center'>Upcoming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
             <Table striped>
               <Table.Body>
                 {this.state.campaigns.map((campaign, i)=>(
