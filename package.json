@@ -4,14 +4,17 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "build": "cd ./client && npm run build",
+    "server": "node server.js",
+    "client": "cd client && npm run start",
+    "start": "./node_modules/.bin/concurrently \"./node_modules/.bin/nodemon\" \"npm run client\"",
+    "build": "cd client && npm run build",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "setup": "node setup.js",
     "dev-server": "cross-env NODE_ENV=development PORT=3001 ./node_modules/.bin/nodemon server.js",
     "dev-client": "cd ./client && npm start",
     "dev": "npm run dev-client & npm run dev-server",
-    "seed": "node scripts/userSeeds.js && node scripts/businessSeeds.js && node scripts/campaignSeeds.js"
+    "seed": "node scripts/userSeeds.js && node scripts/businessSeeds.js && node scripts/campaignSeeds.js",
+    "deploy": "yarn build && git add . && git commit -m \"Building for production\" && git push heroku master"
   },
   "author": "Team Tokyo",
   "license": "ISC",
