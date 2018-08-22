@@ -6,7 +6,7 @@ const jwtUtils = require('../utils/jwt')
 
 //controllers
 const UserController = require('../controllers/UserController')
-const AuthController = require('../controllers/AuthController')
+const AuthController = require('../controllers/authController')
 const DashboardController = require('../controllers/DashboardController')
 const BusinessController = require('../controllers/businessController')
 
