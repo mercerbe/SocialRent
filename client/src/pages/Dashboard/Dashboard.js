@@ -208,7 +208,7 @@ class Dashboard extends Component {
                   now.isAfter(moment(ad.startDate)) &&  now.isBefore(moment(ad.endDate)) ?
                   <Table.Row key={i} positive>
                     <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell><Message>{ad.copy}</Message></Table.Cell>
+                    <Table.Cell><Message>{ad.copy} {ad.mRoute}</Message></Table.Cell>
                     <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
@@ -217,6 +217,7 @@ class Dashboard extends Component {
               </Table.Body>
             </Table>
           </Segment>
+          {this.state.user.name &&
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Upcomming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
             <Table striped>
@@ -233,20 +234,10 @@ class Dashboard extends Component {
                   </Table.Row> :
                   null
                 ))}
-                {/* add same methods to map ads */}
-                {this.state.ads.map((ad, i)=>(
-                  now.isBefore(moment(ad.startDate)) ?
-                  <Table.Row key={i} warning>
-                    <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell><Message>{ad.copy}</Message></Table.Cell>
-                    <Table.Cell>clicks: {ad.clicks}</Table.Cell>
-                    <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
-                    <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
-                  </Table.Row> : null
-                ))}
               </Table.Body>
             </Table>
           </Segment>
+          }
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Completed {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
             <Table striped>
@@ -268,8 +259,7 @@ class Dashboard extends Component {
                   now.isAfter(moment(ad.endDate)) ?
                   <Table.Row key={i} negative>
                     <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell><Message>{ad.copy}</Message></Table.Cell>
-                    <Table.Cell>{ad.mroute}</Table.Cell>
+                    <Table.Cell><Message>{ad.copy} {ad.mRoute}</Message></Table.Cell>
                     <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
