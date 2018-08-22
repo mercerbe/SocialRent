@@ -24,7 +24,7 @@ class CreateCampaignForm extends Component{
     headline: '',
     campaignLink: '',
     startDate: moment(),
-    endDate: moment(),
+    endDate: moment().add(1, 'days'),
     bodyCopy: '',
     showModal: false,
     headlineError: false,
@@ -45,6 +45,11 @@ class CreateCampaignForm extends Component{
   updateEndDate = (date) => this.setState({endDate: moment(date), endDateError: false, hidden: true, errorMessage: ''})
   closeModal = () => {
     this.setState({
+    headline: '',
+    campaignLink: '',
+    startDate: moment(),
+    endDate: moment().add(1, 'days'),
+    bodyCopy: '',
     showModal: false,
     formError: false,
     headlineError: false,
@@ -52,7 +57,9 @@ class CreateCampaignForm extends Component{
     startDateError: false,
     endDateError: false,
     bodyCopyError: false,
-    hidden: true, errorMessage: '' })
+    hidden: true,
+    errorMessage: '',
+    })
   }
 
   //handleSubmitandCreate
@@ -98,7 +105,7 @@ class CreateCampaignForm extends Component{
     })
       .then(({data}) => {
         console.log({data})
-        this.setState({headline: '', campaignLink: '', startDate: moment(), endDate: moment(), bodyCopy: ''})
+        this.setState({headline: '', campaignLink: '', startDate: moment(), endDate: moment().add(1, 'days'), bodyCopy: ''})
         this.closeModal()
         this.props.handleUpdate()
       })
