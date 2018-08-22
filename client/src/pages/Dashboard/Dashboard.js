@@ -198,7 +198,8 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
-                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell><List>{campaign.users.map((user, i) => (
+                       <List.Item key={i}>{user}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> : null
@@ -229,7 +230,7 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
-                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell>Users can't join upcoming campaigns.</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> :
@@ -249,7 +250,8 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
-                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell><List>{campaign.users.map((user, i) => (
+                       <List.Item key={i}>{user}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> : null
