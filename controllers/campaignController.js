@@ -15,6 +15,7 @@ module.exports = {
   },
   // Business creates a campaign
   create: function(req, res) {
+    req.body.url = req.body.url.replace(/https?:\/\//gi,'')
     Campaign.create(req.body).then((dbCampaign) => {
       // Push newly created campaign into business collection.  (Needs to be tested)
       Business.findOneAndUpdate({
