@@ -116,14 +116,14 @@ class Dashboard extends Component {
             <List.Item>
               <List.Icon name='mail' />
               <List.Content>
-                <a href='mailto:{this.state.user.email}'> {this.state.user.email}</a>
+                <a href={'mailto:'+ this.state.user.email}> {this.state.user.email}</a>
               </List.Content>
             </List.Item>
             {this.state.user.handle &&
             <List.Item>
               <List.Icon name='twitter'/>
               <List.Content>
-                <a href='https://twitter.com/{this.state.user.handle}' target='_blank' rel="noopener noreferrer">
+                <a href={'https://twitter.com/'+ this.state.user.handle} target='_blank' rel="noopener noreferrer">
                   {this.state.user.handle}</a>
               </List.Content>
             </List.Item>
@@ -219,7 +219,7 @@ class Dashboard extends Component {
           </Segment>
           {this.state.user.name &&
           <Segment color='blue' raised padded>
-            <Header as='h5' textAlign='center'>Upcomming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
+            <Header as='h5' textAlign='center'>Upcoming {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
             <Table striped>
               <Table.Body>
                 {this.state.campaigns.map((campaign, i)=>(
