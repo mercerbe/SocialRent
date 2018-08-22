@@ -76,10 +76,7 @@ class LoginForm extends Component {
     })
       .then(this.props.login)
       .catch(err =>
-        //add alert or modal here
         console.log(err))
-      } else {
-        alert('Email and Password does not match. Try logging in again')
       }
     if(type === 'business'){
       Service.post('/api/business/login', {
@@ -88,11 +85,8 @@ class LoginForm extends Component {
       })
         .then(this.props.login)
         .catch(err =>
-          //add alert or modal here
           console.log(err))
-    } else {
-      alert('Email and Password does not match. Try logging in again')
-    }
+    } 
   }
 
   //signup
