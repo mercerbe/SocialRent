@@ -197,7 +197,7 @@ class Dashboard extends Component {
                   <Table.Row key={i} positive>
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
-                    <Table.Cell>{campaign.url}</Table.Cell>
+                    <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
                     <Table.Cell>user handles and assoc clicks</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
@@ -208,8 +208,8 @@ class Dashboard extends Component {
                 {this.state.ads.map((ad, i)=> (
                   now.isAfter(moment(ad.startDate)) &&  now.isBefore(moment(ad.endDate)) ?
                   <Table.Row key={i} positive>
-                    <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell><Message>{ad.copy} {ad.mRoute}</Message></Table.Cell>
+                    <Table.Cell><a href={'https://'+ ad.url} target='_blank' rel="noopener noreferrer">{ad.url}</a></Table.Cell>
+                    <Table.Cell><Message>{ad.copy} <a href={'https://oururl.com/'+ ad.mRoute} target='_blank' rel="noopener noreferrer">{'https://oururl.com/'+ ad.mRoute}</a></Message></Table.Cell>
                     <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
@@ -228,7 +228,7 @@ class Dashboard extends Component {
                   <Table.Row key={i} warning>
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
-                    <Table.Cell>{campaign.url}</Table.Cell>
+                    <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
                     <Table.Cell>user handles and assoc clicks</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
@@ -248,7 +248,7 @@ class Dashboard extends Component {
                   <Table.Row key={i} negative>
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
-                    <Table.Cell>{campaign.url}</Table.Cell>
+                    <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
                     <Table.Cell>user handles and assoc clicks</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
@@ -259,8 +259,8 @@ class Dashboard extends Component {
                 {this.state.ads.map((ad, i)=>(
                   now.isAfter(moment(ad.endDate)) ?
                   <Table.Row key={i} negative>
-                    <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell><Message>{ad.copy} {ad.mRoute}</Message></Table.Cell>
+                    <Table.Cell><a href={'https://'+ ad.url} target='_blank' rel="noopener noreferrer">{ad.url}</a></Table.Cell>
+                    <Table.Cell><Message>{ad.copy} <a href={'https://oururl.com/'+ ad.mRoute} target='_blank' rel="noopener noreferrer">{'https://oururl.com/'+ ad.mRoute}</a></Message></Table.Cell>
                     <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
