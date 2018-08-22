@@ -87,7 +87,7 @@ class App extends Component {
   render() {
     const {visible} = this.state
     return (
-      
+
       <div style={backgroundStyle} className="App">
 
         <Header style={{backgroundColor: '#1b1c1d', padding: '10px', height: '50px', width:'100%', marginBottom: '-18px'}}>
@@ -127,7 +127,7 @@ class App extends Component {
            </Sidebar>
          </Sticky>
            {/*routes to render pages*/}
-           <Sidebar.Pusher dimmed={visible}>
+           <Sidebar.Pusher dimmed={visible} style={{margin: 0}}>
            <div style={{margin: 0}}>
              <Route exact path='/' render={()=> <Home loggedIn={this.state.loggedIn}/>}/>
              <Route path='/login' render={()=> <Login login={this.login} loggedIn={this.state.loggedIn}/>}/>
