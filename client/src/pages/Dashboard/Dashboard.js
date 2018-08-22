@@ -169,7 +169,7 @@ class Dashboard extends Component {
          <YAxis dataKey="users.length"/>
          <Tooltip/>
          <Legend />
-         <Bar dataKey="users.length" content="users" fill="#fbbd08" />
+         <Bar dataKey="users.length" content="users.length" fill="#fbbd08" />
         </BarChart>
         }
         {this.state.user.handle &&
@@ -180,7 +180,7 @@ class Dashboard extends Component {
            <YAxis dataKey="clicks"/>
            <Tooltip/>
            <Legend />
-           <Bar dataKey="clicks" content="users" fill="#fbbd08" />
+           <Bar dataKey="clicks" content="clicks" fill="#fbbd08" />
           </BarChart>
         }
         {/* end chart */}

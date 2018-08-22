@@ -1,6 +1,6 @@
 // importing other react components
 import React, { Component } from 'react'
-import { Button, Header, Icon, Modal, Form, Input, TextArea } from 'semantic-ui-react'
+import { Button, Header, Icon, Modal, Form, Input, TextArea, Message } from 'semantic-ui-react'
 //date picker
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
@@ -27,26 +27,64 @@ class CreateCampaignForm extends Component{
     endDate: moment(),
     bodyCopy: '',
     showModal: false,
+    headlineError: false,
+    campaignLinkError: false,
+    startDateError: false,
+    endDateError: false,
+    bodyCopyError: false,
+    formError: false,
+    errorMessage: '',
+    hidden: true
   }
 
   //update form state -- add these as onChange of form attr.
-  updateHeadline = (event) =>  this.setState({headline: event.target.value})
-  updateLink = (event) => this.setState({campaignLink: event.target.value})
-  updateBodyCopy = (event) => this.setState({bodyCopy: event.target.value})
-  //=======test these to ensure they capture values from date form========//
-  updateStartDate = (date) => this.setState({startDate: moment(date)})
-  updateEndDate = (date) => this.setState({endDate: moment(date)})
-  //==============================================================//
+  updateHeadline = (event) => this.setState({headline: event.target.value, headlineError: false, hidden: true, errorMessage: ''})
+  updateLink = (event) => this.setState({campaignLink: event.target.value, campaignLinkError: false, hidden: true, errorMessage: ''})
+  updateBodyCopy = (event) => this.setState({bodyCopy: event.target.value, bodyCopyError: false, hidden: true, errorMessage: ''})
+  updateStartDate = (date) => this.setState({startDate: moment(date), startDateError: false, hidden: true, errorMessage: ''})
+  updateEndDate = (date) => this.setState({endDate: moment(date), endDateError: false, hidden: true, errorMessage: ''})
   closeModal = () => {
-    this.setState({ showModal: false })
+    this.setState({
+    showModal: false,
+    formError: false,
+    headlineError: false,
+    campaignLinkError: false,
+    startDateError: false,
+    endDateError: false,
+    bodyCopyError: false,
+    hidden: true, errorMessage: '' })
   }
 
   //handleSubmitandCreate
   handleFormState = (event) => {
     event.preventDefault()
     let { headline, campaignLink, startDate, endDate, bodyCopy} = this.state
-    console.log(this.state)
-    console.log(startDate.format('YYYY-MM-DD'))
+
+    //////form validation//////
+    let error = false
+    if(this.state.headline === '') {
+      this.setState({headlineError: true, errorMessage: 'please fill in a valid headline.', hidden: false})
+      error = true
+    }
+    //regex ^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$
+    if(this.state.campaignLink === '') {
+      this.setState({campaignLinkError: true, errorMessage: 'please fill in a valid website', hidden: false})
+      error = true
+    }
+    if(this.state.bodyCopy.length < 10 || this.state.bodyCopy.length > 260) {
+      this.setState({bodyCopyError: true, errorMessage: 'please fill in a copy between 10 and 260 characters.', hidden: false})
+      error = true
+    }
+    if(this.state.endDate < moment()) {
+      this.setState({endDateError: true, errorMessage: 'a campaign must end after the current date.', hidden: false})
+      error = true
+    }
+    if(error) {
+      this.setState({formError: true})
+      return
+    }
+    //////end validation //////
+
     if(headline && campaignLink && startDate && endDate && bodyCopy !== '') {
     //continue post from here to route -- confirm this route is correct
     Service.post('/campaign', {
@@ -80,7 +118,7 @@ class CreateCampaignForm extends Component{
           <Modal.Description>
             <Header textAlign='center' as='h2'><Icon name='edit outline' size='huge'/></Header>
             <Header as='h3' textAlign='center'>Fill out the form below to create your new advertising campaign:</Header>
-          <Form style={{paddingBottom: '2em'}}>
+          <Form style={{paddingBottom: '2em'}} error={this.state.formError}>
           <Form.Group widths='equal'>
             <Form.Field
               id='headline'
@@ -89,6 +127,7 @@ class CreateCampaignForm extends Component{
               placeholder='This is our product!'
               value={this.state.headline}
               onChange={this.updateHeadline}
+              error={this.state.headlineError}
             />
             <Form.Field
               id='campaignLink'
@@ -97,17 +136,22 @@ class CreateCampaignForm extends Component{
               placeholder='Link to your product'
               value={this.state.campaignLink}
               onChange={this.updateLink}
+              error={this.state.campaignLinkError}
             />
           </Form.Group>
           <Form.Group widths='equal'>
-          <Form.Field>
+          <Form.Field
+            error={this.state.startDateError}
+            >
           <p style={{fontWeight: '600'}}>Start Date</p>
           <DatePicker
             selected={this.state.startDate}
             onChange={this.updateStartDate}
             />
           </Form.Field>
-          <Form.Field>
+          <Form.Field
+            error={this.state.endDateError}
+            >
           <p style={{fontWeight: '600'}}>End Date</p>
           <DatePicker
             selected={this.state.endDate}
@@ -122,6 +166,7 @@ class CreateCampaignForm extends Component{
             placeholder='place the exact content you would like your campaign contributors to tweet here...'
             value={this.state.bodyCopy}
             onChange={this.updateBodyCopy}
+            error={this.state.bodyCopyError}
           />
         <Form.Button
             style={buttonStyle}
@@ -131,6 +176,11 @@ class CreateCampaignForm extends Component{
             onClick={this.handleFormState}
           />
         </Form>
+        <Message
+           error
+           content={this.state.errorMessage}
+           hidden={this.state.hidden}
+         />
           </Modal.Description>
         </Modal.Content>
       </Modal>
