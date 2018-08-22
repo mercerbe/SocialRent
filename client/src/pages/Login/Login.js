@@ -30,8 +30,7 @@ export default class Login extends Component {
             className='header'
             horizontal
             style={{ margin: '2em 0em', textTransform: 'uppercase' }}
-          >
-            <p color='black'>===</p>
+          ><p color='black'><Icon name='angle double down'/></p>
           </Divider>
           <Container text>
             <Segment style={{background: '#fbbd08', marginTop: '0px'}} raised padded>
@@ -49,7 +48,7 @@ export default class Login extends Component {
           horizontal
           style={{ margin: '2em 0em', textTransform: 'uppercase' }}
         >
-          <p color='black'>===</p>
+          <p color='black'><Icon name='angle double up'/></p>
         </Divider>
          {/*this is where we might do nothing....*/}
         </Container>

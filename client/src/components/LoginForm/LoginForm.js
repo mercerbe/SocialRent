@@ -3,7 +3,7 @@ import React, {
   Component
 } from 'react'
 //semantic components
-import { Form, Input, TextArea, Select, Header } from 'semantic-ui-react'
+import { Form, Input, TextArea, Select, Header, Message } from 'semantic-ui-react'
 //utils
 import Service from '../../utils/Service'
 
@@ -34,7 +34,12 @@ class LoginForm extends Component {
     about: '',
     type: '',
     industry: '',
-    createAccount: false
+    createAccount: false,
+    emailError: false,
+    passwordError: false,
+    formError: false,
+    errorMessage: '',
+    hidden: true
   }
 
   //update state
@@ -44,8 +49,8 @@ class LoginForm extends Component {
     console.log('typestate: ', {value})
     this.setState({type: value})
   }
-  updatePassword = (event) => this.setState({password: event.target.value})
-  updateEmail = (event) => this.setState({email: event.target.value})
+  updatePassword = (event) => this.setState({password: event.target.value, passwordError: false, hidden: true, errorMessage: ''})
+  updateEmail = (event) => this.setState({email: event.target.value, emailError: false, hidden: true, errorMessage: ''})
   updateHandle = (event) => this.setState({handle: event.target.value})
   updateName = (event) => this.setState({name: event.target.value})
   updateIndustry = (event, {value}) => {
@@ -73,7 +78,8 @@ class LoginForm extends Component {
       .catch(err =>
         //add alert or modal here
         console.log(err))
-        //alert('Error Logging in. Please try again.')
+      } else {
+        alert('Email and Password does not match. Try logging in again')
       }
     if(type === 'business'){
       Service.post('/api/business/login', {
@@ -84,6 +90,8 @@ class LoginForm extends Component {
         .catch(err =>
           //add alert or modal here
           console.log(err))
+    } else {
+      alert('Email and Password does not match. Try logging in again')
     }
   }
 
@@ -104,7 +112,11 @@ class LoginForm extends Component {
       .then(({data}) => {
         console.log({data});
         if(data.status === 200) {
-          this.setState({ type: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false })
+          this.setState({ type: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false, emailError: false,
+          passwordError: false,
+          formError: false,
+          errorMessage: '',
+          hidden: true  })
         }
       })
       .catch( err =>
@@ -124,7 +136,11 @@ class LoginForm extends Component {
       .then(({data}) => {
         console.log({data});
         if(data.status === 200) {
-          this.setState({ type: '', industry: '', name: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false })
+          this.setState({ type: '', industry: '', name: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false, emailError: false,
+          passwordError: false,
+          formError: false,
+          errorMessage: '',
+          hidden: true })
         }
       })
       .catch( err =>
@@ -260,6 +276,11 @@ class LoginForm extends Component {
         <Form.Button content='Signup' onClick={this.handleRegistration}/>
         )
         }
+        <Message
+           error
+           content={this.state.errorMessage}
+           hidden={this.state.hidden}
+         />
       </Form>
     </div>
 

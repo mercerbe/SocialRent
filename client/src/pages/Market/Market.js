@@ -138,9 +138,9 @@ class Market extends Component {
            <Grid>
              <Grid.Column mobile={16} tablet={12} computer={12}>
            <Header as='h3'>{campaign.headline}</Header>
+            <Header as='h5'>Hosted By: {campaign.businessId.name}</Header>
            <Header as='h5' block compact="true">{campaign.copy}</Header>
            <Header as='h5'> <Icon name='linkify'/><Header.Content><a href={'http://' + campaign.url} target='_blank' >{campaign.url}</a></Header.Content></Header>
-           <Header as='h5'> <Icon name='bars'/><Header.Content>{campaign.businessId.name}</Header.Content></Header> 
              <Step.Group stackable='tablet' size='mini'>
                 <Step>
                   <Icon name='calendar check outline' color='green'/>

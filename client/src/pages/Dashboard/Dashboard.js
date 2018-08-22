@@ -162,8 +162,8 @@ class Dashboard extends Component {
         <Header as='h4'>{this.state.user.name ? 'CAMPAIGN' : 'AD'} PERFORMANCE</Header>
         {/* chart here */}
         {this.state.user.name &&
-        <BarChart width={225} height={225} data={this.state.campaigns}
-          margin={{top: 5, right: 0, left: -30, bottom: 5}}>
+        <BarChart width={300} height={300} data={this.state.campaigns}
+          margin={{top: 5, right: 0, left: -20, bottom: 5}}>
          <CartesianGrid strokeDasharray="3 3"/>
          <XAxis dataKey="headline"/>
          <YAxis dataKey="users.length"/>
@@ -173,8 +173,8 @@ class Dashboard extends Component {
         </BarChart>
         }
         {this.state.user.handle &&
-          <BarChart width={225} height={225} data={this.state.ads}
-            margin={{top: 5, right: 0, left: -30, bottom: 5}}>
+          <BarChart width={300} height={300} data={this.state.ads}
+            margin={{top: 5, right: 0, left: -20, bottom: 5}}>
            <CartesianGrid strokeDasharray="3 3"/>
            <XAxis dataKey="url"/>
            <YAxis dataKey="clicks"/>
@@ -185,7 +185,8 @@ class Dashboard extends Component {
         }
         {/* end chart */}
         </Grid.Column>
-        <Grid.Column mobile={16} tablet={8} computer={8} floated='right' style={{borderRadius: '5px', backgroundColor: '#fbbd08', margin:'0em', padding: '20px 40px'}}>
+        <Grid.Column mobile={16} tablet={8} computer={8} floated='right' style={{margin:'0em'}}>
+          <Segment compact style={{backgroundColor: '#fbbd08', margin: '0px !important'}}>
           <Header as='h4' textAlign='center'>MANAGE {this.state.user.name ? 'CAMPAIGNS' : 'ADVERTISEMENTS'}</Header>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Current {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
@@ -268,6 +269,7 @@ class Dashboard extends Component {
               </Table.Body>
             </Table>
           </Segment>
+        </Segment>
         </Grid.Column>
        </Grid>
      </Container>
