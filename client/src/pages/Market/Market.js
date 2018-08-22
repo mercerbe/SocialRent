@@ -29,15 +29,29 @@ const headerStyle = {
 
 //page component
 class Market extends Component {
+  constructor(props) {
+      super(props)
+      this.filterCampaigns = this.filterCampaigns.bind(this)
+    }
 
   //state
   state = {
     campaigns: [],
     user: {},
-    activePage: 1
+    activePage: 1,
+    filteredCampaigns: [],
   }
   //handle page change
   handlePaginationChange = (e, { activePage }) => this.setState({ activePage })
+
+  //filter campaigns
+  filterCampaigns() {
+  return this.state.campaigns.filter(camp => (
+    !camp.users.includes(this.state.user.id)
+      )
+    )
+  }
+
 
   //component cycle start
   componentDidMount() {
@@ -47,6 +61,9 @@ class Market extends Component {
         if(res.data) {
           this.setState({campaigns: res.data})
           console.log('all campaigns', this.state.campaigns)
+          this.setState({filteredCampaigns: this.filterCampaigns()})
+          console.log(this.state.filteredCampaigns)
+
         }
       })
       .catch( err => console.log('No campaigns.'))
@@ -63,15 +80,17 @@ class Market extends Component {
                 if(res.data.success && data.user !== null) {
                   this.setState({user: res.data.user})
                   console.log('Public user json data: ', this.state.user)
+                  this.setState({filteredCampaigns: this.filterCampaigns()})
+                  console.log(this.state.filteredCampaigns)
+
                 }
               })
               .catch( err => console.log('not a user.'))
           }
         })
         .catch( err => console.log('Not a business.'))
-//compare ads array with campaigns array in order to eliminate
-//splice the ad out of the array
     }
+
   //handle ad creation & join campaign button
   handleAdCreation = (campaign) => {
     //let { copy, url, startDate, endDate, campaignId } = this.state
@@ -109,15 +128,17 @@ class Market extends Component {
            </Header>
         </Segment>
      <br/>
-     <Container style={{marginTop:'1em', marginBottom: '1em'}} >
-       <Header textAlign='center'>OPEN CAMPAIGNS</Header>
+     <Container style={{marginTop:'0.5em', marginBottom: '1em'}} >
+       <Header style={{textAlign:'center'}}>OPEN CAMPAIGNS</Header>
      <Grid>
-       <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8'}}>
-        {this.state.campaigns.map((campaign, i) =>(
+       <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8', marginTop: '1em'}}>
+        {this.state.filteredCampaigns.map((campaign, i) =>(
           now.isAfter(moment(campaign.startDate)) && now.isBefore(moment(campaign.endDate)) ?
          <Segment color='yellow' key={i} clearing>
+           <Grid>
+             <Grid.Column mobile={16} tablet={12} computer={12}>
            <Header as='h3'>{campaign.headline}</Header>
-           <Header as='h5' block>{campaign.copy}</Header>
+           <Header as='h5' block compact="true">{campaign.copy}</Header>
            <Header as='h5'> <Icon name='linkify'/><Header.Content><a href={campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Header.Content></Header>
              <Step.Group stackable='tablet' size='mini'>
                 <Step>
@@ -137,16 +158,23 @@ class Market extends Component {
                   </Step.Content>
                 </Step>
               </Step.Group>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={4} computer={4}>
+            <Segment clearing style={{border: 'none', boxShadow: 'none'}}>
+            <Header as='h5' > <Icon name='users'/>users on campaign:{campaign.users.length}</Header>
               {this.state.user.handle &&
-           <Button floated='right' icon='check' content='Join Campaign' labelPosition='right' onClick={ this.handleAdCreation.bind(this,campaign)}></Button> }
+           <Button  icon='check' content='Join Campaign' labelPosition='right' onClick={ this.handleAdCreation.bind(this,campaign)}></Button> }
+           </Segment>
+         </Grid.Column>
+         </Grid>
          </Segment> :
          null
         ))}
-        
+
         </Grid.Column>
      </Grid>
      <br/>
-       <Pagination
+       <Pagination style={{marginTop: '20px'}}
           activePage={activePage}
           onPageChange={this.handlePaginationChange}
           ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}

@@ -1,7 +1,7 @@
 //standard dependencies
 import React, { Component } from 'react'
 //semantic components
-import { Container, Divider, Segment, Header, Icon, Responsive } from 'semantic-ui-react'
+import { Container, Divider, Segment, Header, Icon } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
 import LoginForm from '../../components/LoginForm/LoginForm'
