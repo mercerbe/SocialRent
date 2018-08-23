@@ -13,7 +13,7 @@ const config = require('./config')
 
 // connect to database
 mongoose.connect(
-  process.env.MONGO_URI || config.mongoURI,
+  process.env.MONGODB_URI || config.mongoURI,
   { useNewUrlParser: true }
 )
 
