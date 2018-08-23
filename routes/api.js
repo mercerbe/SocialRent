@@ -5,9 +5,9 @@ const router = require('express').Router()
 const jwtUtils = require('../utils/jwt')
 
 //controllers
-const UserController = require('../controllers/UserController')
-const AuthController = require('../controllers/AuthController')
-const DashboardController = require('../controllers/DashboardController')
+const UserController = require('../controllers/userController')
+const AuthController = require('../controllers/authController')
+const DashboardController = require('../controllers/dashboardController')
 const BusinessController = require('../controllers/businessController')
 
 //User routes
