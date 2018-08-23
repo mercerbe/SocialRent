@@ -186,7 +186,7 @@ class Dashboard extends Component {
         {/* end chart */}
         </Grid.Column>
         <Grid.Column mobile={16} tablet={8} computer={8} floated='right' style={{margin:'0em'}}>
-          <Segment compact style={{backgroundColor: '#fbbd08', margin: '0px !important'}}>
+          <Segment style={{backgroundColor: '#fbbd08', margin: '0px !important'}}>
           <Header as='h4' textAlign='center'>MANAGE {this.state.user.name ? 'CAMPAIGNS' : 'ADVERTISEMENTS'}</Header>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Current {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>

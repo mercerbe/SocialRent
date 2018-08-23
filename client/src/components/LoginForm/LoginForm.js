@@ -3,7 +3,7 @@ import React, {
   Component
 } from 'react'
 //semantic components
-import { Form, Input, TextArea, Select, Header, Message } from 'semantic-ui-react'
+import { Form, Input, TextArea, Select, Header, Message, Modal, Button } from 'semantic-ui-react'
 //utils
 import Service from '../../utils/Service'
 
@@ -39,7 +39,8 @@ class LoginForm extends Component {
     passwordError: false,
     formError: false,
     errorMessage: '',
-    hidden: true
+    hidden: true,
+    open: false,
   }
 
   //update state
@@ -62,6 +63,9 @@ class LoginForm extends Component {
   }
   updatePasswordCheck = (event) => this.setState({passwordCheck: event.target.value})
   updateAbout = (event) => this.setState({about: event.target.value})
+  //confirm
+  open = () => this.setState({ open: true })
+  close = () => this.setState({ open: false, createAccount: false, type: '' })
 
   //==============methods to check all signup and login params==============//
 
@@ -86,7 +90,7 @@ class LoginForm extends Component {
         .then(this.props.login)
         .catch(err =>
           console.log(err))
-    } 
+    }
   }
 
   //signup
@@ -106,11 +110,13 @@ class LoginForm extends Component {
       .then(({data}) => {
         console.log({data});
         if(data.status === 200) {
-          this.setState({ type: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false, emailError: false,
+          this.open()
+          this.setState({ type: '', handle: '', email:'', password: '', passwordCheck: '', about: '', emailError: false,
           passwordError: false,
           formError: false,
           errorMessage: '',
-          hidden: true  })
+          hidden: true,
+          })
         }
       })
       .catch( err =>
@@ -130,11 +136,14 @@ class LoginForm extends Component {
       .then(({data}) => {
         console.log({data});
         if(data.status === 200) {
-          this.setState({ type: '', industry: '', name: '', handle: '', email:'', password: '', passwordCheck: '', about: '', createAccount: false, emailError: false,
+          this.open()
+          this.setState({ type: '', industry: '', name: '', handle: '', email:'', password: '', passwordCheck: '', about: '', emailError: false,
           passwordError: false,
           formError: false,
           errorMessage: '',
-          hidden: true })
+          hidden: true,
+          open: true
+          })
         }
       })
       .catch( err =>
@@ -263,6 +272,17 @@ class LoginForm extends Component {
             value={this.state.about}
             onChange={this.updateAbout}
           />
+      }
+      {this.state.createAccount &&
+        <Modal open={this.state.open} size='tiny'>
+          <Modal.Header>Congrats</Modal.Header>
+          <Modal.Content>
+              <p>Accout successfully created!</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={this.close} positive icon='checkmark' labelPosition='right' content='Login'/>
+          </Modal.Actions>
+        </Modal>
       }
         {!this.state.createAccount ? (
         <Form.Button content='Login' onClick={this.handleLogin}/>
