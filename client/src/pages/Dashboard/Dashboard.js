@@ -180,7 +180,7 @@ class Dashboard extends Component {
            <YAxis dataKey="clicks"/>
            <Tooltip/>
            <Legend />
-           <Bar dataKey="clicks" content="clicks" fill="#fbbd08" />
+           <Bar dataKey="clicks" content="clicks" fill="#fbbd08"/>
           </BarChart>
         }
         {/* end chart */}

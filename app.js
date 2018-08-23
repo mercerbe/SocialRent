@@ -11,11 +11,12 @@ const app = express()
 //config
 const config = require('./config')
 
-// connect to database
-mongoose.connect(
-  process.env.MONGO_URI || config.mongoURI,
-  { useNewUrlParser: true }
-)
+//connect to db
+if(process.env.MOGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI)
+} else {
+  mongoose.connect(config.mongoURI, {useNewUrlParser: true})
+}
 
 //bring in routes
 const apiRoutes = require('./routes/api')
