@@ -29,7 +29,7 @@ SocialRent solves for both of these.
 
 ## Demo
 
-You can demo this web app on heroku at:  [SocialRent](https://tbd.herokuapp.com/).
+You can demo this web app on heroku at:  [SocialRent](https://blooming-meadow-10170.herokuapp.com/).
 
 ## Installation
 
