@@ -117,10 +117,12 @@ class App extends Component {
                <Icon name='home'/>
                <Link to='/' onClick={this.handleButtonClick}>Home</Link>
              </Menu.Item>
+             {this.state.loggedIn === false &&
              <Menu.Item as=''>
                <Icon name='sign in' />
-               <Link to='/login' onClick={this.handleButtonClick}>Login/Signup</Link>
+               <Link to='/login' onClick={this.handleButtonClick }>Login/Signup</Link>
              </Menu.Item>
+             }
              <Menu.Item as=''>
                <Icon name='columns' />
                <Link to='/dashboard' onClick={this.handleButtonClick}>Dashboard</Link>
