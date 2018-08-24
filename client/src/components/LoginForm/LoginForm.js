@@ -35,12 +35,14 @@ class LoginForm extends Component {
     type: '',
     industry: '',
     createAccount: false,
+    typeError: false,
+    industryError: false,
     emailError: false,
     passwordError: false,
     formError: false,
     errorMessage: '',
     hidden: true,
-    open: false,
+    open: false
   }
 
   //update state
@@ -52,8 +54,8 @@ class LoginForm extends Component {
   }
   updatePassword = (event) => this.setState({password: event.target.value, passwordError: false, hidden: true, errorMessage: ''})
   updateEmail = (event) => this.setState({email: event.target.value, emailError: false, hidden: true, errorMessage: ''})
-  updateHandle = (event) => this.setState({handle: event.target.value})
-  updateName = (event) => this.setState({name: event.target.value})
+  updateHandle = (event) => this.setState({handle: event.target.value, hidden: true, errorMessage: ''})
+  updateName = (event) => this.setState({name: event.target.value, hidden: true, errorMessage: ''})
   updateIndustry = (event, {value}) => {
     this.setState({value})
     console.log('industrystate: ', {value})
@@ -65,13 +67,17 @@ class LoginForm extends Component {
   updateAbout = (event) => this.setState({about: event.target.value})
   //confirm
   open = () => this.setState({ open: true })
-  close = () => this.setState({ open: false, createAccount: false, type: '' })
+  close = () => this.setState({ open: false, createAccount: false, type: '', value: '' })
 
   //==============methods to check all signup and login params==============//
 
   //login
   handleLogin = (event) => {
     event.preventDefault()
+
+    /////form validation/////
+
+    //////-------------/////
     const { type } = this.state
     if(type === 'user'){
     Service.post('/api/user/login', {
@@ -97,6 +103,9 @@ class LoginForm extends Component {
   handleRegistration = (event) => {
     event.preventDefault()
 
+    /////form validation/////
+    /////---------------/////
+
     const { type, name, industry, about, handle, email, password, passwordCheck } = this.state
     //post to user
     if(handle && email && password && about !== '' && password === passwordCheck && type === 'user') {
@@ -120,7 +129,6 @@ class LoginForm extends Component {
         }
       })
       .catch( err =>
-        //add alert here or modal
         console.log('Registration failed. Please try again.'))
     }
     //post to business
