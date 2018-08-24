@@ -32,6 +32,7 @@ class App extends Component {
 
   //start app lifecyle -- CONFIRM USER/BUSINESS
   componentDidMount() {
+    this.setState({loading: false})
     console.log('Application cycle initiated.')
     const token = Storage.getToken()
     if (token) {
@@ -91,10 +92,10 @@ class App extends Component {
     return (
 
       <div style={backgroundStyle} className="App">
-
+        
           {this.state.loading &&
           <Image src={Loader} centered/>}
-
+        {!this.state.loading &&
         <Header style={{backgroundColor: '#1b1c1d', padding: '10px', height: '50px', width:'100%', marginBottom: '-18px'}}>
           <Button compact onClick={this.handleButtonClick} icon='bars' floated='left' content='menu' inverted color='grey'/>
           {this.state.loggedIn &&
@@ -141,6 +142,7 @@ class App extends Component {
            </div>
          </Sidebar.Pusher>
          </Sidebar.Pushable>
+       }
          </div>
     );
   }
