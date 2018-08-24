@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const adsController = require('../controllers/AdController')
+const adsController = require('../controllers/adController')
 
 // Matches with "/api/ads"
 // Find all ads
