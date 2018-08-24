@@ -49,6 +49,11 @@ const CampaignSchema = new Schema({
       message: "End date must be after start date."
     }
   },
+  totalClicks: {
+    type: Number,
+    required: true,
+    default: 0
+  },
   businessId: {
     type: Schema.Types.ObjectId,
     required: true,

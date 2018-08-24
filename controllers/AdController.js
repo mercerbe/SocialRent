@@ -59,7 +59,7 @@ module.exports = {
     const { userId, campaignId } = req.body
     Campaign.findOneAndUpdate( {_id: campaignId}, { $push: { users: userId }}, { new: true} )
     .then((dbCamp) => {
-      const { _id, headline, copy, url, startDate, endDate } = dbCamp
+      const { _id, headline, copy, url, startDate, totalClicks, endDate } = dbCamp
       Ad.create({
         campaignId: _id,
         copy,
