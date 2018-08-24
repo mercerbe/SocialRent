@@ -162,30 +162,31 @@ class Dashboard extends Component {
         <Header as='h4'>{this.state.user.name ? 'CAMPAIGN' : 'AD'} PERFORMANCE</Header>
         {/* chart here */}
         {this.state.user.name &&
-        <BarChart width={225} height={225} data={this.state.campaigns}
-          margin={{top: 5, right: 0, left: -30, bottom: 5}}>
+        <BarChart width={300} height={300} data={this.state.campaigns}
+          margin={{top: 5, right: 0, left: -20, bottom: 5}}>
          <CartesianGrid strokeDasharray="3 3"/>
          <XAxis dataKey="headline"/>
          <YAxis dataKey="users.length"/>
          <Tooltip/>
          <Legend />
-         <Bar dataKey="users.length" content="users" fill="#fbbd08" />
+         <Bar dataKey="users.length" content="users.length" fill="#fbbd08" />
         </BarChart>
         }
         {this.state.user.handle &&
-          <BarChart width={225} height={225} data={this.state.ads}
-            margin={{top: 5, right: 0, left: -30, bottom: 5}}>
+          <BarChart width={300} height={300} data={this.state.ads}
+            margin={{top: 5, right: 0, left: -20, bottom: 5}}>
            <CartesianGrid strokeDasharray="3 3"/>
            <XAxis dataKey="url"/>
            <YAxis dataKey="clicks"/>
            <Tooltip/>
            <Legend />
-           <Bar dataKey="clicks" content="users" fill="#fbbd08" />
+           <Bar dataKey="clicks" content="clicks" fill="#fbbd08"/>
           </BarChart>
         }
         {/* end chart */}
         </Grid.Column>
-        <Grid.Column mobile={16} tablet={8} computer={8} floated='right' style={{borderRadius: '5px', backgroundColor: '#fbbd08', margin:'0em', padding: '20px 40px'}}>
+        <Grid.Column mobile={16} tablet={8} computer={8} floated='right' style={{margin:'0em'}}>
+          <Segment style={{backgroundColor: '#fbbd08', margin: '0px !important'}}>
           <Header as='h4' textAlign='center'>MANAGE {this.state.user.name ? 'CAMPAIGNS' : 'ADVERTISEMENTS'}</Header>
           <Segment color='blue' raised padded>
             <Header as='h5' textAlign='center'>Current {this.state.user.name ? 'Campaigns' : 'Ads'}</Header>
@@ -196,8 +197,9 @@ class Dashboard extends Component {
                   <Table.Row key={i} positive>
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
-                    <Table.Cell>{campaign.url}</Table.Cell>
-                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
+                    <Table.Cell><List as='ul'>{campaign.users.map((user, i) => (
+                       <List.Item key={i} as='li'>{user.handle}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> : null
@@ -207,8 +209,8 @@ class Dashboard extends Component {
                 {this.state.ads.map((ad, i)=> (
                   now.isAfter(moment(ad.startDate)) &&  now.isBefore(moment(ad.endDate)) ?
                   <Table.Row key={i} positive>
-                    <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell><Message>{ad.copy} {ad.mRoute}</Message></Table.Cell>
+                    <Table.Cell><a href={'https://'+ ad.url} target='_blank' rel="noopener noreferrer">{ad.url}</a></Table.Cell>
+                    <Table.Cell><Message>{ad.copy} <a href={'https://social-rent-web.herokuapp.com/'+ ad.mRoute} target='_blank' rel="noopener noreferrer">{'https://social-rent-web.herokuapp.com/'+ ad.mRoute}</a></Message></Table.Cell>
                     <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
@@ -227,8 +229,8 @@ class Dashboard extends Component {
                   <Table.Row key={i} warning>
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
-                    <Table.Cell>{campaign.url}</Table.Cell>
-                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
+                    <Table.Cell>Users can't join upcoming campaigns.</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> :
@@ -247,8 +249,9 @@ class Dashboard extends Component {
                   <Table.Row key={i} negative>
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
-                    <Table.Cell>{campaign.url}</Table.Cell>
-                    <Table.Cell>user handles and assoc clicks</Table.Cell>
+                    <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
+                    <Table.Cell><List as='ul'>{campaign.users.map((user, i) => (
+                       <List.Item key={i} as='li'>{user.handle}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> : null
@@ -258,8 +261,8 @@ class Dashboard extends Component {
                 {this.state.ads.map((ad, i)=>(
                   now.isAfter(moment(ad.endDate)) ?
                   <Table.Row key={i} negative>
-                    <Table.Cell>{ad.url}</Table.Cell>
-                    <Table.Cell><Message>{ad.copy} {ad.mRoute}</Message></Table.Cell>
+                    <Table.Cell><a href={'https://'+ ad.url} target='_blank' rel="noopener noreferrer">{ad.url}</a></Table.Cell>
+                    <Table.Cell><Message>{ad.copy} <a href={'https://social-rent-web.herokuapp.com/'+ ad.mRoute} target='_blank' rel="noopener noreferrer">{'https://social-rent-web.herokuapp.com/'+ ad.mRoute}</a></Message></Table.Cell>
                     <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
@@ -268,6 +271,7 @@ class Dashboard extends Component {
               </Table.Body>
             </Table>
           </Segment>
+        </Segment>
         </Grid.Column>
        </Grid>
      </Container>

@@ -38,7 +38,7 @@ export const Home = (props) => (
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign='center'>
-              <Button size='huge' color='black' href='#next_h3'>More</Button>
+            {/*   <Button size='huge' color='black' href='#next_h3'>More</Button> */}
             </Grid.Column>
           </Grid.Row>
         </Grid>
