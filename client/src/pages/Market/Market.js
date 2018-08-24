@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 //import images
 import Logo from '../../images/logo_transparent.png'
 //semantic components
-import { Container, Grid, Header, Segment, Image, Icon, Step, Button, Pagination } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment, Image, Icon, Step, Button, Pagination, Dropdown } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
 //utils
@@ -12,11 +12,17 @@ import Service from '../../utils/Service'
 import moment from 'moment'
 
 const data = ''
+const industryOptions = [
+  {key: 'a', text: 'All', value: 'all'},
+  {key: 'b', text: 'Technology', value: 'technology'},
+  {key: 'c', text: 'Finance', value: 'finance'},
+  {key: 'd', text: 'Entertainment', value: 'entertainment'},
+  {key: 'e', text: 'Games & Hobbies', value: 'gamesandhobbies'},
+  {key: 'f', text: 'Automotive', value: 'automotive'},
+]
 
 //get current date/time
-//const now = moment().format('YYYY-MM-DD')
 const now = moment()
-console.log(now)
 
 //styles
 const logoStyle = {
@@ -40,9 +46,12 @@ class Market extends Component {
     user: {},
     activePage: 1,
     filteredCampaigns: [],
+    industry: ''
   }
   //handle page change
   handlePaginationChange = (e, { activePage }) => this.setState({ activePage })
+  //filter by industry
+  filterByIndustry = (e, { value }) => this.setState({ industry: value })
 
   //filter campaigns
   filterCampaigns() {
@@ -118,7 +127,7 @@ class Market extends Component {
   }
 
  render(){
-   const { activePage } = this.state
+   const { activePage, value } = this.state
    return(
      <div>
        <Segment style={headerStyle}>
@@ -129,16 +138,29 @@ class Market extends Component {
         </Segment>
      <br/>
      <Container style={{marginTop:'0.5em', marginBottom: '1em'}} >
-       <Header style={{textAlign:'center'}}>OPEN CAMPAIGNS</Header>
+       <Header style={{textAlign:'center'}}>
+         OPEN CAMPAIGNS
+       </Header>
+       <Header as='h5' style={{textAlign: 'center'}}>
+         <Dropdown
+            onChange={this.filterByIndustry}
+            options={industryOptions}
+            placeholder='Filter By Industry'
+            selection
+            value={value}
+          />
+      </Header>
      <Grid>
        <Grid.Column mobile={16} tablet={16} computer={16} style={{backgroundColor:'#f8f8f8', marginTop: '1em'}}>
         {this.state.filteredCampaigns.map((campaign, i) =>(
           now.isAfter(moment(campaign.startDate)) && now.isBefore(moment(campaign.endDate)) ?
+          campaign.businessId.industry === this.state.industry || this.state.industry === 'all' || this.state.industry === '' ?
          <Segment color='yellow' key={i} clearing>
            <Grid>
              <Grid.Column mobile={16} tablet={12} computer={12}>
            <Header as='h3'>{campaign.headline}</Header>
             <Header as='h5'>Hosted By: {campaign.businessId.name}</Header>
+            <Header as='h6'>Industry: {campaign.businessId.industry}</Header>
            <Header as='h5' block compact="true">{campaign.copy}</Header>
            <Header as='h5'> <Icon name='linkify'/><Header.Content><a href={'http://' + campaign.url} target='_blank' >{campaign.url}</a></Header.Content></Header>
              <Step.Group stackable='tablet' size='mini'>
@@ -168,8 +190,8 @@ class Market extends Component {
            </Segment>
          </Grid.Column>
          </Grid>
-         </Segment> :
-         null
+       </Segment> :null
+        :null
         ))}
 
         </Grid.Column>

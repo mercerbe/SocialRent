@@ -22,7 +22,6 @@ const headerStyle = {
 }
 //get current date/time
 const now = moment()
-console.log(now)
 
 //page component
 class Dashboard extends Component {
@@ -82,7 +81,7 @@ class Dashboard extends Component {
   }
 
  render(){
-   
+
    //method to sum values in array of objects
    Array.prototype.sum = function (prop) {
     var total = 0
