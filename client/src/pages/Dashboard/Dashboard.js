@@ -199,7 +199,7 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
                     <Table.Cell><List as='ul'>{campaign.users.map((user, i) => (
-                       <List.Item key={i} as='li'>{user}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
+                       <List.Item key={i} as='li'>{user.handle}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> : null
@@ -251,7 +251,7 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
                     <Table.Cell><List as='ul'>{campaign.users.map((user, i) => (
-                       <List.Item key={i} as='li'>{user}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
+                       <List.Item key={i} as='li'>{user.handle}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
                   </Table.Row> : null
