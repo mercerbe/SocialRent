@@ -164,7 +164,7 @@ class Dashboard extends Component {
             <Card.Meta textAlign='center'>from all {this.state.user.name ? 'campaigns' : 'ads'} </Card.Meta>
             {this.state.user.name &&
             <Card.Description textAlign='center'>{this.state.campaigns.sum('totalClicks')}</Card.Description>}
-            {this.state.user.hanle &&
+            {this.state.user.handle &&
               <Card.Description textAlign='center'>{this.state.ads.sum('clicks')}</Card.Description>
             }
           </Card>
