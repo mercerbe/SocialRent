@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 //router
 import { Route, Link, withRouter } from 'react-router-dom'
 //semantic components -- test this location
-import { Header, Button, Icon, Sticky, Menu, Sidebar, Segment } from 'semantic-ui-react'
+import { Header, Button, Icon, Sticky, Menu, Sidebar, Segment, Image } from 'semantic-ui-react'
 //pages
 import { Home } from './pages/Home/Home'
 import Login from './pages/Login/Login'
@@ -12,6 +12,7 @@ import Market from './pages/Market'
 //utils
 import Storage from './utils/Storage'
 import Service from './utils/Service'
+import Loader from './images/loading.gif'
 
 //styles
 const backgroundStyle = {
@@ -25,11 +26,13 @@ class App extends Component {
   state = {
     loggedIn: false,
     //adding a sidebar, so we can toggle its visiblity with a button click
-    visible: false
+    visible: false,
+    loading: true
   }
 
   //start app lifecyle -- CONFIRM USER/BUSINESS
   componentDidMount() {
+    this.setState({loading: false})
     console.log('Application cycle initiated.')
     const token = Storage.getToken()
     if (token) {
@@ -37,7 +40,7 @@ class App extends Component {
       Service.get('/api/user')
         .then(({data}) => {
           if(data.success && data.user !== null) {
-            this.setState({ loggedIn: true })
+            this.setState({ loggedIn: true, loading: false })
             console.log('Logged in.', data)
           }
           else {
@@ -45,7 +48,7 @@ class App extends Component {
             Service.get('/api/business')
               .then(({data}) => {
                 if(data.success) {
-                  this.setState({ loggedIn: true })
+                  this.setState({ loggedIn: true, loading: false })
                   console.log('Logged in as a business.', data)
                 }
               })
@@ -65,14 +68,14 @@ class App extends Component {
     console.log(data)
     if(data.success) {
       Storage.setToken(data.token)
-      this.setState({ loggedIn: true })
+      this.setState({ loggedIn: true, loading: false })
       this.props.history.push('/dashboard')
     }
   }
   //handle logout
   logout = () => {
     Storage.setToken('')
-    this.setState({ loggedIn: false })
+    this.setState({ loggedIn: false, loading: false })
     this.props.history.push('/')
   }
   //adding functions for the sidebar
@@ -112,10 +115,12 @@ class App extends Component {
                <Icon name='home'/>
                <Link to='/' onClick={this.handleButtonClick}>Home</Link>
              </Menu.Item>
+             {this.state.loggedIn === false &&
              <Menu.Item as=''>
                <Icon name='sign in' />
-               <Link to='/login' onClick={this.handleButtonClick}>Login/Signup</Link>
+               <Link to='/login' onClick={this.handleButtonClick }>Login/Signup</Link>
              </Menu.Item>
+             }
              <Menu.Item as=''>
                <Icon name='columns' />
                <Link to='/dashboard' onClick={this.handleButtonClick}>Dashboard</Link>
@@ -137,7 +142,7 @@ class App extends Component {
          </Sidebar.Pusher>
          </Sidebar.Pushable>
          </div>
-    );
+    )
   }
 }
 

@@ -1,7 +1,7 @@
 //standard dependencies
 import React, { Component } from 'react'
 //semantic components
-import { Container, Segment, Grid, Header, List, Card, Table, Message } from 'semantic-ui-react'
+import { Container, Segment, Grid, Header, List, Card, Table, Message, Image } from 'semantic-ui-react'
 //moment
 import moment from 'moment'
 //custom components
@@ -12,16 +12,16 @@ import PaypalButton from '../../components/PaypalButton/PaypalCheckoutButton'
 import Service from '../../utils/Service'
 //chart
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
+//loader
+import Loader from '../../images/loading.gif'
 //
 let data = ''
-
 //style header
 const headerStyle = {
   backgroundColor: '#065471'
 }
 //get current date/time
 const now = moment()
-console.log(now)
 
 //page component
 class Dashboard extends Component {
@@ -44,6 +44,7 @@ class Dashboard extends Component {
     ads: [],
     payouts: [],
     clicks: [],
+    loading: true
   }
 
   //component cycle
@@ -53,14 +54,14 @@ class Dashboard extends Component {
     Service.get('/api/business')
       .then( res => {
         if(res.data.success && res.data.business !== null) {
-          this.setState({user: res.data.business, campaigns: res.data.business.campaigns})
+          this.setState({user: res.data.business, campaigns: res.data.business.campaigns, loading: false})
           console.log('Public business json data: ', this.state)
         } else {
           //check for user
           Service.get('/api/user')
             .then(res => {
               if(res.data.success && data.user !== null) {
-                this.setState({user: res.data.user, ads: res.data.user.ads})
+                this.setState({user: res.data.user, ads: res.data.user.ads, loading: false})
                 console.log('Public user json data: ', this.state)
               }
             })
@@ -81,8 +82,19 @@ class Dashboard extends Component {
 
  render(){
 
+   //method to sum values in array of objects
+   Array.prototype.sum = function (prop) {
+    var total = 0
+    for ( var i = 0, _len = this.length; i < _len; i++ ) {
+        total += this[i][prop]
+    }
+    return total
+  }
+
    return(
      <div>
+       {this.state.loading &&
+       <Image src={Loader} centered/>}
        <Segment style={headerStyle} raised>
          <Header as='h1' inverted color='grey' textAlign='center' style={{paddingTop:'2em', fontSize:'40px'}}>
            Welcome, <br></br> {this.state.user.email}
@@ -150,7 +162,11 @@ class Dashboard extends Component {
           <Card raised color='blue'>
             <Card.Header textAlign='center'>Clicks Generated</Card.Header>
             <Card.Meta textAlign='center'>from all {this.state.user.name ? 'campaigns' : 'ads'} </Card.Meta>
-            <Card.Description textAlign='center'>{this.state.clicks.length}</Card.Description>
+            {this.state.user.name &&
+            <Card.Description textAlign='center'>{this.state.campaigns.sum('totalClicks')}</Card.Description>}
+            {this.state.user.hanle &&
+              <Card.Description textAlign='center'>{this.state.ads.sum('clicks')}</Card.Description>
+            }
           </Card>
         </Card.Group>
         {this.state.user.name &&
@@ -199,9 +215,10 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
                     <Table.Cell><List as='ul'>{campaign.users.map((user, i) => (
-                       <List.Item key={i} as='li'>{user.handle}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
+                       <List.Item key={i} as='li'>{user.handle}, {user.email}</List.Item>))}</List></Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
+                    <Table.Cell><strong>Total Clicks:</strong>{campaign.totalClicks}</Table.Cell>
                   </Table.Row> : null
 
                 ))}
@@ -233,6 +250,7 @@ class Dashboard extends Component {
                     <Table.Cell>Users can't join upcoming campaigns.</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
+                    <Table.Cell><strong>Total Clicks:</strong>{campaign.totalClicks}</Table.Cell>
                   </Table.Row> :
                   null
                 ))}
@@ -251,9 +269,10 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
                     <Table.Cell><List as='ul'>{campaign.users.map((user, i) => (
-                       <List.Item key={i} as='li'>{user.handle}, will be filled with user handle and clicks.</List.Item>))}</List></Table.Cell>
+                       <List.Item key={i} as='li'>{user.handle}, {user.email}</List.Item>))}</List></Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
+                    <Table.Cell><strong>Total Clicks:</strong>{campaign.totalClicks}</Table.Cell>
                   </Table.Row> : null
 
                 ))}
