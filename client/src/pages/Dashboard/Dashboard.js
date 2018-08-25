@@ -281,7 +281,7 @@ class Dashboard extends Component {
                   now.isAfter(moment(ad.endDate)) ?
                   <Table.Row key={i} negative>
                     <Table.Cell><a href={'https://'+ ad.url} target='_blank' rel="noopener noreferrer">{ad.url}</a></Table.Cell>
-                    <Table.Cell><Message>{ad.copy} <a href={'blooming-meadow-10170.herokuapp.com/'+ ad.mRoute} target='_blank' >{'blooming-meadow-10170.herokuapp.com/'+ ad.mRoute}</a></Message></Table.Cell>
+                    <Table.Cell><Message>{ad.copy} <a href={ad.mRoute} target='_blank' >{'blooming-meadow-10170.herokuapp.com/'+ ad.mRoute}</a></Message></Table.Cell>
                     <Table.Cell>clicks: {ad.clicks}</Table.Cell>
                     <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
                     <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
