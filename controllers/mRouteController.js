@@ -9,7 +9,7 @@ module.exports = {
     Ad.findOneAndUpdate({ mRoute: req.params.mRoute}, {$inc: {clicks: 1}}, {new: true}).then(dbAd => {
       console.log(dbAd.campaignId)
       Campaign.findOneAndUpdate({_id: dbAd.campaignId}, {$inc: {totalClicks: 1}}).then(() => {
-        res.redirect(dbAd.url)
+        res.redirect(`http://${dbAd.url}`)
       })
     })
   }
