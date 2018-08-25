@@ -93,8 +93,6 @@ class App extends Component {
 
       <div style={backgroundStyle} className="App">
 
-          
-
         <Header style={{backgroundColor: '#1b1c1d', padding: '10px', height: '50px', width:'100%', marginBottom: '-18px'}}>
           <Button compact onClick={this.handleButtonClick} icon='bars' floated='left' content='menu' inverted color='grey'/>
           {this.state.loggedIn &&
@@ -144,7 +142,7 @@ class App extends Component {
          </Sidebar.Pusher>
          </Sidebar.Pushable>
          </div>
-    );
+    )
   }
 }
 
