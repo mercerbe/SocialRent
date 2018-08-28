@@ -247,6 +247,7 @@ class LoginForm extends Component {
           name='type'
           value={value}
           onChange={this.updateType}
+          error={this.state.typeError}
         />
 
         <Form.Group widths='equal'>
@@ -260,6 +261,7 @@ class LoginForm extends Component {
             name='email'
             value={this.state.email}
             onChange={this.updateEmail}
+            error={this.state.emailError}
           />
           <Form.Field
             id='passwordInput'
@@ -270,6 +272,7 @@ class LoginForm extends Component {
             name='password'
             value={this.state.password}
             onChange={this.updatePassword}
+            error={this.state.emailError}
           />
 
 
@@ -283,6 +286,7 @@ class LoginForm extends Component {
             name='passwordconfirm'
             value={this.state.passwordCheck}
             onChange={this.updatePasswordCheck}
+            error={this.state.passwordCheckError}
             />
         }
         {noPassMatch && <Header as='h6'>Passwords must match!</Header>}
@@ -300,6 +304,7 @@ class LoginForm extends Component {
           selection
           value={value}
           onChange={this.updateIndustry}
+          error={this.state.industryError}
         />
         <Form.Field
           id='companyNameInput'
@@ -310,6 +315,7 @@ class LoginForm extends Component {
           name='name'
           value={this.state.name}
           onChange={this.updateName}
+          error={this.state.nameError}
         />
       </Form.Group>
     }
@@ -323,6 +329,7 @@ class LoginForm extends Component {
           name='handle'
           value={this.state.handle}
           onChange={this.updateHandle}
+          error={this.state.handleError}
         />
     }
       {this.state.createAccount && this.state.type !== '' &&
@@ -334,6 +341,7 @@ class LoginForm extends Component {
             name='about'
             value={this.state.about}
             onChange={this.updateAbout}
+            error={this.state.aboutError}
           />
       }
       {this.state.createAccount &&
