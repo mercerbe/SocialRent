@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import PaypalExpressBtn from 'react-paypal-express-checkout'
 
 //docs https://www.npmjs.com/package/react-paypal-express-checkout
+//faciltator test account: Mercerbe-facilitator@gmail.com
+//buyer test account: Mercerbe-buyer@gmail.com
 
 export default class PaypalButton extends Component {
   render() {

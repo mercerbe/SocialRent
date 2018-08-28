@@ -69,7 +69,6 @@ class Market extends Component {
       .then( res => {
         if(res.data) {
           this.setState({campaigns: res.data})
-          console.log('all campaigns', this.state.campaigns)
           this.setState({filteredCampaigns: this.filterCampaigns()})
           console.log(this.state.filteredCampaigns)
 
@@ -81,14 +80,12 @@ class Market extends Component {
         .then( res => {
           if(res.data.success && res.data.business !== null) {
             this.setState({user: res.data.business})
-            console.log('Public business json data: ', this.state.user)
           } else {
             //check for user
             Service.get('/api/user')
               .then(res => {
                 if(res.data.success && data.user !== null) {
                   this.setState({user: res.data.user})
-                  console.log('Public user json data: ', this.state.user)
                   this.setState({filteredCampaigns: this.filterCampaigns()})
                   console.log(this.state.filteredCampaigns)
 

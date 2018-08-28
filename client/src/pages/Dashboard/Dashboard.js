@@ -185,7 +185,7 @@ class Dashboard extends Component {
          <YAxis dataKey="users.length"/>
          <Tooltip/>
          <Legend />
-         <Bar dataKey="users.length" content="users.length" fill="#fbbd08" />
+         <Bar dataKey="users.length" content="users" fill="#fbbd08" />
         </BarChart>
         }
         {this.state.user.handle &&
@@ -265,7 +265,7 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
-                    <Table.Cell><List as='ul' style={{padding: '0px'}}>{campaign.users.map((user, i) => (
+                    <Table.Cell><List as='ul'>{campaign.users.map((user, i) => (
                        <List.Item key={i} as='li'>{user.handle}, {user.email}</List.Item>))}</List></Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')} - {moment(campaign.endDate).format('LL')}</Table.Cell>
                     <Table.Cell><strong>Total Clicks:</strong>{campaign.totalClicks}</Table.Cell>
