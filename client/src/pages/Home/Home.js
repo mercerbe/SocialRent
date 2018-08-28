@@ -72,7 +72,7 @@ export const Home = (props) => (
           <p style={{ fontSize: '1.33em' }}>
             We exist to provide a marketplace where people who use social media have an opportunity to work with, and get paid
             by the companies and products they support. That being said, it's a two-way street: companies get to work with
-            the people who support thier products and pay them to promote the products they support. Call to action here --
+            the people who support thier products and pay them to promote the products they support. Click the button below to start promoting and advertising through Social Rent!
           </p>
           <Button size='huge' color='black' href='/login'> Get Started </Button>
         </Container>

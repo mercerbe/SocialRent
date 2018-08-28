@@ -104,7 +104,7 @@ class Dashboard extends Component {
      <br/>
      <Container style={{marginTop:'1em', marginBottom: '5em'}} fluid>
      <Grid style={{margin:'0em 0.05em 0em 0.05em'}}>
-       <Grid.Column mobile={16} tablet={6} computer={6} floated='left' style={{backgroundColor: '', margin:'1em'}}>
+       <Grid.Column mobile={16} tablet={16} computer={6} floated='left' style={{backgroundColor: '', margin:'0em'}}>
          {this.state.user.name &&
          <Header as='h4'>CREATE A CAMPAIGN</Header>
          }
@@ -201,7 +201,7 @@ class Dashboard extends Component {
         }
         {/* end chart */}
         </Grid.Column>
-        <Grid.Column mobile={16} tablet={8} computer={8} floated='right' style={{margin:'0em'}}>
+        <Grid.Column mobile={16} tablet={16} computer={10} floated='right' style={{margin:'0em'}}>
           <Segment style={{backgroundColor: '#fbbd08', margin: '0px !important'}}>
           <Header as='h4' textAlign='center'>MANAGE {this.state.user.name ? 'CAMPAIGNS' : 'ADVERTISEMENTS'}</Header>
           <Segment color='blue' raised padded>
@@ -216,8 +216,7 @@ class Dashboard extends Component {
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
                     <Table.Cell><List as='ul'>{campaign.users.map((user, i) => (
                        <List.Item key={i} as='li'>{user.handle}, {user.email}</List.Item>))}</List></Table.Cell>
-                    <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
-                    <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(campaign.startDate).format('LL')} - {moment(campaign.endDate).format('LL')}</Table.Cell>
                     <Table.Cell><strong>Total Clicks:</strong>{campaign.totalClicks}</Table.Cell>
                   </Table.Row> : null
 
@@ -227,10 +226,9 @@ class Dashboard extends Component {
                   now.isAfter(moment(ad.startDate)) &&  now.isBefore(moment(ad.endDate)) ?
                   <Table.Row key={i} positive>
                     <Table.Cell><a href={'https://'+ ad.url} target='_blank' rel="noopener noreferrer">{ad.url}</a></Table.Cell>
-                    <Table.Cell><Message>{ad.copy} <a href={ad.mRoute} target='_blank'rel="noopener noreferrer">{'blooming-meadow-10170.herokuapp.com/'+ ad.mRoute}</a></Message></Table.Cell>
+                    <Table.Cell><Message>{ad.copy} <a href={ad.mRoute} target='_blank'rel="noopener noreferrer">{ad.url + '/' + ad.mRoute}</a></Message></Table.Cell>
                     <Table.Cell>clicks: {ad.clicks}</Table.Cell>
-                    <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
-                    <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(ad.startDate).format('LL')} - {moment(ad.endDate).format('LL')}</Table.Cell>
                   </Table.Row> : null
                 ))}
               </Table.Body>
@@ -248,8 +246,7 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
                     <Table.Cell>Users can't join upcoming campaigns.</Table.Cell>
-                    <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
-                    <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(campaign.startDate).format('LL')} - {moment(campaign.endDate).format('LL')}</Table.Cell>
                     <Table.Cell><strong>Total Clicks:</strong>{campaign.totalClicks}</Table.Cell>
                   </Table.Row> :
                   null
@@ -268,10 +265,9 @@ class Dashboard extends Component {
                     <Table.Cell>{campaign.headline}</Table.Cell>
                     <Table.Cell>{campaign.copy}</Table.Cell>
                     <Table.Cell><a href={'https://'+ campaign.url} target='_blank' rel="noopener noreferrer">{campaign.url}</a></Table.Cell>
-                    <Table.Cell><List as='ul'>{campaign.users.map((user, i) => (
+                    <Table.Cell><List as='ul' style={{padding: '0px'}}>{campaign.users.map((user, i) => (
                        <List.Item key={i} as='li'>{user.handle}, {user.email}</List.Item>))}</List></Table.Cell>
-                    <Table.Cell>{moment(campaign.startDate).format('LL')}</Table.Cell>
-                    <Table.Cell>{moment(campaign.endDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(campaign.startDate).format('LL')} - {moment(campaign.endDate).format('LL')}</Table.Cell>
                     <Table.Cell><strong>Total Clicks:</strong>{campaign.totalClicks}</Table.Cell>
                   </Table.Row> : null
 
@@ -281,10 +277,9 @@ class Dashboard extends Component {
                   now.isAfter(moment(ad.endDate)) ?
                   <Table.Row key={i} negative>
                     <Table.Cell><a href={'https://'+ ad.url} target='_blank' rel="noopener noreferrer">{ad.url}</a></Table.Cell>
-                    <Table.Cell><Message>{ad.copy} <a href={ad.mRoute} target='_blank' rel="noopener noreferrer" >{'blooming-meadow-10170.herokuapp.com/'+ ad.mRoute}</a></Message></Table.Cell>
+                    <Table.Cell><Message>{ad.copy} <a href={ad.mRoute} target='_blank' rel="noopener noreferrer" >{ad.url + '/' + ad.mRoute}</a></Message></Table.Cell>
                     <Table.Cell>clicks: {ad.clicks}</Table.Cell>
-                    <Table.Cell>{moment(ad.startDate).format('LL')}</Table.Cell>
-                    <Table.Cell>{moment(ad.endDate).format('LL')}</Table.Cell>
+                    <Table.Cell>{moment(ad.startDate).format('LL')} - {moment(ad.endDate).format('LL')}</Table.Cell>
                   </Table.Row> : null
                 ))}
               </Table.Body>
