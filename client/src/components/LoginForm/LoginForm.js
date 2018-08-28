@@ -104,7 +104,7 @@ class LoginForm extends Component {
     })
       .then(this.props.login)
       .catch(err =>
-        console.log(err))
+        this.setState({formError: true, errorMessage: 'Email and password do not match any records. Please try again.', hidden: false}))
       }
     if(this.state.type === 'business'){
       Service.post('/api/business/login', {
@@ -112,8 +112,9 @@ class LoginForm extends Component {
         password: this.state.password
       })
         .then(this.props.login)
-        .catch(err =>
-          console.log(err))
+        .catch((err) =>
+            this.setState({formError: true, errorMessage: 'Email and password do not match any records. Please try again.', hidden: false})
+        )
     }
   }
 
@@ -234,7 +235,7 @@ class LoginForm extends Component {
           </Header>
             }
 
-      <Form action=''>
+      <Form action='' error={this.state.formError}>
 
         <Form.Field
           id='userType'
