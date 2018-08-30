@@ -248,8 +248,7 @@ class Dashboard extends Component {
                     <Table.Cell>Users can't join upcoming campaigns.</Table.Cell>
                     <Table.Cell>{moment(campaign.startDate).format('LL')} - {moment(campaign.endDate).format('LL')}</Table.Cell>
                     <Table.Cell><strong>Total Clicks:</strong>{campaign.totalClicks}</Table.Cell>
-                  </Table.Row> :
-                  null
+                  </Table.Row> : null
                 ))}
               </Table.Body>
             </Table>

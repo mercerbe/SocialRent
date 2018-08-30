@@ -207,7 +207,7 @@ class Market extends Component {
            </Segment>
          </Grid.Column>
          </Grid>
-       </Segment> :null
+       </Segment> : <div key={i}>No {this.state.industry} campaigns currently running.</div>
         :null
         ))}
 
