@@ -36,9 +36,13 @@ class LoginForm extends Component {
     industry: '',
     createAccount: false,
     typeError: false,
+    handleError: false,
     industryError: false,
+    nameError: false,
     emailError: false,
     passwordError: false,
+    passwordCheckError: false,
+    aboutError: false,
     formError: false,
     errorMessage: '',
     hidden: true,
@@ -46,11 +50,11 @@ class LoginForm extends Component {
   }
 
   //update state
-  toggleLogin = () => this.setState({createAccount: !this.state.createAccount})
+  toggleLogin = () => this.setState({createAccount: !this.state.createAccount, type: '', value: '', email: '', password: ''})
   updateType = (e, {value}) => {
     this.setState({value})
     console.log('typestate: ', {value})
-    this.setState({type: value})
+    this.setState({type: value, typeError: false, hidden: true, errorMessage: ''})
   }
   updatePassword = (event) => this.setState({password: event.target.value, passwordError: false, hidden: true, errorMessage: ''})
   updateEmail = (event) => this.setState({email: event.target.value, emailError: false, hidden: true, errorMessage: ''})
@@ -59,12 +63,11 @@ class LoginForm extends Component {
   updateIndustry = (event, {value}) => {
     this.setState({value})
     console.log('industrystate: ', {value})
-    this.setState({industry: value})
+    this.setState({industry: value, industryError: false, hidden: true, errorMessage: ''})
     console.log(this.state.industry)
-    console.log(this.state.type)
   }
-  updatePasswordCheck = (event) => this.setState({passwordCheck: event.target.value})
-  updateAbout = (event) => this.setState({about: event.target.value})
+  updatePasswordCheck = (event) => this.setState({passwordCheck: event.target.value, passwordCheckError: false, hidden: true, errorMessage: ''})
+  updateAbout = (event) => this.setState({about: event.target.value, aboutError: false, hidden: true, errorMessage: ''})
   //confirm
   open = () => this.setState({ open: true })
   close = () => this.setState({ open: false, createAccount: false, type: '', value: '' })
@@ -76,37 +79,89 @@ class LoginForm extends Component {
     event.preventDefault()
 
     /////form validation/////
-
+    let error = false
+    if(this.state.type === '') {
+      this.setState({typeError: true, errorMessage: 'Please select if you are a user or a business.', hidden: false})
+      error = true
+    }
+    if(this.state.email === '') {
+      this.setState({emailError: true, errorMessage: 'Please fill in your email address.', hidden: false})
+      error = true
+    }
+    if(this.state.password === ''){
+      this.setState({passwordError: true, errorMessage: 'Please fill in your password.'})
+      error = true
+    }
+    if(error) {
+      this.setState({formError: true})
+      return
+    }
     //////-------------/////
-    const { type } = this.state
-    if(type === 'user'){
+    if(this.state.type === 'user'){
     Service.post('/api/user/login', {
       email: this.state.email,
       password: this.state.password
     })
       .then(this.props.login)
       .catch(err =>
-        console.log(err))
+        this.setState({formError: true, errorMessage: 'Email and password do not match any records. Please try again.', hidden: false}))
       }
-    if(type === 'business'){
+    if(this.state.type === 'business'){
       Service.post('/api/business/login', {
         email: this.state.email,
         password: this.state.password
       })
         .then(this.props.login)
-        .catch(err =>
-          console.log(err))
+        .catch((err) =>
+            this.setState({formError: true, errorMessage: 'Email and password do not match any records. Please try again.', hidden: false})
+        )
     }
   }
 
   //signup
   handleRegistration = (event) => {
     event.preventDefault()
+    const { type, name, industry, about, handle, email, password, passwordCheck } = this.state
 
     /////form validation/////
+    let error = false
+    if(type === ''){
+      this.setState({typeError: true, errorMessage: "Please select which type of account you're registering.", hidden: false})
+      error = true
+    }
+    if(email === ''){
+      this.setState({emailError: true, errorMessage: 'Please fill an email address for your email account.', hidden: false})
+      error = true
+    }
+    if(password === ''){
+      this.setState({passwordError: true, errorMessage: 'Please fill in a password for your account', hidden: false})
+      error = true
+    }
+    if(passwordCheck !== password){
+      this.setState({passwordCheckError: true, errorMessage: 'Passwords must match.', hidden: false})
+      error = true
+    }
+    if(type === 'user' && handle === ''){
+      this.setState({handleError: true, errorMessage: 'Please provide a valid twitter handle with no @ for your account.', hidden: false})
+      error = true
+    }
+    if(type === 'business' && industry === ''){
+      this.setState({industryError: true, errorMessage: 'Please select an industry type for your business.', hidden: false})
+      error = true
+    }
+    if(type === 'business' && name === ''){
+      this.setState({nameError: true, errorMessage: 'Please fill in the name of your business', hidden: false})
+      error = true
+    }
+    if(this.state.about === ''){
+      this.setState({aboutError: true, errorMessage: 'Please tell everyone about yourself.', hidden: false})
+      error = true
+    }
+    if(error){
+      this.setState({formError: true})
+    }
     /////---------------/////
 
-    const { type, name, industry, about, handle, email, password, passwordCheck } = this.state
     //post to user
     if(handle && email && password && about !== '' && password === passwordCheck && type === 'user') {
     console.log('signup user', this.state)
@@ -180,7 +235,7 @@ class LoginForm extends Component {
           </Header>
             }
 
-      <Form action=''>
+      <Form action='' error={this.state.formError}>
 
         <Form.Field
           id='userType'
@@ -192,6 +247,7 @@ class LoginForm extends Component {
           name='type'
           value={value}
           onChange={this.updateType}
+          error={this.state.typeError}
         />
 
         <Form.Group widths='equal'>
@@ -205,6 +261,7 @@ class LoginForm extends Component {
             name='email'
             value={this.state.email}
             onChange={this.updateEmail}
+            error={this.state.emailError}
           />
           <Form.Field
             id='passwordInput'
@@ -215,6 +272,7 @@ class LoginForm extends Component {
             name='password'
             value={this.state.password}
             onChange={this.updatePassword}
+            error={this.state.emailError}
           />
 
 
@@ -228,6 +286,7 @@ class LoginForm extends Component {
             name='passwordconfirm'
             value={this.state.passwordCheck}
             onChange={this.updatePasswordCheck}
+            error={this.state.passwordCheckError}
             />
         }
         {noPassMatch && <Header as='h6'>Passwords must match!</Header>}
@@ -245,6 +304,7 @@ class LoginForm extends Component {
           selection
           value={value}
           onChange={this.updateIndustry}
+          error={this.state.industryError}
         />
         <Form.Field
           id='companyNameInput'
@@ -255,6 +315,7 @@ class LoginForm extends Component {
           name='name'
           value={this.state.name}
           onChange={this.updateName}
+          error={this.state.nameError}
         />
       </Form.Group>
     }
@@ -268,6 +329,7 @@ class LoginForm extends Component {
           name='handle'
           value={this.state.handle}
           onChange={this.updateHandle}
+          error={this.state.handleError}
         />
     }
       {this.state.createAccount && this.state.type !== '' &&
@@ -279,6 +341,7 @@ class LoginForm extends Component {
             name='about'
             value={this.state.about}
             onChange={this.updateAbout}
+            error={this.state.aboutError}
           />
       }
       {this.state.createAccount &&
@@ -298,12 +361,12 @@ class LoginForm extends Component {
         <Form.Button content='Signup' onClick={this.handleRegistration}/>
         )
         }
-        <Message
-           error
-           content={this.state.errorMessage}
-           hidden={this.state.hidden}
-         />
       </Form>
+      <Message
+         error
+         content={this.state.errorMessage}
+         hidden={this.state.hidden}
+       />
     </div>
 
     )

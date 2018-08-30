@@ -93,10 +93,10 @@ class App extends Component {
 
       <div style={backgroundStyle} className="App">
 
-        <Header style={{backgroundColor: '#1b1c1d', padding: '10px', height: '50px', width:'100%', marginBottom: '-18px'}}>
-          <Button compact onClick={this.handleButtonClick} icon='bars' floated='left' content='menu' inverted color='grey'/>
+        <Header style={{backgroundColor: '#fbbd08', padding: '10px', height: '50px', width:'100%', marginBottom: '-18px'}}>
+          <Button compact onClick={this.handleButtonClick} icon='bars' floated='left' content='menu'  color='black' basic/>
           {this.state.loggedIn &&
-          <Button compact onClick={this.logout}  icon='sign out' floated='right' content='logout' inverted color='grey'/>
+          <Button compact onClick={this.logout}  icon='sign out' floated='right' content='logout'  color='black' basic/>
           }
         </Header>
         <Sidebar.Pushable as={Segment}>
