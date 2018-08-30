@@ -3,13 +3,15 @@ import React, { Component } from 'react'
 //import images
 import Logo from '../../images/logo_transparent.png'
 //semantic components
-import { Container, Grid, Header, Segment, Image, Icon, Step, Button, Pagination, Dropdown } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment, Image, Icon, Step, Button, Dropdown } from 'semantic-ui-react'
 //custom components
 import Footer from '../../components/Footer'
 //utils
 import Service from '../../utils/Service'
 //moment
 import moment from 'moment'
+//pagination
+import JwPagination from 'jw-react-pagination'
 
 const data = ''
 const industryOptions = [
@@ -32,26 +34,44 @@ const logoStyle = {
 const headerStyle = {
   backgroundColor: '#065471'
 }
+const pageinationStyle = {
+    ul: {
+        backgroundColor: 'red'
+    },
+    li: {
+        border: '1px solid green'
+    },
+    a: {
+        color: 'blue'
+    }
+}
 
 //page component
 class Market extends Component {
   constructor(props) {
       super(props)
       this.filterCampaigns = this.filterCampaigns.bind(this)
+      this.onChangePage = this.onChangePage.bind(this)
+      //state
+      this.state = {
+        campaigns: [],
+        user: {},
+        activePage: 1,
+        filteredCampaigns: [],
+        industry: '',
+        pageOfItems: []
+      }
     }
 
-  //state
-  state = {
-    campaigns: [],
-    user: {},
-    activePage: 1,
-    filteredCampaigns: [],
-    industry: ''
-  }
-  //handle page change
-  handlePaginationChange = (e, { activePage }) => this.setState({ activePage })
   //filter by industry
   filterByIndustry = (e, { value }) => this.setState({ industry: value })
+
+  //pagination
+  onChangePage(pageOfItems) {
+        // update local state with new page of items
+        this.setState({ pageOfItems })
+        console.log('page of items', this.state.pageOfItems)
+    }
 
   //filter campaigns
   filterCampaigns() {
@@ -124,7 +144,7 @@ class Market extends Component {
   }
 
  render(){
-   const { activePage, value } = this.state
+   const { value } = this.state
    return(
      <div>
        <Segment style={headerStyle}>
@@ -193,19 +213,9 @@ class Market extends Component {
 
         </Grid.Column>
      </Grid>
-     <br/>
-       <Pagination style={{marginTop: '20px'}}
-          activePage={activePage}
-          onPageChange={this.handlePaginationChange}
-          ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
-          firstItem={{ content: <Icon name='angle double left' />, icon: true }}
-          lastItem={{ content: <Icon name='angle double right' />, icon: true }}
-          prevItem={{ content: <Icon name='angle left' />, icon: true }}
-          nextItem={{ content: <Icon name='angle right' />, icon: true }}
-          totalPages={3}
-            />
      </Container>
-
+     {/* pagination */}
+     <JwPagination items={this.state.filterCampaigns} onChangePage={this.onChangePage} styles={pageinationStyle}/>
    <br />
      <Footer />
      </div>
